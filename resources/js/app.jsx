@@ -4,8 +4,7 @@ import ReactDOM from "react-dom/client";
 function App() {
     return (
         <div>
-            <h1>Hello React! 🚀</h1>
-            <p>Barangay Heat Project</p>
+            <h1>Barangay Heat Project 🚀</h1>
         </div>
     );
 }
