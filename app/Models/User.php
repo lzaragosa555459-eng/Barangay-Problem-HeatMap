@@ -41,6 +41,14 @@ class User extends Authenticatable
         return $this->hasMany(Report::class);
     }
 
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone',
+        'role',
+        'barangay_id',
+    ];
    
 }
 
