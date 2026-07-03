@@ -13,6 +13,26 @@ return new class extends Migration
     {
         Schema::create('report_status_histories', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('report_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->enum('status', [
+                'Pending',
+                'Verified',
+                'Assigned',
+                'In Progress',
+                'Resolved',
+                'Rejected'
+            ]);
+
+            $table->text('remarks')->nullable();
+
+            $table->foreignId('updated_by')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

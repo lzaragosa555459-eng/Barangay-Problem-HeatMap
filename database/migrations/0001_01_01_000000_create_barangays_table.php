@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('barangays', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name')->unique();
+
+            $table->decimal('latitude', 10, 7);
+            $table->decimal('longitude', 10, 7);
+
+            $table->integer('population')->nullable();
+
             $table->timestamps();
         });
     }

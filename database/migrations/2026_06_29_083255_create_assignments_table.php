@@ -13,6 +13,28 @@ return new class extends Migration
     {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('report_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
+            $table->foreignId('assigned_to')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->foreignId('assigned_by')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->date('deadline')->nullable();
+
+            $table->enum('status', [
+                'Pending',
+                'Accepted',
+                'Completed',
+                'Cancelled'
+            ])->default('Pending');
+
             $table->timestamps();
         });
     }
