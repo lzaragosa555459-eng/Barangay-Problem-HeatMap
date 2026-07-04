@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+
 class AuthController extends Controller
 {
     /**
@@ -44,17 +45,20 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (! Auth::attempt($credentials)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
+                'message' => 'Invalid email or password.'
+            ], 401);
         }
 
-        $request->session()->regenerate();
+        $user = Auth::user();
+
+        $token = $user->createToken('auth-token')->plainTextToken;
 
         return response()->json([
             'message' => 'Login successful.',
-            'user' => Auth::user(),
+            'user' => $user,
+            'token' => $token,
         ]);
     }
 
@@ -63,14 +67,10 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
+        $request->user()->currentAccessToken()->delete();
 
         return response()->json([
-            'message' => 'Logged out successfully.',
+            'message' => 'Logged out successfully.'
         ]);
     }
 }
