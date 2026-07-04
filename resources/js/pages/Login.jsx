@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 export default function Login() {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -15,9 +18,23 @@ export default function Login() {
                 password,
             });
 
-            console.log(response.data);
+            const user = response.data.user;
+            const token = response.data.token;
 
-            alert("Login Successful!");
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("token", token);
+
+            console.log(user);
+
+            if (user.role === "Administrator") {
+                navigate("/dashboard");
+            }
+            else if (user.role === "Barangay Official") {
+                navigate("/official");
+            }
+            else {
+                navigate("/citizen");
+            }
 
         } catch (error) {
 
