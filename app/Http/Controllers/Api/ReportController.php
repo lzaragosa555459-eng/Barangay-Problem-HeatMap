@@ -24,6 +24,33 @@ class ReportController
         )->get();
     }
 
+    public function table(Request $request)
+    {
+
+    
+        $query = Report::with([
+            'barangay',
+            'category',
+            'user'
+        ]);
+
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->barangay) {
+            $query->where('barangay_id', $request->barangay);
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        return response()->json(
+            $query->paginate(10)
+        );
+    }
+
     /**
      * Store a newly created resource in storage.
      */
