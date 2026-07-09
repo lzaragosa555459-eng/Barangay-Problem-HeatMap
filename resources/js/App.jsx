@@ -1,24 +1,43 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./styles/navbar.css";
+import Navbar from "./components/Navbar";
 
-import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Reports from "./pages/Reports";
 import Heatmap from "./pages/Heatmap";
+import Reports from "./pages/Reports";
+import Login from "./pages/Login";
+
+function AdminLayout() {
+    return (
+        <div className="container">
+
+            <Navbar />
+
+            <div className="content">
+                <Routes>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/heatmap" element={<Heatmap />} />
+                    <Route path="/reports" element={<Reports />} />
+                </Routes>
+
+            </div>
+
+        </div>
+    );
+}
 
 export default function App() {
     return (
         <BrowserRouter>
+
             <Routes>
 
                 <Route path="/" element={<Login />} />
 
-                <Route path="/dashboard" element={<Dashboard />} />
-
-                <Route path="/reports" element={<Reports />} />
-
-                <Route path="/heatmap" element={<Heatmap />} />
+                <Route path="/*" element={<AdminLayout />} />
 
             </Routes>
+
         </BrowserRouter>
     );
 }
