@@ -3,15 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Models\Report;
 
 class ReportController
 {
     /**
      * Display a listing of the resource.
      */
+
+
     public function index()
     {
-        //
+        return Report::select(
+            'id',
+            'title',
+            'latitude',
+            'longitude',
+            'severity',
+            'status'
+        )->get();
     }
 
     /**

@@ -28,3 +28,45 @@
     flex: 1;
     padding: 20px;
 }
+
+/* Dashboard Title */
+.dashboard-title {
+    margin-bottom: 25px;
+    color: #1f2937;
+}
+
+/* Card Container */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Card */
+.card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* Number */
+.card h2 {
+    font-size: 2rem;
+    margin: 0;
+    color: #2563eb;
+}
+
+/* Label */
+.card p {
+    margin-top: 10px;
+    color: #6b7280;
+    font-size: 15px;
+}
