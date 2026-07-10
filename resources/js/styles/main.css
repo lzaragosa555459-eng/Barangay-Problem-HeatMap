@@ -173,3 +173,31 @@
 .view-btn:hover{
     background:#1d4ed8;
 }
+
+
+.status{
+    padding:6px 12px;
+    border-radius:20px;
+    font-weight:bold;
+    color:white;
+}
+
+.status.pending{
+    background:#f39c12;
+}
+
+.status.verified{
+    background:#3498db;
+}
+
+.status.in-progress{
+    background:#9b59b6;
+}
+
+.status.resolved{
+    background:#2ecc71;
+}
+
+.status.rejected{
+    background:#e74c3c;
+}

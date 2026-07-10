@@ -1,5 +1,22 @@
+import { useEffect, useState } from "react";
+import api from "../services/api"; // Change the path if yours is different
 
 export default function Reports() {
+
+    const [reports, setReports] = useState([]);
+
+    useEffect(() => {
+
+        api.get("/reports")
+            .then((response) => {
+                setReports(response.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching reports:", error);
+            });
+
+    }, []);
+
     return (
         <div className="reports-container">
 
@@ -41,7 +58,6 @@ export default function Reports() {
                 <thead>
 
                     <tr>
-
                         <th>ID</th>
                         <th>Title</th>
                         <th>Barangay</th>
@@ -50,62 +66,55 @@ export default function Reports() {
                         <th>Severity</th>
                         <th>Date</th>
                         <th>Actions</th>
-
                     </tr>
 
                 </thead>
 
                 <tbody>
 
-                    <tr>
+                    {reports.length > 0 ? (
 
-                        <td>1</td>
-                        <td>Flood near highway</td>
-                        <td>Mintal</td>
-                        <td>Flood</td>
-                        <td>
-                            <span className="status pending">
-                                Pending
-                            </span>
-                        </td>
-                        <td>High</td>
-                        <td>Jul 9, 2026</td>
+                        reports.map((report) => (
 
-                        <td>
+                            <tr key={report.id}>
 
-                            <button className="view-btn">
-                                View
-                            </button>
+                                <td>{report.id}</td>
+                                <td>{report.title}</td>
+                                <td>{report.barangay}</td>
+                                <td>{report.category}</td>
 
-                        </td>
+                                <td>
+                                    <span
+                                        className={`status ${report.status
+                                            .toLowerCase()
+                                            .replace(/\s+/g, "-")}`}
+                                    >
+                                        {report.status}
+                                    </span>
+                                </td>
 
-                    </tr>
+                                <td>{report.severity}</td>
+                                <td>{report.date}</td>
 
-                    <tr>
+                                <td>
+                                    <button className="view-btn">
+                                        View
+                                    </button>
+                                </td>
 
-                        <td>2</td>
-                        <td>Garbage Collection</td>
-                        <td>Talomo</td>
-                        <td>Garbage</td>
+                            </tr>
 
-                        <td>
-                            <span className="status resolved">
-                                Resolved
-                            </span>
-                        </td>
+                        ))
 
-                        <td>Medium</td>
-                        <td>Jul 8, 2026</td>
+                    ) : (
 
-                        <td>
+                        <tr>
+                            <td colSpan="8" style={{ textAlign: "center" }}>
+                                No reports found.
+                            </td>
+                        </tr>
 
-                            <button className="view-btn">
-                                View
-                            </button>
-
-                        </td>
-
-                    </tr>
+                    )}
 
                 </tbody>
 
