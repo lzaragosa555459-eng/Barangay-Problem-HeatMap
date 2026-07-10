@@ -14,14 +14,23 @@ class ReportController
 
     public function index()
     {
-        return Report::select(
+        return Report::with([
+            'barangay',
+            'problemCategory'
+        ])
+        ->select(
             'id',
+            'barangay_id',
+            'problem_category_id',
             'title',
             'latitude',
             'longitude',
             'severity',
-            'status'
-        )->get();
+            'status',
+            'reported_at',
+            'description'
+        )
+        ->get();
     }
 
     public function table(Request $request)

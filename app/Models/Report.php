@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Report extends Model
 {
@@ -11,13 +12,13 @@ class Report extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function barangay()
+    public function barangay(): BelongsTo
     {
         return $this->belongsTo(Barangay::class);
     }
 
-    public function category()
+    public function problemCategory(): BelongsTo
     {
-        return $this->belongsTo(ProblemCategory::class, 'problem_category_id');
+        return $this->belongsTo(ProblemCategory::class);
     }
 }

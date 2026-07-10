@@ -19,40 +19,40 @@ export default function Heatmap() {
 
     return (
 
-        <MapContainer
-            center={[7.0731, 125.6128]}
-            zoom={12}
-            style={{ height: "90vh", width: "100%" }}
-        >
+        <div className="heatmap-page">
 
-            <TileLayer
-                attribution="&copy; OpenStreetMap contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+            <MapContainer
+                center={[7.0731, 125.6128]}
+                zoom={12}
+                className="leaflet-map"
+            >
 
-            {reports.map((report) => (
+                <TileLayer
+                    attribution="&copy; OpenStreetMap contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
 
-                <Marker
-                    key={report.id}
-                    position={[
-                        Number(report.latitude),
-                        Number(report.longitude)
-                    ]}
-                >
+                {reports.map((report) => (
 
-                    <Popup>
-                        <h3>{report.title}</h3>
+                    <Marker
+                        key={report.id}
+                        position={[
+                            Number(report.latitude),
+                            Number(report.longitude)
+                        ]}
+                    >
+                        <Popup>
+                            <h3>{report.title}</h3>
+                            <p>Status: {report.status}</p>
+                            <p>Severity: {report.severity}</p>
+                        </Popup>
+                    </Marker>
 
-                        <p>Status: {report.status}</p>
+                ))}
 
-                        <p>Severity: {report.severity}</p>
-                    </Popup>
+            </MapContainer>
 
-                </Marker>
-
-            ))}
-
-        </MapContainer>
+        </div>
 
     );
 }

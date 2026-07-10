@@ -89,12 +89,12 @@
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 40px;
 }
 
 /* Individual Card */
 .card {
-    background: #ffffff;
+
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -111,13 +111,13 @@
 .card h2 {
     font-size: 2rem;
     margin: 0;
-    color: #2563eb;
+
 }
 
 /* Label */
 .card p {
     margin-top: 10px;
-    color: #6b7280;
+    color: #000000;
     font-size: 15px;
 }
 
@@ -327,4 +327,72 @@
 
 .login-right button:hover{
     background:#1d4ed8;
+}
+
+
+/* ========================= */
+/* Modal */
+/* ========================= */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:1000;
+}
+
+.modal{
+    width:650px;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(0,0,0,.25);
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 25px;
+
+    border-bottom:1px solid #eee;
+}
+
+.modal-body{
+    padding:25px;
+}
+
+.modal-body p{
+    margin-bottom:15px;
+    color:#374151;
+    line-height:1.7;
+}
+
+.close-btn{
+    background:none;
+    border:none;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.close-btn:hover{
+    color:red;
+}
+
+/*heatmap module*/
+.heatmap-page{
+    width:103.25%;
+    height:calc(104.66vh - 40px);
+    margin: -20px;
+}
+
+.leaflet-map{
+    width:100%;
+    height:100%;
 }

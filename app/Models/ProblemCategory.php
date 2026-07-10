@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProblemCategory extends Model
 {
-    //
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
 }

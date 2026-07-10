@@ -7,6 +7,7 @@ import Heatmap from "./pages/Heatmap";
 import Reports from "./pages/Reports";
 import Login from "./pages/Login";
 
+
 function AdminLayout() {
     return (
         <div className="container">
