@@ -15,6 +15,8 @@ function AdminLayout() {
 
             <div className="content">
                 <Routes>
+
+                    {/*private page*/ }
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/heatmap" element={<Heatmap />} />
                     <Route path="/reports" element={<Reports />} />
@@ -29,10 +31,12 @@ function AdminLayout() {
 export default function App() {
     return (
         <BrowserRouter>
-
+        
             <Routes>
 
                 <Route path="/" element={<Login />} />
+
+                <Route path="/login" element={<Login />} />
 
                 <Route path="/*" element={<AdminLayout />} />
 

@@ -46,40 +46,48 @@ export default function Login() {
     };
 
     return (
-        <div>
-            <h1>Barangay Community Problem Monitoring</h1>
+        <div className="login-page">
 
-            <form onSubmit={handleLogin}>
-                <label>Email</label>
-                <br />
+            <div className="login-left">
 
-                <input
-                    type="email"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                <h1>Barangay Community Problem Monitoring</h1>
 
-                <br />
-                <br />
+                <p>
+                    A web-based platform that allows citizens to report
+                    community issues while helping barangay officials
+                    monitor, verify, and resolve problems efficiently.
+                </p>
 
-                <label>Password</label>
-                <br />
+            </div>
 
-                <input
-                    type="password"
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+            <div className="login-right">
 
-                <br />
-                <br />
+                <form onSubmit={handleLogin}>
 
-                <button type="submit">
-                    Login
-                </button>
-            </form>
+                    <h2>Welcome Back</h2>
+
+                    <input
+                        type="email"
+                        placeholder="Email Address"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+
+                    <button type="submit">
+                        Login
+                    </button>
+
+                </form>
+
+            </div>
+
         </div>
     );
 }
