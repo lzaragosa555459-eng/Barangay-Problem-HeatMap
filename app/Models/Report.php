@@ -21,4 +21,17 @@ class Report extends Model
     {
         return $this->belongsTo(ProblemCategory::class);
     }
+
+    protected $fillable = [
+        'user_id',
+        'barangay_id',
+        'problem_category_id',
+        'title',
+        'description',
+        'latitude',
+        'longitude',
+        'severity',
+        'status',
+        'reported_at',
+    ];
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Report;
 
@@ -65,7 +65,33 @@ class ReportController
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'barangay_id' => 'required|exists:barangays,id',
+            'problem_category_id' => 'required|exists:problem_categories,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'severity' => 'required|string',
+        ]);
+
+        $report = Report::create([
+            'user_id' => Auth::id(), // Replace later with auth()->id()
+            'barangay_id' => $validated['barangay_id'],
+            'problem_category_id' => $validated['problem_category_id'],
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
+            'severity' => $validated['severity'],
+            'status' => 'Pending',
+            'reported_at' => now(),
+        ]);
+
+        return response()->json([
+            'message' => 'Report created successfully.',
+            'report' => $report
+        ], 201);
     }
 
     /**

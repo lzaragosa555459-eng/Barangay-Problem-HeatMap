@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Barangay;
 use Illuminate\Http\Request;
 
 class BarangayController
@@ -11,7 +12,10 @@ class BarangayController
      */
     public function index()
     {
-        //
+        return Barangay::select(
+            'id',
+            'name'
+        )->get();
     }
 
     /**

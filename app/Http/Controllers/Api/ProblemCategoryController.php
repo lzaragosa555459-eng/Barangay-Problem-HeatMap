@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\ProblemCategory;
 use Illuminate\Http\Request;
 
 class ProblemCategoryController
@@ -11,7 +12,11 @@ class ProblemCategoryController
      */
     public function index()
     {
-        //
+        return ProblemCategory::select(
+            'id',
+            'name'
+        )
+        ->get();
     }
 
     /**
@@ -19,7 +24,7 @@ class ProblemCategoryController
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

@@ -396,3 +396,82 @@
     width:100%;
     height:100%;
 }
+
+/*modal for adding new report*/
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:18px;
+}
+
+.form-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#374151;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    padding:10px 14px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    font-size:14px;
+}
+
+.form-group textarea{
+    resize:none;
+}
+
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+.cancel-btn{
+    background:#e5e7eb;
+    color:#374151;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.save-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.save-btn:hover{
+    background:#1d4ed8;
+}
+
+.modal{
+    background:white;
+    width:750px;
+    max-width:95%;
+    max-height:90vh;
+
+    border-radius:12px;
+    overflow-y:auto;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.report-map{
+    width:205%;
+    height:380px;
+    border-radius:10px;
+}
