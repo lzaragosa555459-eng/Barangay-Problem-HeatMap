@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import api from "../services/api"; // Change the path if yours is different
 import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
-
+import {
+    FiEdit,
+    FiTrash2,
+    FiEye,
+    FiPlus,
+    FiSave,
+    FiX,
+    FiInfo 
+} from "react-icons/fi";
 export default function Reports() {
 
     const [selectedReport, setSelectedReport] = useState(null);
@@ -27,15 +35,15 @@ export default function Reports() {
 
             await api.post("/reports", newReport);
 
+            fetchReports(); // <-- Reload the reports
+
             alert("Report created successfully!");
 
             setShowAddModal(false);
 
-        }   catch(error){
+        } catch (error) {
 
-            console.log(error.response.data);
-
-            console.log(error.response.data.errors);
+            console.log(error.response?.data);
 
             alert("Unable to save report.");
 
@@ -45,7 +53,21 @@ export default function Reports() {
 
     const [reports, setReports] = useState([]);
 
+    const fetchReports = () => {
+
+        api.get("/reports")
+            .then((response) => {
+                setReports(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    };
+
     useEffect(() => {
+
+        fetchReports();
 
         api.get("/reports")
             .then((response) => {
@@ -86,6 +108,7 @@ export default function Reports() {
             <Marker position={markerPosition} />
         ) : null;
     }
+
 
     return (
         <div className="reports-container">
@@ -181,7 +204,14 @@ export default function Reports() {
                                             setShowModal(true);
                                         }}
                                     >
-                                        View
+                                        <FiInfo />
+                                    </button>
+
+                                    <button className="view-btn" style={{backgroundColor:"cyan"}}>
+                                        <FiEdit />
+                                    </button>
+                                    <button className="view-btn" style={{backgroundColor:"red"}}>
+                                        <FiTrash2 />
                                     </button>
                                 </td>
 

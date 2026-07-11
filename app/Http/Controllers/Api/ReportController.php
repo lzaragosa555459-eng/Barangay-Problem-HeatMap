@@ -76,7 +76,7 @@ class ReportController
         ]);
 
         $report = Report::create([
-            'user_id' => Auth::id(), // Replace later with auth()->id()
+            'user_id' => 1, // Replace later with auth()->id()
             'barangay_id' => $validated['barangay_id'],
             'problem_category_id' => $validated['problem_category_id'],
             'title' => $validated['title'],
