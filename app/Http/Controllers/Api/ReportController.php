@@ -30,34 +30,18 @@ class ReportController
             'reported_at',
             'description'
         )
-        ->get();
+        ->orderBy('reported_at', 'desc')
+        ->paginate(10);
     }
-
-    public function table(Request $request)
-    {
-
     
-        $query = Report::with([
+    public function map()
+    {
+        return Report::with([
             'barangay',
-            'category',
-            'user'
-        ]);
-
-        if ($request->search) {
-            $query->where('title', 'like', '%' . $request->search . '%');
-        }
-
-        if ($request->barangay) {
-            $query->where('barangay_id', $request->barangay);
-        }
-
-        if ($request->status) {
-            $query->where('status', $request->status);
-        }
-
-        return response()->json(
-            $query->paginate(10)
-        );
+            'problemCategory'
+        ])
+        ->orderBy('reported_at', 'desc')
+        ->get();
     }
 
     /**
@@ -105,16 +89,35 @@ class ReportController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Report $report)
     {
-        //
+        $validated = $request->validate([
+            'barangay_id' => 'required|exists:barangays,id',
+            'problem_category_id' => 'required|exists:problem_categories,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'severity' => 'required|string',
+        ]);
+
+        $report->update($validated);
+
+        return response()->json([
+            'message' => 'Report updated successfully.',
+            'report' => $report
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Report $report)
     {
-        //
+        $report->delete();
+
+        return response()->json([
+            'message' => 'Report deleted successfully.'
+        ]);
     }
 }

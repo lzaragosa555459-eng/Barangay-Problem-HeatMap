@@ -32,3 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/barangays', [BarangayController::class, 'index']);
 
     Route::post('/reports',[ReportController::class, 'store']);
+    Route::put('/reports/{report}', [ReportController::class, 'update']);
+    Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
+
+    Route::get('/reports-map', [ReportController::class, 'map']);

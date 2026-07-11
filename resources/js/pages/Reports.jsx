@@ -52,15 +52,22 @@ export default function Reports() {
     };
 
     const [reports, setReports] = useState([]);
+    {/*pagination*/}
+    const [pagination, setPagination] = useState({});
 
-    const fetchReports = () => {
+    const fetchReports = (page = 1) => {
 
-        api.get("/reports")
+        api.get(`/reports?page=${page}`)
             .then((response) => {
-                setReports(response.data);
+
+                setReports(response.data.data);
+                setPagination(response.data);
+
             })
             .catch((error) => {
+
                 console.error(error);
+
             });
 
     };
@@ -69,46 +76,101 @@ export default function Reports() {
 
         fetchReports();
 
-        api.get("/reports")
-            .then((response) => {
-                setReports(response.data);
-            })
-            .catch((error) => {
-                console.error("Error fetching reports:", error);
-            });
-         api.get("/problem-categories")
+        api.get("/problem-categories")
             .then((response) => {
                 setProblemCategories(response.data);
             });
 
         api.get("/barangays")
-            .then((response)=>{
+            .then((response) => {
                 setBarangays(response.data);
             });
 
     }, []);
 
-    function LocationMarker({ markerPosition, setMarkerPosition, newReport, setNewReport }) {
+    function LocationMarker({
+        markerPosition,
+        setMarkerPosition,
+        report,
+        setReport
+    }) {
 
         useMapEvents({
+
             click(e) {
 
                 setMarkerPosition(e.latlng);
 
-                setNewReport({
-                    ...newReport,
+                setReport({
+                    ...report,
                     latitude: e.latlng.lat,
                     longitude: e.latlng.lng
                 });
 
             }
+
         });
 
-        return markerPosition ? (
-            <Marker position={markerPosition} />
-        ) : null;
+        return markerPosition
+            ? <Marker position={markerPosition} />
+            : null;
     }
+    const [showEditModal, setShowEditModal] = useState(false);
 
+    const [editReport, setEditReport] = useState({
+        id: "",
+        title: "",
+        barangay_id: "",
+        problem_category_id: "",
+        severity: "",
+        description: "",
+        latitude: "",
+        longitude: "",
+    });
+
+    const handleDeleteReport = async (id) => {
+
+        if (!window.confirm("Delete this report?"))
+            return;
+
+        try {
+
+            await api.delete(`/reports/${id}`);
+
+            fetchReports();
+
+            alert("Report deleted!");
+
+        } catch (error) {
+
+            console.log(error.response?.data);
+
+        }
+
+    };
+
+    const handleUpdateReport = async () => {
+
+        try {
+
+            await api.put(
+                `/reports/${editReport.id}`,
+                editReport
+            );
+
+            fetchReports();
+
+            setShowEditModal(false);
+
+            alert("Report updated!");
+
+        } catch (error) {
+
+            console.log(error.response?.data);
+
+        }
+
+    };
 
     return (
         <div className="reports-container">
@@ -207,10 +269,38 @@ export default function Reports() {
                                         <FiInfo />
                                     </button>
 
-                                    <button className="view-btn" style={{backgroundColor:"cyan"}}>
+                                    <button
+                                        className="view-btn"
+                                        style={{ backgroundColor: "#06b6d4" }}
+                                        onClick={() => {
+
+                                            setEditReport({
+                                                id: report.id,
+                                                title: report.title,
+                                                barangay_id: report.barangay_id,
+                                                problem_category_id: report.problem_category_id,
+                                                severity: report.severity,
+                                                description: report.description,
+                                                latitude: report.latitude,
+                                                longitude: report.longitude,
+                                            });
+
+                                            setMarkerPosition({
+                                                lat: Number(report.latitude),
+                                                lng: Number(report.longitude),
+                                            });
+
+                                            setShowEditModal(true);
+
+                                        }}
+                                    >
                                         <FiEdit />
                                     </button>
-                                    <button className="view-btn" style={{backgroundColor:"red"}}>
+                                    <button
+                                        className="view-btn"
+                                        style={{ backgroundColor: "#ef4444" }}
+                                        onClick={() => handleDeleteReport(report.id)}
+                                    >
                                         <FiTrash2 />
                                     </button>
                                 </td>
@@ -232,6 +322,28 @@ export default function Reports() {
                 </tbody>
 
             </table>
+
+            <div className="pagination">
+
+                <button
+                    disabled={!pagination.prev_page_url}
+                    onClick={() => fetchReports(pagination.current_page - 1)}
+                >
+                    Previous
+                </button>
+
+                <span>
+                    Page {pagination.current_page} of {pagination.last_page}
+                </span>
+
+                <button
+                    disabled={!pagination.next_page_url}
+                    onClick={() => fetchReports(pagination.current_page + 1)}
+                >
+                    Next
+                </button>
+
+            </div>
 
             {showModal && selectedReport && (
 
@@ -438,8 +550,8 @@ export default function Reports() {
                                         <LocationMarker
                                             markerPosition={markerPosition}
                                             setMarkerPosition={setMarkerPosition}
-                                            newReport={newReport}
-                                            setNewReport={setNewReport}
+                                            report={newReport}
+                                            setReport={setNewReport}
                                         />
 
                                     </MapContainer>
@@ -488,6 +600,219 @@ export default function Reports() {
                                     onClick={handleSaveReport}
                                 >
                                     Save Report
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            )}
+
+
+            {/* Update modal */}
+            {showEditModal && (
+
+                <div className="modal-overlay">
+
+                    <div className="modal">
+
+                        <div className="modal-header">
+
+                            <h2>New Report</h2>
+
+                            <button
+                                className="close-btn"
+                                onClick={() => setShowEditModal(false)}
+                            >
+                                ✕
+                            </button>
+
+                        </div>
+
+                        <div className="modal-body">
+
+                            <div className="form-group">
+                                <label>Title</label>
+
+                                <input
+                                    type="text"
+                                    value={editReport.title}
+                                    onChange={(e) =>
+                                        setEditReport({
+                                            ...editReport,
+                                            title: e.target.value
+                                        })
+                                    }
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Barangay</label>
+
+                                <select
+                                    value={editReport.barangay_id}
+                                    onChange={(e)=>
+                                        setEditReport({
+                                            ...editReport,
+                                            barangay_id:e.target.value
+                                        })
+                                    }
+                                >
+                                    <option value="">Select Barangay</option>
+
+                                    {barangays.map((barangay)=>(
+                                        <option
+                                            key={barangay.id}
+                                            value={barangay.id}
+                                        >
+                                            {barangay.name}
+                                        </option>
+                                    ))}
+
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Problem Category</label>
+                                <select
+                                    value={editReport.problem_category_id}
+                                    onChange={(e) =>
+                                        setEditReport({
+                                            ...editReport,
+                                            problem_category_id: e.target.value
+                                        })
+                                    }
+                                >
+
+                                    <option value="">
+                                        Select Category
+                                    </option>
+
+                                    {problemCategories.map((category) => (
+
+                                        <option
+                                            key={category.id}
+                                            value={category.id}
+                                        >
+                                            {category.name}
+                                        </option>
+
+                                    ))}
+
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Severity</label>
+
+                                <select
+                                    value={editReport.severity}
+                                    onChange={(e) =>
+                                        setEditReport({
+                                            ...editReport,
+                                            severity: e.target.value
+                                        })
+                                    }
+                                >
+                                    <option>Low</option>
+                                    <option>Medium</option>
+                                    <option>High</option>
+                                    <option>Critical</option>
+                                </select>
+
+                            </div>
+
+                            <div className="form-group">
+
+                                <label>Description</label>
+
+                                <textarea
+                                    rows="4"
+                                    value={editReport.description}
+                                    onChange={(e) =>
+                                        setEditReport({
+                                            ...editReport,
+                                            description: e.target.value
+                                        })
+                                    }
+                                />
+
+                            </div>
+
+                            <div className="form-row">
+
+                                <div className="form-group">
+
+                                    <label>Select Incident Location</label>
+
+                                    <MapContainer
+                                        center={[7.0731, 125.6128]}
+                                        zoom={13}
+                                        className="report-map"
+                                    >
+
+                                        <TileLayer
+                                            attribution="&copy; OpenStreetMap contributors"
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        />
+
+                                        <LocationMarker
+                                            markerPosition={markerPosition}
+                                            setMarkerPosition={setMarkerPosition}
+                                            report={editReport}
+                                            setReport={setEditReport}
+                                        />
+
+                                    </MapContainer>
+
+                                </div>
+
+                            </div>
+
+                            <div className="form-row">
+
+                                <div className="form-group">
+
+                                    <label>Latitude</label>
+
+                                    <input
+                                        value={editReport.latitude}
+                                        readOnly
+                                    />
+
+                                </div>
+
+                                <div className="form-group">
+
+                                    <label>Longitude</label>
+
+                                    <input
+                                        value={editReport.longitude}
+                                        readOnly
+                                    />
+
+                                </div>
+
+                            </div>
+
+                            <div className="modal-footer">
+
+                                <button
+                                    className="cancel-btn"
+                                    onClick={() => setShowEditModal(false)}
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    className="save-btn"
+                                    onClick={handleUpdateReport}
+                                >
+                                    Update Report
                                 </button>
 
                             </div>

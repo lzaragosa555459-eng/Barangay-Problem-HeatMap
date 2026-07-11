@@ -8,9 +8,8 @@ export default function Heatmap() {
 
     useEffect(() => {
 
-        api.get("/reports")
+        api.get("/reports-map")
             .then((response) => {
-                console.log(response.data);
                 setReports(response.data);
             })
             .catch((error) => console.log(error));
