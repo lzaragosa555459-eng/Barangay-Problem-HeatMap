@@ -9,6 +9,16 @@ import {
     HiOutlineShieldCheck
 } from "react-icons/hi2";
 
+import {
+    ResponsiveContainer,
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+} from "recharts";
+
 //Dashboard
 export default function Dashboard() {
 
@@ -22,6 +32,8 @@ export default function Dashboard() {
             });
             
     }, []);
+
+
 
     return (
 
@@ -75,27 +87,74 @@ export default function Dashboard() {
 
                     </div>
 
+                </div>
+
+                <div className="cards">
+
                     <div className="card" style={{ backgroundColor: "#8b5cf6" }}>
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineUsers size={40} color="white" />
-                            <h2 style={{ color: "white" }}>{stats.totalCitizens}</h2>
+                            <HiOutlineUsers size={50} color="white" />
+                            <h2 style={{ color: "white", fontSize: "50px" }}>{stats.totalCitizens}</h2>
                         </div>
 
-                        <p style={{ color: "#ede9fe" }}>Total Citizens</p>
+                        <p style={{ color: "#ede9fe", fontSize: "25px" }}>Total Citizens</p>
 
                     </div>
 
                     <div className="card" style={{ backgroundColor: "#06b6d4" }}>
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineShieldCheck size={40} color="white" />
-                            <h2 style={{ color: "white" }}>{stats.totalOfficials}</h2>
+                            <HiOutlineShieldCheck size={50} color="white" />
+                            <h2 style={{ color: "white", fontSize: "50px" }}>{stats.totalOfficials}</h2>
                         </div>
 
-                        <p style={{ color: "#cffafe" }}>Total Officials</p>
+                        <p style={{ color: "#cffafe", fontSize: "25px" }}>Total Officials</p>
 
                     </div>
+                </div>
+
+                <div
+                    className="card"
+                    style={{
+                        marginTop: "25px",
+                        padding: "20px",
+                        background: "#fff",
+                        borderRadius: "12px",
+                    }}
+                >
+
+                    <h2 style={{ marginBottom: "20px" }}>
+                        Top 10 Barangays with Most Reports
+                    </h2>
+
+                    <ResponsiveContainer
+                        width="100%"
+                        height={350}
+                    >
+
+                        <BarChart
+                            data={stats.topBarangays}
+                        >
+
+                            <CartesianGrid strokeDasharray="3 3" />
+
+                            <XAxis
+                                dataKey="name"
+                            />
+
+                            <YAxis />
+
+                            <Tooltip />
+
+                            <Bar
+                                dataKey="total"
+                                fill="#3b82f6"
+                            />
+
+                        </BarChart>
+
+                    </ResponsiveContainer>
 
                 </div>
 

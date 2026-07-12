@@ -8,14 +8,25 @@
 /* ========================= */
 
 .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
     width: 260px;
     height: 100vh;
+
     background: #1e293b;
     color: white;
+
     display: flex;
     flex-direction: column;
+
     padding: 25px 0;
+
     box-shadow: 4px 0 12px rgba(0, 0, 0, 0.12);
+
+    overflow-y: auto;
+    z-index: 1000;
 }
 
 /* Logo */
@@ -56,6 +67,7 @@
     font-size: 15px;
     font-weight: 500;
     transition: all .25s ease;
+
 }
 
 /* Hover */
@@ -101,7 +113,9 @@
 .content {
     flex: 1;
     padding: 20px;
+    margin-left: 17%;
 }
+
 
 /* Dashboard Title */
 .dashboard-title {
@@ -114,6 +128,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 40px;
+    margin-top: 40px;
 }
 
 /* Individual Card */
