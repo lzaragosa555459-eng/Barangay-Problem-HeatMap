@@ -42,6 +42,7 @@ export default function Heatmap() {
                     >
                         <Popup>
                             <h3>{report.title}</h3>
+                            <p>Barangay: {report.barangay.name}</p>
                             <p>Status: {report.status}</p>
                             <p>Severity: {report.severity}</p>
                         </Popup>

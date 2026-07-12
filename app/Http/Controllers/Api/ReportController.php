@@ -40,6 +40,7 @@ class ReportController
             'barangay',
             'problemCategory'
         ])
+        ->where('status', '!=', 'Resolved')
         ->orderBy('reported_at', 'desc')
         ->get();
     }
