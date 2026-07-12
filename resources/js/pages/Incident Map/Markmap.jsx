@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api from "../../services/api";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-export default function Heatmap() {
+export default function Markmap() {
 
     const [reports, setReports] = useState([]);
 

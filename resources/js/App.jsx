@@ -3,9 +3,10 @@ import "./styles/main.css";
 import Navbar from "./components/Navbar";
 
 import Dashboard from "./pages/Dashboard";
-import Heatmap from "./pages/Heatmap";
+import Heatmap from "./pages/Heat Map/Heatmap";
 import Reports from "./pages/Reports";
 import Login from "./pages/Login";
+import Markmap from "./pages/Incident Map/Markmap";
 
 
 function AdminLayout() {
@@ -19,6 +20,7 @@ function AdminLayout() {
 
                     {/*private page*/ }
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/markmap" element={<Markmap />} />
                     <Route path="/heatmap" element={<Heatmap />} />
                     <Route path="/reports" element={<Reports />} />
                 </Routes>

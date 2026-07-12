@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FiHome, FiMapPin, FiFileText, FiLogOut } from "react-icons/fi";
-
+import { FaFire } from 'react-icons/fa';
 export default function Navbar() {
     return (
         <div className="sidebar">
@@ -20,7 +20,17 @@ export default function Navbar() {
                         Dashboard
                     </NavLink>
                 </li>
-
+                <li>
+                    <NavLink
+                        to="/markmap"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiMapPin style={{ marginRight: "10px" }} />
+                        Markermap
+                    </NavLink>
+                </li>
                 <li>
                     <NavLink
                         to="/heatmap"
@@ -28,7 +38,7 @@ export default function Navbar() {
                             isActive ? "nav-link active" : "nav-link"
                         }
                     >
-                        <FiMapPin style={{ marginRight: "10px" }} />
+                        <FaFire style={{ marginRight: "10px" }} />
                         Heatmap
                     </NavLink>
                 </li>
