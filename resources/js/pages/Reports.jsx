@@ -12,6 +12,10 @@ import {
 } from "react-icons/fi";
 export default function Reports() {
 
+    const [search, setSearch] = useState("");
+    const [selectedBarangay, setSelectedBarangay] = useState("");
+    const [selectedStatus, setSelectedStatus] = useState("");
+
     const [selectedReport, setSelectedReport] = useState(null);
     const [showModal, setShowModal] = useState(false);
 
@@ -172,6 +176,7 @@ export default function Reports() {
 
     };
 
+    
     return (
         <div className="reports-container">
 
@@ -193,20 +198,41 @@ export default function Reports() {
                 <input
                     type="text"
                     placeholder="🔍 Search reports..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
                 />
 
-                <select>
-                    <option>All Barangays</option>
-                    <option>Mintal</option>
-                    <option>Talomo</option>
-                    <option>Buhangin</option>
+                <select
+                    value={selectedBarangay}
+                    onChange={(e) => setSelectedBarangay(e.target.value)}
+                >
+
+                    <option value="">All Barangays</option>
+
+                    {barangays.map((barangay) => (
+
+                        <option
+                            key={barangay.id}
+                            value={barangay.id}
+                        >
+                            {barangay.name}
+                        </option>
+
+                    ))}
+
                 </select>
 
-                <select>
-                    <option>All Status</option>
-                    <option>Pending</option>
-                    <option>Verified</option>
-                    <option>Resolved</option>
+                <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                >
+
+                    <option value="">All Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Verified">Verified</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Rejected">Rejected</option>
+
                 </select>
 
             </div>
@@ -231,7 +257,27 @@ export default function Reports() {
 
                     {reports.length > 0 ? (
 
-                        reports.map((report) => (
+                        reports
+                        .filter((report) => {
+
+                            const matchSearch =
+                                report.title.toLowerCase()
+                                .includes(search.toLowerCase());
+
+                            const matchBarangay =
+                                selectedBarangay === "" ||
+                                report.barangay_id == selectedBarangay;
+
+                            const matchStatus =
+                                selectedStatus === "" ||
+                                report.status === selectedStatus;
+
+                            return matchSearch &&
+                                matchBarangay &&
+                                matchStatus;
+
+                        })
+                        .map((report) => (
 
                             <tr key={report.id}>
 
