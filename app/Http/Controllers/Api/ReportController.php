@@ -31,7 +31,7 @@ class ReportController
             'description'
         )
         ->orderBy('reported_at', 'desc')
-        ->paginate(10);
+        ->paginate(7);
     }
     
     public function map()

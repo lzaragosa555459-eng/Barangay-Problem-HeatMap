@@ -73,6 +73,30 @@
     border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: white;
+    text-decoration: none;
+
+    padding: 12px 15px;
+    border-radius: 8px;
+
+    transition: all .25s ease;
+}
+
+.nav-link:hover {
+    background: #374151;
+}
+
+.nav-link.active {
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+}
+
 /*container*/
 .content {
     flex: 1;

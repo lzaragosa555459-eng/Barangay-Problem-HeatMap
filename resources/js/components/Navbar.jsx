@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { FiHome, FiMapPin, FiFileText, FiLogOut } from "react-icons/fi";
 
 export default function Navbar() {
@@ -10,31 +10,46 @@ export default function Navbar() {
             <ul>
 
                 <li>
-                    <Link to="/dashboard">
+                    <NavLink
+                        to="/dashboard"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
                         <FiHome style={{ marginRight: "10px" }} />
                         Dashboard
-                    </Link>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <Link to="/heatmap">
+                    <NavLink
+                        to="/heatmap"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
                         <FiMapPin style={{ marginRight: "10px" }} />
                         Heatmap
-                    </Link>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <Link to="/reports">
-                        <FiFileText style={{ marginRight: "10px" }} />
+                    <NavLink
+                        to="/reports"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiFileText  style={{ marginRight: "10px" }} />
                         Reports
-                    </Link>
+                    </NavLink>
                 </li>
 
                 <li>
-                    <Link to="/login">
+                    <NavLink to="/login">
                         <FiLogOut style={{ marginRight: "10px" }} />
                         Logout
-                    </Link>
+                    </NavLink>
                 </li>
 
             </ul>
