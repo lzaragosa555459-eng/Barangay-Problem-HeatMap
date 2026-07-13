@@ -36,3 +36,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
 
     Route::get('/reports-map', [ReportController::class, 'map']);
+    Route::get('/reports-markmap', [ReportController::class, 'markmap']);

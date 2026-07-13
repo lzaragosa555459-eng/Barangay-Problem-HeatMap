@@ -8,7 +8,7 @@ export default function Markmap() {
 
     useEffect(() => {
 
-        api.get("/reports-map")
+        api.get("/reports-markmap")
             .then((response) => {
                 setReports(response.data);
             })

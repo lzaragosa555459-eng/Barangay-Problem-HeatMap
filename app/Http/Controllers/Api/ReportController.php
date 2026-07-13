@@ -40,6 +40,16 @@ class ReportController
             'barangay',
             'problemCategory'
         ])
+        ->orderBy('reported_at', 'desc')
+        ->get();
+    }
+
+    public function markmap()
+    {
+        return Report::with([
+            'barangay',
+            'problemCategory'
+        ])
         ->where('status', '!=', 'Resolved')
         ->orderBy('reported_at', 'desc')
         ->get();
