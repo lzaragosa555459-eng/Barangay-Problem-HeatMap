@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\BarangayController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProblemCategoryController;
+use App\Http\Controllers\Api\UserController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -30,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reports', [ReportController::class, 'index']);
     Route::get('/problem-categories', [ProblemCategoryController::class, 'index']);
     Route::get('/barangays', [BarangayController::class, 'index']);
+    Route::get('/users', [UserController::class, 'index']);
 
     Route::post('/reports',[ReportController::class, 'store']);
     Route::put('/reports/{report}', [ReportController::class, 'update']);

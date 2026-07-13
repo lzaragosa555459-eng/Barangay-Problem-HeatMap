@@ -15,11 +15,13 @@ class ReportController
     public function index()
     {
         return Report::with([
+            'user',
             'barangay',
             'problemCategory'
         ])
         ->select(
             'id',
+            'user_id',
             'barangay_id',
             'problem_category_id',
             'title',
@@ -71,7 +73,7 @@ class ReportController
         ]);
 
         $report = Report::create([
-            'user_id' => 1, // Replace later with auth()->id()
+            'user_id' => auth()->id(), // Replace later with auth()->id()
             'barangay_id' => $validated['barangay_id'],
             'problem_category_id' => $validated['problem_category_id'],
             'title' => $validated['title'],

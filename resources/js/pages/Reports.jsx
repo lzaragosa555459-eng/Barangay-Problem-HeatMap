@@ -37,7 +37,17 @@ export default function Reports() {
 
         try {
 
-            await api.post("/reports", newReport);
+            const token = localStorage.getItem("token");
+
+            await api.post(
+                "/reports",
+                newReport,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             fetchReports(); // <-- Reload the reports
 
@@ -242,6 +252,7 @@ export default function Reports() {
                 <thead>
 
                     <tr>
+                        <th>Reported by</th>
                         <th>Title</th>
                         <th>Barangay</th>
                         <th>Category</th>
@@ -280,7 +291,7 @@ export default function Reports() {
                         .map((report) => (
 
                             <tr key={report.id}>
-
+                                <td>{report.user?.name}</td>
                                 <td>{report.title}</td>
                                 <td>{report.barangay?.name}</td>
                                 <td>{report.problem_category?.name}</td>
