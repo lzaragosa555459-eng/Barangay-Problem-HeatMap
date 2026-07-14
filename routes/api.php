@@ -10,8 +10,20 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProblemCategoryController;
 use App\Http\Controllers\Api\UserController;
 
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+*/
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -21,21 +33,50 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::apiResource('reports', ReportController::class);
-    Route::apiResource('barangays', BarangayController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | All Authenticated Users
+    | (Citizen, Barangay Official, Administrator)
+    |--------------------------------------------------------------------------
+    */
 
-
-});
-
-    Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/reports', [ReportController::class, 'index']);
-    Route::get('/problem-categories', [ProblemCategoryController::class, 'index']);
-    Route::get('/barangays', [BarangayController::class, 'index']);
-    Route::get('/users', [UserController::class, 'index']);
-
-    Route::post('/reports',[ReportController::class, 'store']);
-    Route::put('/reports/{report}', [ReportController::class, 'update']);
-    Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
+    Route::post('/reports', [ReportController::class, 'store']);
 
     Route::get('/reports-map', [ReportController::class, 'map']);
     Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Barangay Official & Administrator
+    |--------------------------------------------------------------------------
+    */
+
+    Route::middleware('role:Administrator,Barangay Official')->group(function () {
+
+        Route::put('/reports/{report}', [ReportController::class, 'update']);
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Administrator Only
+    |--------------------------------------------------------------------------
+    */
+
+    Route::middleware('role:Administrator')->group(function () {
+
+        Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
+
+        Route::get('/dashboard', [DashboardController::class, 'index']);
+
+        Route::get('/users', [UserController::class, 'index']);
+
+        Route::get('/barangays', [BarangayController::class, 'index']);
+        Route::apiResource('barangays', BarangayController::class);
+
+        Route::get('/problem-categories', [ProblemCategoryController::class, 'index']);
+
+    });
+
+});
