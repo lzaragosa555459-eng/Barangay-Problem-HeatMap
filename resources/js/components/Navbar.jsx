@@ -1,11 +1,45 @@
 import { NavLink } from "react-router-dom";
 import { FiHome, FiMapPin, FiFileText, FiLogOut } from "react-icons/fi";
 import { FaFire } from 'react-icons/fa';
+import logo from "../../images/logoBG.png";
 export default function Navbar() {
     return (
         <div className="sidebar">
 
-            <h2>BCPM</h2>
+        <div
+            style={{
+                backgroundColor: "#14532D",
+                display: "flex",
+                alignItems: "center",      // Vertical alignment
+                justifyContent: "center",  // Center the whole group
+                gap: "12px",
+                marginBottom: "20px",
+                width: "100%",
+            }}
+        >
+            <img
+                src={logo}
+                alt="BCPM Logo"
+                style={{
+                    width: "100px",
+                    height: "auto",
+                    objectFit: "contain",
+                    display: "block",
+                }}
+            />
+
+           {/* <h2
+                style={{
+                    margin: 0,
+                    color: "white",
+                    fontWeight: "700",
+                    lineHeight: 1,
+                    padding: 20
+                }}
+            >
+                BCPM
+            </h2>*/}
+        </div>
 
             <ul>
 

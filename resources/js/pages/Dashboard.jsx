@@ -149,7 +149,7 @@ export default function Dashboard() {
 
                             <Bar
                                 dataKey="total"
-                                fill="#3b82f6"
+                                fill="#d4511d"
                             />
 
                         </BarChart>
