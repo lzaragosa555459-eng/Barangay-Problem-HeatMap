@@ -8,6 +8,7 @@
 ![React](https://img.shields.io/badge/React-19-blue?logo=react)
 ![PHP](https://img.shields.io/badge/PHP-8.x-777BB4?logo=php)
 ![MySQL](https://img.shields.io/badge/MySQL-Database-blue?logo=mysql)
+![Status](https://img.shields.io/badge/Status-In_Development-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 </div>
@@ -32,7 +33,7 @@ Each report is displayed on an interactive map using its geographic coordinates,
 
 ---
 
-## ✨ Features
+## ✨ Current Features (for admin only)
 
 * 📍 Interactive map using OpenStreetMap
 * 📝 Create, update, and delete reports
@@ -128,6 +129,23 @@ php artisan serve
 ```bash
 npm run dev
 ```
+
+---
+
+## 📅 Roadmap
+
+- [x] Authentication
+- [x] CRUD Reports
+- [x] Barangay Management
+- [x] Categories
+- [x] Maps
+- [x] Heatmap Layer
+- [ ] Image Upload
+- [ ] Dashboard Analytics
+- [ ] Email Notification
+- [ ] Deployment
+- [ ] Barangay Official Interface
+- [ ] Citizen Interface
 
 ---
 
