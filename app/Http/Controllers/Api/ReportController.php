@@ -14,7 +14,10 @@ class ReportController
 
     public function index()
     {
-        return Report::with([
+
+        $user = Auth::user();
+
+        $query = Report::with([
             'user',
             'barangay',
             'problemCategory'
@@ -32,8 +35,17 @@ class ReportController
             'reported_at',
             'description'
         )
-        ->orderBy('reported_at', 'desc')
-        ->paginate(7);
+        ->orderBy('reported_at', 'desc');
+        
+
+
+        if($user->role === 'Barangay Official'){
+            $query->where('barangay_id', $user->barangay_id);
+        }
+
+        $data = $query->paginate(7);
+
+        return response()->json(['data' => $data]);
     }
     
     public function map()

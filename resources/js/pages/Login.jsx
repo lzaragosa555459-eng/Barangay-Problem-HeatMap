@@ -24,6 +24,8 @@ export default function Login() {
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", token);
 
+            console.log("Saved token:", localStorage.getItem("token"));
+
             console.log(user);
 
             if (user.role === "Administrator") {

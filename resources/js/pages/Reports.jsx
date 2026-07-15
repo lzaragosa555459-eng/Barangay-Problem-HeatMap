@@ -74,8 +74,8 @@ export default function Reports() {
         api.get(`/reports?page=${page}`)
             .then((response) => {
 
-                setReports(response.data.data);
-                setPagination(response.data);
+            setReports(response.data.data.data);
+            setPagination(response.data.data);
 
             })
             .catch((error) => {
