@@ -42,7 +42,17 @@ export default function Navbar() {
         </div>
 
             <ul>
-
+                <li>
+                    <NavLink
+                        to="/profile"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiHome style={{ marginRight: "10px" }} />
+                        Profile
+                    </NavLink>
+                </li>
                 <li>
                     <NavLink
                         to="/dashboard"
@@ -52,6 +62,35 @@ export default function Navbar() {
                     >
                         <FiHome style={{ marginRight: "10px" }} />
                         Dashboard
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/user-management">
+                        <FiLogOut style={{ marginRight: "10px" }} />
+                        User Management
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/barangay-management">
+                        <FiLogOut style={{ marginRight: "10px" }} />
+                        Barangay Management
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/problem-category-management">
+                        <FiLogOut style={{ marginRight: "10px" }} />
+                        Problem Category
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/analytics"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FaFire style={{ marginRight: "10px" }} />
+                        Analytics
                     </NavLink>
                 </li>
                 <li>
@@ -86,6 +125,17 @@ export default function Navbar() {
                     >
                         <FiFileText  style={{ marginRight: "10px" }} />
                         Reports
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink
+                        to="/settings"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiFileText  style={{ marginRight: "10px" }} />
+                        Settings
                     </NavLink>
                 </li>
 
