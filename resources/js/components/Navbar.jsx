@@ -1,6 +1,24 @@
 import { NavLink } from "react-router-dom";
-import { FiHome, FiMapPin, FiFileText, FiLogOut } from "react-icons/fi";
-import { FaFire } from 'react-icons/fa';
+import {
+    FiHome,
+    FiMapPin,
+    FiFileText,
+    FiLogOut,
+    FiUsers,
+    FiSettings,
+    FiLayers,
+    FiGrid,
+    FiUser
+} from "react-icons/fi";
+
+import {
+    FaFire,
+    FaChartBar
+} from "react-icons/fa";
+
+import {
+    MdLocationCity
+} from "react-icons/md";
 import logo from "../../images/logoBG.png";
 export default function Navbar() {
     return (
@@ -49,10 +67,11 @@ export default function Navbar() {
                             isActive ? "nav-link active" : "nav-link"
                         }
                     >
-                        <FiHome style={{ marginRight: "10px" }} />
+                        <FiUser style={{ marginRight: "10px" }} />
                         Profile
                     </NavLink>
                 </li>
+
                 <li>
                     <NavLink
                         to="/dashboard"
@@ -60,28 +79,47 @@ export default function Navbar() {
                             isActive ? "nav-link active" : "nav-link"
                         }
                     >
-                        <FiHome style={{ marginRight: "10px" }} />
+                        <FiGrid style={{ marginRight: "10px" }} />
                         Dashboard
                     </NavLink>
                 </li>
+
                 <li>
-                    <NavLink to="/user-management">
-                        <FiLogOut style={{ marginRight: "10px" }} />
+                    <NavLink
+                        to="/user-management"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiUsers style={{ marginRight: "10px" }} />
                         User Management
                     </NavLink>
                 </li>
+
                 <li>
-                    <NavLink to="/barangay-management">
-                        <FiLogOut style={{ marginRight: "10px" }} />
+                    <NavLink
+                        to="/barangay-management"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <MdLocationCity style={{ marginRight: "10px" }} />
                         Barangay Management
                     </NavLink>
                 </li>
+
                 <li>
-                    <NavLink to="/problem-category-management">
-                        <FiLogOut style={{ marginRight: "10px" }} />
-                        Problem Category
+                    <NavLink
+                        to="/problem-category-management"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiLayers style={{ marginRight: "10px" }} />
+                        Problem Categories
                     </NavLink>
                 </li>
+
                 <li>
                     <NavLink
                         to="/analytics"
@@ -89,10 +127,11 @@ export default function Navbar() {
                             isActive ? "nav-link active" : "nav-link"
                         }
                     >
-                        <FaFire style={{ marginRight: "10px" }} />
+                        <FaChartBar style={{ marginRight: "10px" }} />
                         Analytics
                     </NavLink>
                 </li>
+
                 <li>
                     <NavLink
                         to="/markmap"
@@ -101,9 +140,10 @@ export default function Navbar() {
                         }
                     >
                         <FiMapPin style={{ marginRight: "10px" }} />
-                        Markermap
+                        Marker Map
                     </NavLink>
                 </li>
+
                 <li>
                     <NavLink
                         to="/heatmap"
@@ -123,10 +163,11 @@ export default function Navbar() {
                             isActive ? "nav-link active" : "nav-link"
                         }
                     >
-                        <FiFileText  style={{ marginRight: "10px" }} />
+                        <FiFileText style={{ marginRight: "10px" }} />
                         Reports
                     </NavLink>
                 </li>
+
                 <li>
                     <NavLink
                         to="/settings"
@@ -134,18 +175,22 @@ export default function Navbar() {
                             isActive ? "nav-link active" : "nav-link"
                         }
                     >
-                        <FiFileText  style={{ marginRight: "10px" }} />
+                        <FiSettings style={{ marginRight: "10px" }} />
                         Settings
                     </NavLink>
                 </li>
 
                 <li>
-                    <NavLink to="/login">
+                    <NavLink
+                        to="/login"
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
                         <FiLogOut style={{ marginRight: "10px" }} />
                         Logout
                     </NavLink>
                 </li>
-
             </ul>
 
         </div>

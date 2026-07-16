@@ -1,4 +1,27 @@
+import { useEffect, useState } from "react";
+import api from "../services/api";
+
+
 export default function BarangayManagement(){
+    const [barangays, setBarangays] = useState([]);
+
+    const fetchBarangay = () => {
+
+        api.get("/barangays")
+            .then((response) => {
+                setBarangays(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+
+        fetchBarangay();
+
+    }, []);
+
     return (
         <div className="reports-container">
             <div className="reports-header">
@@ -10,27 +33,22 @@ export default function BarangayManagement(){
             <table className="reports-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Baranagy</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Phone</th>
-                        <th>Role</th>
-                        <th>Created at</th>
-                        <th>Updated at</th>                    
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Population</th>                  
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {barangays.map((barangay) => (
+                        <tr key={barangay.id}>
+                            <td>{barangay.name}</td>
+                            <td>{barangay.latitude}</td>
+                            <td>{barangay.longitude}</td>
+                            <td>{barangay.population}</td>
+                        </tr>
+                    ))}
+
                 </tbody>
             </table>
         </div>

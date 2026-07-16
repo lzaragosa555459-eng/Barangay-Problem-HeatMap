@@ -12,11 +12,7 @@ class ProblemCategoryController
      */
     public function index()
     {
-        return ProblemCategory::select(
-            'id',
-            'name'
-        )
-        ->get();
+        return ProblemCategory::all();
     }
 
     /**

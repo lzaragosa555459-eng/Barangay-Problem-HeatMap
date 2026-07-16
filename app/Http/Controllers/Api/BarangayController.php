@@ -12,10 +12,7 @@ class BarangayController
      */
     public function index()
     {
-        return Barangay::select(
-            'id',
-            'name'
-        )->get();
+        return Barangay::all();
     }
 
     /**
