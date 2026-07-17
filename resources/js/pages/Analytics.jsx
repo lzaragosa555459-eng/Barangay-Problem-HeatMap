@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { Line } from "react-chartjs-2";
+
 import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
-    BarElement,
     PointElement,
     LineElement,
     Title,
@@ -12,19 +13,15 @@ import {
     Legend,
 } from "chart.js";
 
-import { Line, Bar } from "react-chartjs-2";
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    BarElement,
     PointElement,
     LineElement,
     Title,
     Tooltip,
     Legend
 );
-
 export default function Analytics() {
     const [analytics, setAnalytics] = useState({
         monthlyReport: [],
@@ -53,51 +50,38 @@ export default function Analytics() {
             });
 
     }, []);
-    const barangayReportData = {
-
-        labels: analytics.reportsByBarangay.map(
-            item => item.barangay?.name
-        ),
+    const monthlyReportData = {
+        labels: analytics.monthlyReport.map(item => item.month),
 
         datasets: [
             {
-                label: "Reports",
+                label: "Monthly Reports",
+                data: analytics.monthlyReport.map(item => item.total),
 
-                data: analytics.reportsByBarangay.map(
-                    item => item.total
-                ),
+                borderColor: "#16a34a",
+                backgroundColor: "rgba(22,163,74,0.2)",
 
-                backgroundColor: "#16a34a",
-                borderColor: "#14532D",
-                borderWidth: 1,
-                borderRadius: 8,
+                tension: 0.4,
+                fill: true,
+                pointRadius: 5,
+                pointHoverRadius: 8,
             },
         ],
     };
-    const barangayReportOptions = {
+    const monthlyReportOptions = {
 
         responsive: true,
 
         plugins: {
 
             legend: {
-                display: false,
+                display: true,
+                position: "top",
             },
 
             title: {
                 display: true,
-                text: "Reports by Barangay",
-            },
-
-        },
-
-        scales: {
-
-            y: {
-                beginAtZero: true,
-                ticks: {
-                    precision: 0,
-                },
+                text: "Monthly Community Reports",
             },
 
         },
@@ -142,13 +126,17 @@ export default function Analytics() {
                 </div>
 
             </div>
+            <br />
+            <hr />
+            <br />
 
+            <h2 className="reports-header">Monthly Reports</h2>
 
-            <div className="card" style={{marginTop: "50px"}}>
-            <h2>Report by Barangaay</h2>
-                <Bar
-                    data={barangayReportData}
-                    options={barangayReportOptions}
+            <div className="chart-card">
+
+                <Line
+                    data={monthlyReportData}
+                    options={monthlyReportOptions}
                 />
 
             </div>

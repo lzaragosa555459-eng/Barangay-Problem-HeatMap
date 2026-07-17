@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProblemCategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AnalyticsController;
+use App\Http\Controllers\Api\ProfileController;
 
 
 /*
@@ -21,6 +22,8 @@ use App\Http\Controllers\Api\AnalyticsController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+//Profile
+Route::middleware('auth:sanctum')->get('/profile', [ProfileController::class, 'index']);
 /*
 |--------------------------------------------------------------------------
 | Authenticated Routes
@@ -79,6 +82,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/problem-categories', [ProblemCategoryController::class, 'index']); 
         Route::get('/analytics', [AnalyticsController::class, 'index']);
+
+ 
 
     });
 
