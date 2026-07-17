@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\BarangayController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProblemCategoryController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\AnalyticsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +77,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/barangays', [BarangayController::class, 'index']);
         Route::apiResource('barangays', BarangayController::class);
 
-        Route::get('/problem-categories', [ProblemCategoryController::class, 'index']);
+        Route::get('/problem-categories', [ProblemCategoryController::class, 'index']); 
+        Route::get('/analytics', [AnalyticsController::class, 'index']);
 
     });
 
