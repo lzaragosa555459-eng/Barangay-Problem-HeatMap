@@ -731,3 +731,367 @@
     color:white;
 
 }
+
+/* ========================================= */
+/* RESPONSIVE DESIGN */
+/* ========================================= */
+
+@media (max-width: 992px) {
+
+    /* Sidebar */
+
+    .sidebar{
+        width:230px;
+    }
+
+    .content{
+        margin-left:230px;
+        padding:18px;
+    }
+
+    /* Login */
+
+    .login-page{
+        padding:40px;
+        gap:40px;
+    }
+
+    .login-left h1{
+        font-size:2.3rem;
+    }
+
+    .circle{
+        margin:auto;
+        margin-bottom:30px;
+    }
+
+}
+
+
+/* ========================================= */
+
+@media (max-width:768px){
+
+    /* Layout */
+
+    .container{
+        flex-direction:column;
+    }
+
+    /* Sidebar */
+
+    .sidebar{
+
+        position:fixed;
+
+        left:-260px;
+
+        width:260px;
+
+        transition:.3s;
+
+        z-index:2000;
+
+    }
+
+    .sidebar.active{
+        left:0;
+    }
+
+    /* Content */
+
+    .content{
+
+        margin-left:0;
+
+        width:100%;
+
+        padding:15px;
+
+    }
+
+    /* Dashboard cards */
+
+    .cards{
+
+        grid-template-columns:1fr;
+
+        gap:20px;
+
+    }
+
+    /* Reports */
+
+    .reports-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:15px;
+
+    }
+
+    .filters{
+
+        flex-direction:column;
+
+    }
+
+    .filters input{
+
+        width:100%;
+
+    }
+
+    /* Tables */
+
+    .reports-table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+    /* Modal */
+
+    .modal{
+
+        width:95%;
+
+    }
+
+    .form-row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    /* Profile */
+
+    .profile-card{
+
+        padding:20px;
+
+    }
+
+    .profile-row{
+
+        flex-direction:column;
+
+        gap:6px;
+
+    }
+
+    .profile-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .btn-green,
+    .btn-outline{
+
+        width:100%;
+
+    }
+
+    .circle{
+
+        width:180px;
+
+        height:180px;
+
+        margin:auto;
+
+        margin-bottom:25px;
+
+    }
+
+    /* Heatmap */
+
+    .heatmap-page{
+
+        margin:0;
+
+        width:100%;
+
+        height:500px;
+
+    }
+
+    .report-map{
+
+        width:100%;
+
+        height:300px;
+
+    }
+
+    /* Charts */
+
+    .chart-card{
+
+        overflow-x:auto;
+
+    }
+
+}
+
+
+/* ========================================= */
+
+@media (max-width:576px){
+
+    body{
+
+        font-size:14px;
+
+    }
+
+    h1{
+
+        font-size:24px;
+
+    }
+
+    h2{
+
+        font-size:20px;
+
+    }
+
+    .reports-container{
+
+        padding:15px;
+
+    }
+
+    .card{
+
+        padding:18px;
+
+    }
+
+    .card h2{
+
+        font-size:1.5rem;
+
+    }
+
+    .reports-table th,
+    .reports-table td{
+
+        padding:10px;
+
+        font-size:13px;
+
+    }
+
+    .pagination{
+
+        flex-wrap:wrap;
+
+    }
+
+    .login-page{
+
+        flex-direction:column;
+
+        justify-content:center;
+
+        text-align:center;
+
+        padding:30px;
+
+    }
+
+    .login-left{
+
+        width:100%;
+
+    }
+
+    .login-right{
+
+        width:100%;
+
+    }
+
+    .login-left h1{
+
+        font-size:2rem;
+
+    }
+
+}
+
+.menu-btn{
+    display:none;
+}
+
+@media(max-width:768px){
+
+    .menu-btn{
+
+        display:flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        position:fixed;
+
+        top:15px;
+
+        left:15px;
+
+        width:45px;
+
+        height:45px;
+
+        border:none;
+
+        border-radius:10px;
+
+        background:#14532D;
+
+        color:white;
+
+        font-size:24px;
+
+        cursor:pointer;
+
+        z-index:2500;
+
+        box-shadow:0 4px 10px rgba(0,0,0,.2);
+
+    }
+
+}
+.overlay{
+
+    display:none;
+
+}
+
+@media(max-width:768px){
+
+    .overlay{
+
+        display:block;
+
+        position:fixed;
+
+        inset:0;
+
+        background:rgba(0,0,0,.45);
+
+        z-index:1500;
+
+    }
+
+}

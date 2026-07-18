@@ -13,14 +13,40 @@ import ProblemCategoryManagement from "./pages/ProblemCategoryManagement";
 import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import { useState } from "react";
+import { FiMenu } from "react-icons/fi";
+
 
 function AdminLayout() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     return (
         <div className="container">
 
-            <Navbar />
+            <Navbar
+                sidebarOpen={sidebarOpen}
+                setSidebarOpen={setSidebarOpen}
+            />
+            {sidebarOpen && (
+                <div
+                    className="overlay"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
 
-            <div className="content">
+            <button
+                className="menu-btn"
+                onClick={() => setSidebarOpen(true)}
+            >
+                <FiMenu />
+            </button>
+
+            <div
+                className={`content ${
+                    sidebarOpen ? "sidebar-open" : ""
+                }`}
+            >
                 <Routes>
 
                     {/*private page*/ }

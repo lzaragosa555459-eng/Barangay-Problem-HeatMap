@@ -20,9 +20,11 @@ import {
     MdLocationCity
 } from "react-icons/md";
 import logo from "../../images/logoBG.png";
-export default function Navbar() {
+import { FiMenu } from "react-icons/fi";
+
+export default function Navbar({ sidebarOpen, setSidebarOpen }) {
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${sidebarOpen ? "active" : ""}`}>
 
         <div
             style={{
@@ -63,6 +65,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/profile"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -75,6 +78,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/dashboard"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -87,6 +91,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/user-management"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -99,6 +104,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/barangay-management"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -111,6 +117,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/problem-category-management"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -123,6 +130,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/analytics"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -135,6 +143,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/markmap"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -147,6 +156,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/heatmap"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -159,6 +169,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/reports"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -171,6 +182,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/settings"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
@@ -183,6 +195,7 @@ export default function Navbar() {
                 <li>
                     <NavLink
                         to="/login"
+                        onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
                         }
