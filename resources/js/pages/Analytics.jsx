@@ -22,7 +22,23 @@ ChartJS.register(
     Tooltip,
     Legend
 );
+
+import {
+    ResponsiveContainer,
+    BarChart,
+    Bar,
+    PieChart,
+    Pie,
+    Cell,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip as RechartsTooltip,
+    Legend as RechartsLegend,
+} from "recharts";
+
 export default function Analytics() {
+
     const [analytics, setAnalytics] = useState({
         monthlyReport: [],
         reportsByBarangay: [],
@@ -89,7 +105,26 @@ export default function Analytics() {
     };
 
 
+    const barangayChartData = analytics.reportsByBarangay.map(item => ({
+        name: item.barangay?.name ?? "Unknown",
+        total: item.total,
+    }));
 
+    const categoryChartData = analytics.reportsByCategory.map(item => ({
+        name: item.problem_category?.name ?? "Unknown",
+        total: item.total,
+    }));
+
+    const severityChartData = analytics.severity.map(item => ({
+        name: item.severity,
+        value: item.total,
+    }));
+    const COLORS = [
+        "#22c55e", // Low
+        "#facc15", // Medium
+        "#f97316", // High
+        "#ef4444", // Critical
+    ];
     return (
         <div className="reports-container">
 
@@ -145,85 +180,130 @@ export default function Analytics() {
 
             <h2 className="reports-header">Reports by Barangay</h2>
 
-            <table className="reports-table">
+            <div
+                style={{
+                    background: "#fff",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    marginBottom: "30px",
+                }}
+            >
+                <ResponsiveContainer
+                    width="100%"
+                    height={350}
+                >
+                    <BarChart data={barangayChartData}>
 
-                <thead>
-                    <tr>
-                        <th>Barangay</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
+                        <CartesianGrid strokeDasharray="3 3" />
 
-                <tbody>
+                        <XAxis
+                            dataKey="name"
+                        />
 
-                    {analytics.reportsByBarangay.map((item) => (
+                        <YAxis />
 
-                        <tr key={item.barangay_id}>
-                            <td>{item.barangay?.name}</td>
-                            <td>{item.total}</td>
-                        </tr>
+                        <RechartsTooltip />
 
-                    ))}
+                        <Bar
+                            dataKey="total"
+                            fill="#d4511d"
+                        />
 
-                </tbody>
+                    </BarChart>
 
-            </table>
+                </ResponsiveContainer>
+            </div>
 
             <br />
 
             <h2 className="reports-header">Reports by Category</h2>
 
-            <table className="reports-table">
+            <div
+                style={{
+                    background: "#fff",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    marginBottom: "30px",
+                }}
+            >
+                <ResponsiveContainer width="100%" height={350}>
+                    <BarChart
+                        data={categoryChartData}
+                        layout="vertical"
+                        margin={{
+                            top: 20,
+                            right: 30,
+                            
+                            bottom: 20,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
 
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
+                        <XAxis
+                            type="number"
+                        />
 
-                <tbody>
+                        <YAxis
+                            type="category"
+                            dataKey="name"
+                            width={140}
+                        />
 
-                    {analytics.reportsByCategory.map((item) => (
+                        <RechartsTooltip />
 
-                        <tr key={item.problem_category_id}>
-                            <td>{item.problem_category?.name}</td>
-                            <td>{item.total}</td>
-                        </tr>
-
-                    ))}
-
-                </tbody>
-
-            </table>
+                        <Bar
+                            dataKey="total"
+                            fill="#2563eb"
+                        />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
 
             <br />
 
             <h2 className="reports-header">Severity Distribution</h2>
 
-            <table className="reports-table">
+            <div
+                style={{
+                    background: "#fff",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    marginBottom: "30px",
+                }}
+            >
+                <ResponsiveContainer
+                    width="100%"
+                    height={500}
+                >
+                    <PieChart>
 
-                <thead>
-                    <tr>
-                        <th>Severity</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
+                        <Pie
+                            data={severityChartData}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={200}
+                            dataKey="value"
+                            nameKey="name"
+                            label
+                        >
+                            {severityChartData.map((entry, index) => (
+                                <Cell
+                                    key={index}
+                                    fill={COLORS[index % COLORS.length]}
+                                />
+                            ))}
+                        </Pie>
 
-                <tbody>
+                        <RechartsTooltip />
 
-                    {analytics.severity.map((item) => (
+                        <RechartsLegend />
 
-                        <tr key={item.severity}>
-                            <td>{item.severity}</td>
-                            <td>{item.total}</td>
-                        </tr>
-
-                    ))}
-
-                </tbody>
-
-            </table>
+                    </PieChart>
+                </ResponsiveContainer>
+            </div>
 
         </div>
     );
