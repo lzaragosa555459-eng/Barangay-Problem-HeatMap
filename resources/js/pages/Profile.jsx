@@ -1,44 +1,122 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
+export default function Profile() {
 
-export default function Profile(){
-    const [profile, setProfile] = useState({
-        user: [],
-    }); 
-
-    const fetchProfile = () => {
-        api.get('/profile')
-            .then((response) => {
-                setProfile(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-            
-    };
+    const [profile, setProfile] = useState({});
 
     useEffect(() => {
-        fetchProfile();
+
+        api.get("/profile")
+            .then((response) => {
+
+                setProfile(response.data);
+
+            })
+            .catch((error) => {
+
+                console.error(error);
+
+            });
+
     }, []);
 
     return (
-    <div>
-        <h1>Profile</h1>
 
-        <div className="circle" style={{padding: "9%"}}><h1>S</h1></div>
-        <div className="profile-card">
-            <span><b>Name:</b> {profile.name}</span><br/>
-            <span><b>Email:</b> {profile.email} </span><br/>
-            <span><b>Role:</b> {profile.role} </span><br/>
-            <span><b>Password:</b> ••••••••</span><br/>
-            <span><b>Phone: </b>{profile.phone_number} </span><br/>     
-            <span><b>Barangay:</b> {profile.barangay} </span><br/>            
+        <div className="profile-container">
+
+            <h1 className="page-title">My Profile</h1>
+
+            <div className="profile-card">
+
+                <div className="profile-header">
+
+                    <div className="avatar">
+
+                        {profile.name
+                            ? profile.name.charAt(0).toUpperCase()
+                            : "U"}
+
+                    </div>
+
+                    <h2>{profile.name}</h2>
+
+                    <p>{profile.role}</p>
+
+                </div>
+
+                <hr />
+
+                <div className="profile-section">
+
+                    <h3>Personal Information</h3>
+
+                    <div className="profile-row">
+                        <strong>Name</strong>
+                        <span>{profile.name}</span>
+                    </div>
+
+                    <div className="profile-row">
+                        <strong>Email</strong>
+                        <span>{profile.email}</span>
+                    </div>
+
+                    <div className="profile-row">
+                        <strong>Phone</strong>
+                        <span>{profile.phone_number}</span>
+                    </div>
+
+                    <div className="profile-row">
+                        <strong>Role</strong>
+                        <span>{profile.role}</span>
+                    </div>
+
+                    <div className="profile-row">
+                        <strong>Barangay</strong>
+                        <span>{profile.barangay}</span>
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div className="profile-section">
+
+                    <h3>Account</h3>
+
+                    <div className="profile-row">
+                        <strong>Password</strong>
+                        <span>••••••••</span>
+                    </div>
+
+                    <div className="profile-row">
+                        <strong>Created</strong>
+                        <span>{profile.created_at}</span>
+                    </div>
+
+                    <div className="profile-row">
+                        <strong>Updated</strong>
+                        <span>{profile.updated_at}</span>
+                    </div>
+
+                </div>
+
+                <div className="profile-buttons">
+
+                    <button className="btn-green">
+                        Edit Profile
+                    </button>
+
+                    <button className="btn-outline">
+                        Change Password
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
 
-    </div>
+    );
 
-        
-        
-    )
 }
