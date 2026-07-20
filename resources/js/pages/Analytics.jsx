@@ -424,7 +424,8 @@ export default function Analytics() {
 
                                 let color = "#F3F4F6";
 
-                                if (count > 0 && count <= 3) color = "#BBF7D0";
+                                if (count == 0 ) color = "#F3F4F6";
+                                else if (count > 0 && count <= 3) color = "#BBF7D0";
                                 else if (count <= 6) color = "#86EFAC";
                                 else if (count <= 10) color = "#FACC15";
                                 else if (count > 10) color = "#EF4444";
