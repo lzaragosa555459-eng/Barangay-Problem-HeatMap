@@ -1167,3 +1167,31 @@
     height:22px;
     border-radius:5px;
 }
+
+.setting-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:30px;
+    padding:20px 0;
+}
+
+.setting-row h3{
+    margin:0;
+    font-size:18px;
+}
+
+.setting-row p{
+    margin-top:8px;
+    color:#666;
+    max-width:600px;
+}
+
+.setting-row button{
+    min-width:160px;
+}
+
+hr{
+    border:none;
+    border-top:1px solid #e5e7eb;
+}

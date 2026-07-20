@@ -1,3 +1,11 @@
+import {
+    FiImage,
+    FiMapPin,
+    FiDatabase,
+    FiRefreshCw,
+    FiTool
+} from "react-icons/fi";
+
 export default function Settings() {
     return (
         <div className="reports-container">
@@ -9,79 +17,84 @@ export default function Settings() {
 
             <div
                 style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
-                    gap: "20px",
-                    marginTop: "30px",
+                    background: "#fff",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,.08)",
+                    padding: "30px",
+                    marginTop: "25px",
                 }}
             >
 
                 {/* Logo */}
-                <div className="card">
-                    <h3>🖼️ System Logo</h3>
-                    <p>
-                        Upload or replace the official system logo.
-                    </p>
+                <div className="setting-row">
+                    <div>
+                        <h3>🖼️ System Logo</h3>
+                        <p>Upload or replace the official system logo.</p>
+                    </div>
 
                     <button className="btn-primary">
                         Change Logo
                     </button>
                 </div>
 
-                {/* Barangay */}
-                <div className="card">
-                    <h3>🏘️ Barangay Information</h3>
-                    <p>
-                        Manage barangay names, locations, and population.
-                    </p>
+                <hr />
+
+                {/* Barangays */}
+                <div className="setting-row">
+                    <div>
+                        <h3>🏘️ Barangay Information</h3>
+                        <p>
+                            Manage barangay names, locations, and population.
+                        </p>
+                    </div>
 
                     <button className="btn-primary">
-                        Manage Barangays
+                        Manage
                     </button>
                 </div>
 
-                {/* Backup */}
-                <div className="card">
-                    <h3>💾 Database Backup</h3>
-                    <p>
-                        Download a backup of the current database.
-                    </p>
+                <hr />
+
+                {/* Database Backup */}
+                <div className="setting-row">
+                    <div>
+                        <h3>💾 Database Backup</h3>
+                        <p>Create and download a backup of the system database.</p>
+                    </div>
 
                     <button className="btn-success">
-                        Backup Database
+                        Backup
                     </button>
                 </div>
 
+                <hr />
+
                 {/* Restore */}
-                <div className="card">
-                    <h3>♻️ Restore Database</h3>
-                    <p>
-                        Restore the database from a previous backup.
-                    </p>
+                <div className="setting-row">
+                    <div>
+                        <h3>♻️ Restore Database</h3>
+                        <p>Restore the system from an existing database backup.</p>
+                    </div>
 
                     <button className="btn-warning">
                         Restore
                     </button>
                 </div>
 
+                <hr />
+
                 {/* Maintenance */}
-                <div className="card">
-                    <h3>🛠️ Maintenance Mode</h3>
+                <div className="setting-row">
+                    <div>
+                        <h3>🛠️ Maintenance Mode</h3>
+                        <p>
+                            Temporarily disable public access while performing maintenance.
+                        </p>
+                    </div>
 
-                    <p>
-                        Enable maintenance mode while performing updates.
-                    </p>
-
-                    <label
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px",
-                            marginTop: "15px",
-                        }}
-                    >
+                    <label className="setting-switch">
                         <input type="checkbox" />
-                        Enable Maintenance Mode
+                        Enable
                     </label>
                 </div>
 
