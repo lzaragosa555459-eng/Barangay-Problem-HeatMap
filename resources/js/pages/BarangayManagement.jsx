@@ -26,6 +26,7 @@ export default function BarangayManagement(){
         <div className="reports-container">
             <div className="reports-header">
                 <h1>Barangay Management</h1>
+                <button>Add</button>
             </div>
 
        
@@ -36,7 +37,8 @@ export default function BarangayManagement(){
                         <th>Baranagy</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
-                        <th>Population</th>                  
+                        <th>Population</th>
+                        <th>Actions</th>                  
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +48,10 @@ export default function BarangayManagement(){
                             <td>{barangay.latitude}</td>
                             <td>{barangay.longitude}</td>
                             <td>{barangay.population}</td>
+                            <td>
+                                <button>Update</button>
+                                <button>Delete</button>
+                            </td>
                         </tr>
                     ))}
 

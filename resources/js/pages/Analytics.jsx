@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../services/api";
 import { Line } from "react-chartjs-2";
 
@@ -57,6 +57,7 @@ export default function Analytics() {
             .then((response) => {
 
                 setAnalytics(response.data);
+                console.log(analytics.heatmap);
 
             })
             .catch((error) => {
@@ -125,6 +126,53 @@ export default function Analytics() {
         "#f97316", // High
         "#ef4444", // Critical
     ];
+
+    const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
+
+    const barangays = [
+        ...new Map(
+            analytics.heatmap.map(item => [
+                item.barangay.id,
+                item.barangay
+            ])
+        ).values()
+    ];
+
+    const getCount = (barangayId, month) => {
+
+        const report = analytics.heatmap.find(item =>
+            item.barangay_id === barangayId &&
+            item.month === month
+        );
+
+        return report ? report.total : 0;
+
+    };
+
+    const getColor = (count) => {
+
+        if (count === 0) return "#F3F4F6";
+        if (count <= 3) return "#BBF7D0";
+        if (count <= 6) return "#86EFAC";
+        if (count <= 10) return "#FACC15";
+
+        return "#EF4444";
+
+    };
+
     return (
         <div className="reports-container">
 
@@ -303,6 +351,131 @@ export default function Analytics() {
 
                     </PieChart>
                 </ResponsiveContainer>
+            </div>
+
+            <h2 className="reports-header">Heatmap visualization</h2>
+
+            <div
+                style={{
+                    background: "#fff",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                    marginBottom: "30px",
+                    overflowX: "auto",
+                }}
+            >
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateColumns: "180px repeat(12, 60px)",
+                        gap: "10px",
+                        alignItems: "center",
+                    }}
+                >
+                    {/* Empty top-left corner */}
+                    <div></div>
+
+                    {/* Month Headers */}
+                    {[
+                        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                    ].map((month) => (
+                        <div
+                            key={month}
+                            style={{
+                                fontWeight: "bold",
+                                textAlign: "center",
+                            }}
+                        >
+                            {month}
+                        </div>
+                    ))}
+
+                    {/* Barangay Rows */}
+                    {[
+                        ...new Map(
+                            analytics.heatmap.map(item => [
+                                item.barangay.id,
+                                item.barangay
+                            ])
+                        ).values()
+                    ].map((barangay) => (
+                        <React.Fragment key={barangay.id}>
+
+                            {/* Barangay Name */}
+                            <div
+                                style={{
+                                    fontWeight: "600",
+                                }}
+                            >
+                                {barangay.name}
+                            </div>
+
+                            {/* 12 Months */}
+                            {Array.from({ length: 12 }, (_, i) => {
+
+                                const report = analytics.heatmap.find(item =>
+                                    item.barangay_id === barangay.id &&
+                                    item.month === i + 1
+                                );
+
+                                const count = report ? report.total : 0;
+
+                                let color = "#F3F4F6";
+
+                                if (count > 0 && count <= 3) color = "#BBF7D0";
+                                else if (count <= 6) color = "#86EFAC";
+                                else if (count <= 10) color = "#FACC15";
+                                else if (count > 10) color = "#EF4444";
+
+                                return (
+                                    <div
+                                        key={i}
+                                        title={`${barangay.name} - ${i + 1}: ${count} reports`}
+                                        style={{
+                                            width: "55px",
+                                            height: "55px",
+                                            background: color,
+                                            borderRadius: "8px",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            fontWeight: "bold",
+                                            color: count > 6 ? "#fff" : "#222",
+                                            transition: ".2s",
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        {count}
+                                    </div>
+                                );
+
+                            })}
+
+                        </React.Fragment>
+                    ))}
+                </div>
+
+                {/* Legend */}
+                <div
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        marginTop: "25px",
+                    }}
+                >
+                    <span>Low</span>
+
+                    <div style={{ width: 20, height: 20, background: "#F3F4F6", borderRadius: 4 }}></div>
+                    <div style={{ width: 20, height: 20, background: "#BBF7D0", borderRadius: 4 }}></div>
+                    <div style={{ width: 20, height: 20, background: "#86EFAC", borderRadius: 4 }}></div>
+                    <div style={{ width: 20, height: 20, background: "#FACC15", borderRadius: 4 }}></div>
+                    <div style={{ width: 20, height: 20, background: "#EF4444", borderRadius: 4 }}></div>
+
+                    <span>High</span>
+                </div>
             </div>
 
         </div>

@@ -81,10 +81,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('barangays', BarangayController::class);
 
         Route::get('/problem-categories', [ProblemCategoryController::class, 'index']); 
-        Route::get('/analytics', [AnalyticsController::class, 'index']);
+       
 
  
 
     });
 
 });
+ Route::get('/analytics', [AnalyticsController::class, 'index']);

@@ -1095,3 +1095,75 @@
     }
 
 }
+
+.heatmap-card{
+    background:white;
+    border-radius:12px;
+    padding:25px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+}
+
+.heatmap{
+    display:grid;
+    grid-template-columns:170px repeat(6,65px);
+    gap:10px;
+    align-items:center;
+}
+
+.month{
+    text-align:center;
+    font-weight:600;
+    color:#555;
+}
+
+.barangay{
+    font-weight:600;
+}
+
+.heat{
+    width:60px;
+    height:60px;
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:white;
+    font-weight:bold;
+}
+
+.level0{
+    background:#f3f4f6;
+    color:#888;
+}
+
+.level1{
+    background:#d9f99d;
+    color:#222;
+}
+
+.level2{
+    background:#84cc16;
+}
+
+.level3{
+    background:#f59e0b;
+}
+
+.level4{
+    background:#dc2626;
+}
+
+.legend{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:25px;
+}
+
+.legend-box{
+    width:22px;
+    height:22px;
+    border-radius:5px;
+}

@@ -22,9 +22,10 @@ export default function ProblemCategoryManagement(){
         <div className="reports-container">
             <div className="reports-header">
                 <h1>Problem Category Management</h1>
+                <button>Add</button>
             </div>
 
-       
+            
 
             <table className="reports-table">
                 <thead>
@@ -32,7 +33,8 @@ export default function ProblemCategoryManagement(){
                         <th>Name</th>
                         <th>Icon</th>
                         <th>Color</th>
-                        <th>Description</th>                   
+                        <th>Description</th>       
+                        <th>Actions</th>            
                     </tr>
                 </thead>    
                 <tbody>
@@ -42,6 +44,10 @@ export default function ProblemCategoryManagement(){
                         <td>{problemCategory.icon}</td>
                         <td>{problemCategory.color}</td>
                         <td>{problemCategory.description ? problemCategory.description : "None"}</td>
+                        <td>
+                            <button>Update</button>
+                            <button>Delete</button>
+                        </td>
                     </tr>
                 ))}
                 </tbody>

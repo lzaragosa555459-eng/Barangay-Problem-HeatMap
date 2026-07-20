@@ -52,10 +52,18 @@ class AnalyticsController extends Controller
             DB::raw("AVG(TIMESTAMPDIFF(HOUR, reported_at, updated_at)) as avg_hours")
         )->first();
 
-        $heatmap = Report::select(
-            'latitude',
-            'longitude'
-        )->get();
+        $heatmap = Report::with('barangay:id,name')
+            ->select(
+                'barangay_id',
+                DB::raw('MONTH(reported_at) as month'),
+                DB::raw('COUNT(*) as total')
+            )
+            ->groupBy(
+                'barangay_id',
+                DB::raw('MONTH(reported_at)')
+            )
+            ->get();
+        
 
         return response()->json([
                 "monthlyReport" => $monthlyReports,

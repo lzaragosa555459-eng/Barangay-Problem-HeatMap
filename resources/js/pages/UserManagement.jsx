@@ -33,6 +33,7 @@ export default function UserManagement(){
         <div className="reports-container">
             <div className="reports-header">
                 <h1>User Management</h1>
+                <button>Add</button>
             </div>
 
        
@@ -47,7 +48,8 @@ export default function UserManagement(){
                         <th>Phone</th>
                         <th>Role</th>
                         <th>Created at</th>
-                        <th>Updated at</th>                    
+                        <th>Updated at</th>     
+                        <th>Actions</th>               
                     </tr>
                 </thead>
                 <tbody>
@@ -83,6 +85,10 @@ export default function UserManagement(){
                                     day: "numeric",
                             })}
                         </td>
+                        <td>
+                            <button>Update</button>
+                            <button>Delete</button>
+                        </td>
 
                     </tr>
 
@@ -90,6 +96,8 @@ export default function UserManagement(){
 
                 </tbody>
             </table>
+
+
         </div>
     );
 }
