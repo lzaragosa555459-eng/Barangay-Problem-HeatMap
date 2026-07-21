@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+// TODO: Add Crud for Barangay managements
 
 
 export default function BarangayManagement(){
@@ -28,8 +29,6 @@ export default function BarangayManagement(){
                 <h1>Barangay Management</h1>
                 <button>Add</button>
             </div>
-
-       
 
             <table className="reports-table">
                 <thead>

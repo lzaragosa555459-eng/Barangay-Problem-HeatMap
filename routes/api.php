@@ -75,17 +75,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index']);
 
-        Route::get('/users', [UserController::class, 'index']);
-
+ 
         Route::get('/barangays', [BarangayController::class, 'index']);
         Route::apiResource('barangays', BarangayController::class);
 
         Route::get('/problem-categories', [ProblemCategoryController::class, 'index']); 
        
-
+        Route::get('/analytics', [AnalyticsController::class, 'index']);
  
+        Route::get('/users', [UserController::class, 'index']);
+        Route::post('/users', [UserController::class, 'store']); 
 
     });
 
 });
- Route::get('/analytics', [AnalyticsController::class, 'index']);
