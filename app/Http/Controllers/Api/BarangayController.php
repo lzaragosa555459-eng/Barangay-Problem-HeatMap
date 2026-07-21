@@ -20,7 +20,19 @@ class BarangayController
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:barangays,name',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'population' => 'required|integer|min:0',
+        ]);
+
+        $barangay = Barangay::create($validated);
+
+        return response()->json([
+            'message' => 'Barangay created successfully.',
+            'data' => $barangay,
+        ], 201);
     }
 
     /**
@@ -34,16 +46,32 @@ class BarangayController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Barangay $barangay)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:barangays,name,' . $barangay->id,
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'population' => 'required|integer|min:0',
+        ]);
+
+        $barangay->update($validated);
+
+        return response()->json([
+            'message' => 'Barangay updated successfully.',
+            'data' => $barangay,
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Barangay $barangay)
     {
-        //
+        $barangay->delete();
+
+        return response()->json([
+            'message' => 'Barangay deleted successfully.',
+        ]);
     }
 }
