@@ -10,4 +10,11 @@ class ProblemCategory extends Model
     {
         return $this->hasMany(Report::class);
     }
+
+    protected $fillable = [
+        'name',
+        'icon',
+        'color',
+        'description',
+    ];
 }

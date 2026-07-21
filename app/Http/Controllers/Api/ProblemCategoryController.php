@@ -20,7 +20,19 @@ class ProblemCategoryController
      */
     public function store(Request $request)
     {
-        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:problem_categories,name',
+            'icon' => 'required|string|max:255',
+            'color' => 'required|string|max:20',
+            'description' => 'nullable|string',
+        ]);
+
+        $problemCategory = ProblemCategory::create($validated);
+
+        return response()->json([
+            'message' => 'Problem category created successfully.',
+            'data' => $problemCategory,
+        ], 201);
     }
 
     /**
@@ -34,16 +46,32 @@ class ProblemCategoryController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $category = ProblemCategory::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required',
+            'icon' => 'required',
+            'color' => 'required',
+            'description' => 'nullable',
+        ]);
+
+        $category->update($validated);
+
+        return response()->json([
+            'message' => 'Updated successfully'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $category = ProblemCategory::findOrFail($id);
+
+        $category->delete();
+
+        return response()->json([
+            'message' => 'Deleted successfully'
+        ]);
     }
 }

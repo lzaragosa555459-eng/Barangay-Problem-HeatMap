@@ -91,6 +91,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/barangays', [BarangayController::class, 'store']);
         Route::put('/barangays/{barangays}', [BarangayController::class, 'update']);
         Route::delete('/barangays/{barangays}', [BarangayController::class, 'destroy']);
+
+        Route::post('/problem-categories', [ProblemCategoryController::class, 'store']);
+        Route::put('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'update']);
+        Route::delete('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'destroy']);
     });
 
 });
