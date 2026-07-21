@@ -44,11 +44,37 @@ class UserController extends Controller
         ], 201);
     }
 
-    public function update(){
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'barangay_id' => 'required|exists:barangays,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'required',
+            'role' => 'required',
+            'password' => 'nullable|min:8',
+        ]);
 
+        if (!empty($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
+
+        return response()->json([
+            'message' => 'User updated successfully.',
+            'data' => $user,
+        ]);
     }
     
-    public function destroy(){
+    public function destroy(User $user)
+    {
+        $user->delete();
 
+        return response()->json([
+            'message' => 'User deleted successfully.'
+        ]);
     }
 }

@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\ProblemCategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AnalyticsController;
 use App\Http\Controllers\Api\ProfileController;
-
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +85,8 @@ Route::middleware('auth:sanctum')->group(function () {
  
         Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']); 
-
+        Route::put('/users/{user}', [UserController::class, 'update']);
+        Route::delete('/users/{user}', [UserController::class, 'destroy']);
     });
 
 });

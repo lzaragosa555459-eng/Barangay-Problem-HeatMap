@@ -12,7 +12,7 @@ import {
 
 export default function UserManagement(){
     const [users, setUsers] = useState([]);
-
+    const [editingUser, setEditingUser] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [barangays, setBarangays] = useState([]);
     const [form, setForm] = useState({
@@ -23,7 +23,22 @@ export default function UserManagement(){
         phone: "",
         role: "",
     });
+    const editUser = (user) => {
 
+        setEditingUser(user);
+
+        setForm({
+            barangay_id: user.barangay_id,
+            name: user.name,
+            email: user.email,
+            password: "",
+            phone: user.phone,
+            role: user.role,
+        });
+
+        setShowForm(true);
+
+    };
 
     const fetchUsers = () => {
 
@@ -103,6 +118,65 @@ export default function UserManagement(){
             });
 
     };
+    const updateUser = () => {
+
+        api.put(`/users/${editingUser.id}`, form)
+            .then(() => {
+
+                fetchUsers();
+
+                setShowForm(false);
+
+                setEditingUser(null);
+
+                setForm({
+                    barangay_id: "",
+                    name: "",
+                    email: "",
+                    password: "",
+                    phone: "",
+                    role: "",
+                });
+
+            })
+            .catch((error) => {
+
+                console.error(error);
+
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+
+            });
+
+    };
+    const deleteUser = (id) => {
+
+        const confirmed = window.confirm(
+            "Are you sure you want to delete this user?"
+        );
+
+        if (!confirmed) return;
+
+        api.delete(`/users/${id}`)
+            .then(() => {
+
+                fetchUsers();
+
+                alert("User deleted successfully!");
+
+            })
+            .catch((error) => {
+
+                console.error(error);
+
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+
+            });
+
+    };
     return (
 
 
@@ -110,7 +184,23 @@ export default function UserManagement(){
         <div className="reports-container">
             <div className="reports-header">
                 <h1>User Management</h1>
-                <button onClick={() => setShowForm(true)} className="add-btn">
+                <button
+                    className="add-btn"
+                    onClick={() => {
+                        setEditingUser(null);
+
+                        setForm({
+                            barangay_id: "",
+                            name: "",
+                            email: "",
+                            password: "",
+                            phone: "",
+                            role: "",
+                        });
+
+                        setShowForm(true);
+                    }}
+                >
                     + Add User
                 </button>
             </div>
@@ -165,13 +255,15 @@ export default function UserManagement(){
                         <td>
                             <button
                                 className="view-btn"
-                                style={{ backgroundColor: "#06b6d4" }}                           
+                                style={{ backgroundColor: "#06b6d4" }}
+                                onClick={() => editUser(user)}                           
                             > 
                                 <FiEdit />
                             </button>
                             <button     
                                 className="view-btn"
                                 style={{ backgroundColor: "#ef4444" }}
+                                onClick={() => deleteUser(user.id)}
                             >
                                 <FiTrash2 />
                             </button>
@@ -192,11 +284,17 @@ export default function UserManagement(){
 
                         <div className="modal-header">
 
-                            <h2>Add User</h2>
+                            <h2>{editingUser ? "Update User" : "Add User"}</h2>
 
                             <button
                                 className="close-btn"
-                                onClick={() => setShowForm(false)}
+                                onClick={() => {
+
+                                    setShowForm(false);
+
+                                    setEditingUser(null);
+
+                                }}
                             >
                                 ✕
                             </button>
@@ -331,16 +429,28 @@ export default function UserManagement(){
 
                                 <button
                                     className="cancel-btn"
-                                    onClick={() => setShowForm(false)}
+                                    onClick={() => {
+
+                                        setShowForm(false);
+
+                                        setEditingUser(null);
+
+                                    }}
                                 >
                                     Cancel
                                 </button>
 
                                 <button
                                     className="save-btn"
-                                    onClick={saveUser}
+                                    onClick={() => {
+                                        if (editingUser) {
+                                            updateUser();
+                                        } else {
+                                            saveUser();
+                                        }
+                                    }}
                                 >
-                                    Save User
+                                    {editingUser ? "Update User" : "Save User"}
                                 </button>
 
                             </div>
