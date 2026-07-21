@@ -87,6 +87,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/users', [UserController::class, 'store']); 
         Route::put('/users/{user}', [UserController::class, 'update']);
         Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+        Route::post('/barangays', [BarangayController::class, 'store']);
+        Route::put('/barangays/{barangays}', [BarangayController::class, 'update']);
+        Route::delete('/barangays/{barangays}', [BarangayController::class, 'destroy']);
     });
 
 });

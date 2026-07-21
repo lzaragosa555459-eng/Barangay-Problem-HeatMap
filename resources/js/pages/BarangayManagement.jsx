@@ -21,7 +21,13 @@ export default function BarangayManagement(){
                 setBarangays(response.data)
             })
             .catch((error) => {
-                console.log(error);
+
+                console.error(error);
+
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+
             });
     };
 
@@ -62,6 +68,10 @@ export default function BarangayManagement(){
 
                 console.error(error);
 
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+
             });
 
     };
@@ -96,6 +106,10 @@ export default function BarangayManagement(){
 
                 console.error(error);
 
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+
             });
 
     };
@@ -113,6 +127,10 @@ export default function BarangayManagement(){
             .catch((error) => {
 
                 console.error(error);
+
+                if (error.response) {
+                    console.log(error.response.data);
+                }
 
             });
 

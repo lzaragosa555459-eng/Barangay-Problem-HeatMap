@@ -15,5 +15,12 @@ class Barangay extends Model
     {
         return $this->hasMany(Report::class);
     }
+
+    protected $fillable = [
+        'name',
+        'latitude',
+        'longitude',
+        'population',
+    ];
 }
     
