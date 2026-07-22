@@ -172,6 +172,62 @@ export default function Analytics() {
         return "#EF4444";
 
     };
+    const [radius, setRadius] = useState(200);
+
+    useEffect(() => {
+
+        const handleResize = () => {
+
+            if (window.innerWidth <= 768) {
+                setRadius(100);
+            } else {
+                setRadius(200);
+            }
+
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+
+    }, []);
+
+    const [chartSize, setChartSize] = useState({
+        height: 500,
+        radius: 200,
+    });
+
+    useEffect(() => {
+
+        const handleResize = () => {
+
+            if (window.innerWidth <= 768) {
+
+                setChartSize({
+                    height: 320,
+                    radius: 100,
+                });
+
+            } else {
+
+                setChartSize({
+                    height: 500,
+                    radius: 200,
+                });
+
+            }
+
+        };
+
+        handleResize();
+
+        window.addEventListener("resize", handleResize);
+
+        return () => window.removeEventListener("resize", handleResize);
+
+    }, []);
 
     return (
         <div className="reports-container">
@@ -240,7 +296,7 @@ export default function Analytics() {
             >
                 <ResponsiveContainer
                     width="100%"
-                    height={350}
+                    height={chartSize.height}
                 >
                     <BarChart data={barangayChartData}>
 
@@ -327,7 +383,7 @@ export default function Analytics() {
             >
                 <ResponsiveContainer
                     width="100%"
-                    height={500}
+                    height={chartSize.height}
                 >
                     <PieChart>
 
@@ -335,10 +391,11 @@ export default function Analytics() {
                             data={severityChartData}
                             cx="50%"
                             cy="50%"
-                            outerRadius={200}
+                            outerRadius={radius}
                             dataKey="value"
                             nameKey="name"
                             label
+                            outerRadius={chartSize.radius}
                         >
                             {severityChartData.map((entry, index) => (
                                 <Cell

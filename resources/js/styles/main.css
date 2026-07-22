@@ -124,13 +124,10 @@ body{
 
 /*container*/
 .content{
-
-    flex: 1;
-    padding: 20px;
-    margin-left: 17%;
-
+    flex:1;
+    margin-left:260px;
+    padding:20px;
     background:var(--bg);
-    color:var(--text);
 }
 
 
@@ -346,7 +343,8 @@ body{
 }
 
 .login-right{
-    width:350px;
+    width:100%;
+    max-width:350px;
 }
 
 .login-right form{
@@ -529,7 +527,7 @@ body{
     background:#1d4ed8;
 }
 .report-map{
-    width:205%;
+    width:100%;
     height:380px;
     border-radius:10px;
 }
@@ -562,7 +560,7 @@ body{
     background-color: rgb(142, 142, 194);
     padding: 40px;
     border-radius: 50%;
-    margin-left: 35%;
+    margin:0 auto 30px;
     margin-bottom: 5%;
     text-align: center;
 }
@@ -823,13 +821,22 @@ body{
     /* Reports */
 
     .reports-header{
-
+        display:flex;
         flex-direction:column;
+        align-items:center;
+        text-align:center;
+    }
 
-        align-items:flex-start;
 
-        gap:15px;
+    .reports-header button{
 
+        width:100%;
+
+    }
+
+    .reports-header h1{
+        width:100%;
+        text-align:center;
     }
 
     .filters{
@@ -838,10 +845,9 @@ body{
 
     }
 
-    .filters input{
-
+    .filters input,
+    .filters select{
         width:100%;
-
     }
 
     /* Tables */
@@ -1070,6 +1076,47 @@ body{
         box-shadow:0 4px 10px rgba(0,0,0,.2);
 
     }
+
+    .setting-row{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .setting-input{
+        width:100%;
+    }
+
+    .setting-row button{
+
+        width:100%;
+
+    }
+    .settings-footer{
+
+        text-align:center;
+
+    }
+
+    .setting-card{
+
+        padding:20px;
+
+    }
+
+
+    .status-badge{
+
+        margin-top:10px;
+
+    }
+
+    .setting-row p{
+
+        max-width:100%;
+
+    }
+
 
 }
 .overlay{
@@ -1319,4 +1366,8 @@ hr{
     margin-top:25px;
 
     box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+.settings-footer{
+    margin-top:30px;
+    text-align:right;
 }

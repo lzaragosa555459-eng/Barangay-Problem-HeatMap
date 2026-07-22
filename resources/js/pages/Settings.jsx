@@ -51,7 +51,7 @@ export default function Settings() {
     
     useEffect(() => {
         fetchSettings();
-       
+
     }, []);
 
     const saveSettings = async () => {
@@ -226,6 +226,7 @@ export default function Settings() {
                         marginTop: "30px",
                         textAlign: "right",
                     }}
+                    className="settings-footer"
                 >
                     <button
                         className="btn-success"

@@ -125,7 +125,7 @@ export default function ProblemCategoryManagement(){
     return (
         <div className="reports-container">
             <div className="reports-header">
-                <h1>Problem Category Management</h1>
+                <h1 className="page-title">Problem Category Management</h1>
                 <button
                     className="add-btn"
                     onClick={() => {

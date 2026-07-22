@@ -192,7 +192,7 @@ export default function Reports() {
 
             <div className="reports-header">
 
-                <h1>Reports</h1>
+                <h1 className="page-title">Reports</h1>
 
             <button
                 className="add-btn"

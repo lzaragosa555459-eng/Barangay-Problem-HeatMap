@@ -24,9 +24,9 @@ export default function Profile() {
     return (
 
         <div className="profile-container">
-
-            <h1 className="page-title">My Profile</h1>
-
+            <div className="reports-header">
+                <h1 className="page-title">My Profile</h1>
+            </div>
             <div className="profile-card">
 
                 <div className="profile-header">

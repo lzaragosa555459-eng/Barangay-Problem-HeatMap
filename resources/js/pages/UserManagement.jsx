@@ -183,7 +183,7 @@ export default function UserManagement(){
 
         <div className="reports-container">
             <div className="reports-header">
-                <h1>User Management</h1>
+                <h1 className="page-title">User Management</h1>
                 <button
                     className="add-btn"
                     onClick={() => {

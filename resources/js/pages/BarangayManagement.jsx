@@ -139,7 +139,7 @@ export default function BarangayManagement(){
     return (
         <div className="reports-container">
             <div className="reports-header">
-                <h1>Barangay Management</h1>
+                <h1 className="page-title">Barangay Management</h1>
                 <button
                     className="add-btn"
                     onClick={() => {

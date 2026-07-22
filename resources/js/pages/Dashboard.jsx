@@ -38,8 +38,10 @@ export default function Dashboard() {
     return (
 
         <div>
+            <div className="reports-header">
+                <h1>Dashboard</h1>
+            </div>
 
-            <h1>Dashboard</h1>
 
                 <div className="cards">
 
