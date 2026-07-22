@@ -12,7 +12,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AnalyticsController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Models\User;
-
+use App\Http\Controllers\Api\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Public Routes
@@ -95,6 +95,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/problem-categories', [ProblemCategoryController::class, 'store']);
         Route::put('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'update']);
         Route::delete('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'destroy']);
+
+       
     });
 
 });
+
+ Route::get('/settings', [SettingController::class, 'index']);

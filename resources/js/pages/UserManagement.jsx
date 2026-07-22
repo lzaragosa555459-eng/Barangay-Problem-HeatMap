@@ -253,20 +253,23 @@ export default function UserManagement(){
                             })}
                         </td>
                         <td>
-                            <button
-                                className="view-btn"
-                                style={{ backgroundColor: "#06b6d4" }}
-                                onClick={() => editUser(user)}                           
-                            > 
-                                <FiEdit />
-                            </button>
-                            <button     
-                                className="view-btn"
-                                style={{ backgroundColor: "#ef4444" }}
-                                onClick={() => deleteUser(user.id)}
-                            >
-                                <FiTrash2 />
-                            </button>
+                            <div className="action-buttons">
+                                <button
+                                    className="view-btn"
+                                    style={{ backgroundColor: "#06b6d4" }}
+                                    onClick={() => editUser(user)}
+                                >
+                                    <FiEdit />
+                                </button>
+
+                                <button
+                                    className="view-btn"
+                                    style={{ backgroundColor: "#ef4444" }}
+                                    onClick={() => deleteUser(user.id)}
+                                >
+                                    <FiTrash2 />
+                                </button>
+                            </div>
                         </td>
 
                     </tr>

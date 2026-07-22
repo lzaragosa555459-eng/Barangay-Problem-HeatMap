@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ReportStatusHistorySeeder::class,
             NotificationSeeder::class,
             AssignmentSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }
