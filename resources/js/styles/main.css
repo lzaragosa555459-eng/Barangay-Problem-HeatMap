@@ -6,10 +6,14 @@
     box-sizing:border-box;
     font-family:'Inter',sans-serif;
 }
+body{
+    background-color: var(--bg);
+}
 
 .container {
     display: flex;
     height: 100vh;
+    background-color: var(--bg);
 }
 
 /* ========================= */
@@ -119,18 +123,21 @@
 }
 
 /*container*/
-.content {
+.content{
+
     flex: 1;
     padding: 20px;
     margin-left: 17%;
-    background-color: #F8FAFC;
+
+    background:var(--bg);
+    color:var(--text);
 }
 
 
 /* Dashboard Title */
 .dashboard-title {
     margin-bottom: 25px;
-    color: #1f2937;
+    color:var(--text);
 }
 
 /* Card Container */
@@ -142,13 +149,14 @@
 }
 
 /* Individual Card */
-.card {
+.card{
+    background:var(--card);
+    color:var(--text);
 
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    transition: 0.3s ease;
-    cursor: pointer;
+    border-radius:15px;
+    padding:25px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .card:hover {
@@ -166,13 +174,15 @@
 /* Label */
 .card p {
     margin-top: 10px;
-    color: #000000;
+    color:var(--text-secondary);
     font-size: 15px;
 }
 
 
 .reports-container{
     padding:30px;
+    background:var(--bg);
+    color:var(--text);
 }
 
 .reports-header{
@@ -183,7 +193,7 @@
 }
 
 .reports-header h1{
-    color:#1f2937;
+    color:var(--text);
 }
 
 .add-btn{
@@ -221,7 +231,8 @@
 .reports-table{
     width:100%;
     border-collapse:collapse;
-    background:white;
+    background:var(--card);
+    color:var(--text);
     border-radius:12px;
     overflow:hidden;
     box-shadow:0 4px 15px rgba(0,0,0,.08);
@@ -236,11 +247,11 @@
 
 .reports-table td{
     padding:15px;
-    border-bottom:1px solid #eee;
+    border-bottom:1px solid var(--border);
 }
 
 .reports-table tr:hover{
-    background:#f8fafc;
+    background:var(--table-hover);
 }
 
 .status{
@@ -401,7 +412,8 @@
     max-width:95%;
     max-height:90vh;
 
-    background:white;
+    background:var(--card);
+    color:var(--text);
 
     border-radius:12px;
 
@@ -471,7 +483,9 @@
 .form-group textarea,
 .form-group select{
     padding:10px 14px;
-    border:1px solid #d1d5db;
+    background:var(--card);
+    color:var(--text);
+    border:1px solid var(--border);
     border-radius:8px;
     font-size:14px;
 }
@@ -553,15 +567,6 @@
     text-align: center;
 }
 
-.profile-card{
-    background-color: rgb(226, 233, 227);
-    line-height: 2.0;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 20px;
-    
-}
-
 .profile-container{
     padding:30px;
 }
@@ -576,7 +581,8 @@
     max-width:800px;
     margin:auto;
 
-    background:#fff;
+    background-color: var(--bg);
+    color: var(--text);
 
     border-radius:16px;
 
@@ -1274,4 +1280,43 @@ hr{
 .enabled{
     background:#dcfce7;
     color:#15803d;
+}
+.setting-input{
+    width:260px;
+    padding:10px 12px;
+    border:1px solid #d1d5db;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+}
+
+.setting-input:focus{
+    border-color:#2563eb;
+}
+.light-theme{
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #111827;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --table-hover: #f8fafc;
+}
+
+.dark-theme{
+    --bg: #111827;
+    --card: #1f2937;
+    --text: #f9fafb;
+    --text-secondary: #9ca3af;
+    --border: #374151;
+    --table-hover: #374151;
+}
+.setting-card{
+    background:var(--card);
+    color:var(--text);
+
+    border-radius:12px;
+    padding:30px;
+    margin-top:25px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
 }

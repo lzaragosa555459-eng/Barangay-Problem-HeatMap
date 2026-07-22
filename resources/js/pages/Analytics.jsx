@@ -230,12 +230,13 @@ export default function Analytics() {
 
             <div
                 style={{
-                    background: "#fff",
+                    
                     padding: "20px",
                     borderRadius: "12px",
                     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                     marginBottom: "30px",
                 }}
+                className="setting-card"
             >
                 <ResponsiveContainer
                     width="100%"
@@ -269,12 +270,13 @@ export default function Analytics() {
 
             <div
                 style={{
-                    background: "#fff",
+                    
                     padding: "20px",
                     borderRadius: "12px",
                     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                     marginBottom: "30px",
                 }}
+                className="setting-card"
             >
                 <ResponsiveContainer width="100%" height={350}>
                     <BarChart
@@ -315,12 +317,13 @@ export default function Analytics() {
 
             <div
                 style={{
-                    background: "#fff",
+                    
                     padding: "20px",
                     borderRadius: "12px",
                     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                     marginBottom: "30px",
                 }}
+                className="setting-card"
             >
                 <ResponsiveContainer
                     width="100%"
@@ -357,13 +360,14 @@ export default function Analytics() {
 
             <div
                 style={{
-                    background: "#fff",
+                    
                     padding: "20px",
                     borderRadius: "12px",
                     boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
                     marginBottom: "30px",
                     overflowX: "auto",
                 }}
+                className="setting-card"
             >
                 <div
                     style={{
@@ -466,6 +470,7 @@ export default function Analytics() {
                         gap: "10px",
                         marginTop: "25px",
                     }}
+                    className="setting-card"
                 >
                     <span>Low</span>
 

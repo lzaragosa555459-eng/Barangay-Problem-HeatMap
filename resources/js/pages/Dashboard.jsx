@@ -43,47 +43,47 @@ export default function Dashboard() {
 
                 <div className="cards">
 
-                    <div className="card" style={{ backgroundColor: "#3b82f6" }}>
+                    <div className="card" className="setting-card">
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineDocumentText size={40} color="white" />
-                            <h2 style={{ color: "white" }}>{stats.totalReports}</h2>
+                            <HiOutlineDocumentText size={40}/>
+                            <h2>{stats.totalReports}</h2>
                         </div>
 
-                        <p style={{ color: "#dbeafe" }}>Total Reports</p>
+                        <p>Total Reports</p>
 
                     </div>
 
-                    <div className="card" style={{ backgroundColor: "#f59e0b" }}>
+                    <div className="card" className="setting-card">
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineClock size={40} color="white" />
-                            <h2 style={{ color: "white" }}>{stats.pendingReports}</h2>
+                            <HiOutlineClock size={40}/>
+                            <h2>{stats.pendingReports}</h2>
                         </div>
 
-                        <p style={{ color: "#fef3c7" }}>Open Cases</p>
+                        <p>Open Cases</p>
 
                     </div>
 
-                    <div className="card" style={{ backgroundColor: "#10b981" }}>
+                    <div className="card"  className="setting-card">
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineCheckBadge size={40} color="white" />
-                            <h2 style={{ color: "white" }}>{stats.resolvedReports}</h2>
+                            <HiOutlineCheckBadge size={40}/>
+                            <h2>{stats.resolvedReports}</h2>
                         </div>
 
-                        <p style={{ color: "#d1fae5" }}>Resolved Cases</p>
+                        <pS>Resolved Cases</pS>
 
                     </div>
 
-                    <div className="card" style={{ backgroundColor: "#ef4444" }}>
+                    <div className="card" className="setting-card">
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineExclamationTriangle size={40} color="white" />
-                            <h2 style={{ color: "white" }}>{stats.criticalReports}</h2>
+                            <HiOutlineExclamationTriangle size={40}/>
+                            <h2>{stats.criticalReports}</h2>
                         </div>
 
-                        <p style={{ color: "#fee2e2" }}>High Risk Areas</p>
+                        <p>High Risk Areas</p>
 
                     </div>
 
@@ -91,25 +91,25 @@ export default function Dashboard() {
 
                 <div className="cards">
 
-                    <div className="card" style={{ backgroundColor: "#8b5cf6" }}>
+                    <div className="card" className="setting-card">
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineUsers size={50} color="white" />
-                            <h2 style={{ color: "white", fontSize: "50px" }}>{stats.totalCitizens}</h2>
+                            <HiOutlineUsers size={50}/>
+                            <h2 style={{  fontSize: "50px" }}>{stats.totalCitizens}</h2>
                         </div>
 
-                        <p style={{ color: "#ede9fe", fontSize: "25px" }}>Total Citizens</p>
+                        <p style={{  fontSize: "25px" }}>Total Citizens</p>
 
                     </div>
 
-                    <div className="card" style={{ backgroundColor: "#06b6d4" }}>
+                    <div className="card"  className="setting-card">
 
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineShieldCheck size={50} color="white" />
-                            <h2 style={{ color: "white", fontSize: "50px" }}>{stats.totalOfficials}</h2>
+                            <HiOutlineShieldCheck size={50}/>
+                            <h2 style={{  fontSize: "50px" }}>{stats.totalOfficials}</h2>
                         </div>
 
-                        <p style={{ color: "#cffafe", fontSize: "25px" }}>Total Officials</p>
+                        <p style={{ fontSize: "25px" }}>Total Officials</p>
 
                     </div>
                 </div>
@@ -119,9 +119,9 @@ export default function Dashboard() {
                     style={{
                         marginTop: "25px",
                         padding: "20px",
-                        background: "#fff",
                         borderRadius: "12px",
                     }}
+                    className="setting-card"
                 >
 
                     <h2 style={{ marginBottom: "20px" }}>

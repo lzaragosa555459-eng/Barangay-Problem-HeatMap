@@ -8,6 +8,7 @@ import {
     FiTool
 } from "react-icons/fi";
 
+
 export default function Settings() {
     const [settings, setSettings] = useState({
         system_name: "",
@@ -34,6 +35,8 @@ export default function Settings() {
             .then((response) => {
 
                 setSettings(response.data);
+
+                document.body.className = response.data.theme + "-theme";
             })
             .catch((error) => {
 
@@ -48,7 +51,26 @@ export default function Settings() {
     
     useEffect(() => {
         fetchSettings();
+       
     }, []);
+
+    const saveSettings = async () => {
+
+        try {
+
+            await api.put("/settings", settings);
+
+            alert("Settings updated successfully!");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Failed to update settings.");
+
+        }
+        
+    };
     return (
         <div className="reports-container">
 
@@ -59,14 +81,72 @@ export default function Settings() {
 
             <div
                 style={{
-                    background: "#fff",
+                    
                     borderRadius: "12px",
                     boxShadow: "0 4px 12px rgba(0,0,0,.08)",
                     padding: "30px",
                     marginTop: "25px",
-                }}
-            >
 
+                }}
+                className="setting-card"
+            >
+            {/* General Settings */}
+
+            <h2 style={{ marginBottom: "20px" }}>
+                General Settings
+            </h2>
+
+            <div className="setting-row">
+
+                <div>
+                    <h3>System Name</h3>
+                    <p>Name displayed throughout the system.</p>
+                </div>
+
+                <input
+                    type="text"
+                    value={settings.system_name || ""}
+                    onChange={(e) =>
+                        setSettings({
+                            ...settings,
+                            system_name: e.target.value,
+                        })
+                    }
+                    className="setting-input"
+                />
+
+            </div>
+
+            <hr />
+
+            <div className="setting-row">
+
+                <div>
+                    <h3>Theme</h3>
+                    <p>Select the system theme.</p>
+                </div>
+
+                <select
+                    value={settings.theme}
+                    onChange={(e)=>{
+
+                        setSettings({
+                            ...settings,
+                            theme:e.target.value
+                        });
+
+                        document.body.className = e.target.value + "-theme";
+
+                    }}
+                    className="setting-input"
+                >
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+
+            </div>
+
+            <hr />
                 {/* Logo */}
                 <div className="setting-row">
                     <div>
@@ -139,6 +219,20 @@ export default function Settings() {
                         <input type="checkbox" />
                         Enable
                     </label>
+                </div>
+
+                <div
+                    style={{
+                        marginTop: "30px",
+                        textAlign: "right",
+                    }}
+                >
+                    <button
+                        className="btn-success"
+                        onClick={saveSettings}
+                    >
+                        Save Changes
+                    </button>
                 </div>
 
             </div>
