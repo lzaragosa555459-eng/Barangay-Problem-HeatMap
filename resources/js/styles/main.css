@@ -1063,7 +1063,7 @@ body{
 
         border-radius:10px;
 
-        background:#14532D;
+        background:transparent;
 
         color:white;
 
@@ -1072,8 +1072,6 @@ body{
         cursor:pointer;
 
         z-index:2500;
-
-        box-shadow:0 4px 10px rgba(0,0,0,.2);
 
     }
 

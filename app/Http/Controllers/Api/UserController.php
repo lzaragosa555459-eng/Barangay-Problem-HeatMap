@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Illuminate\Support\Facades\Hash;
-
+// TODO: add decrement for sorting new data
 class UserController extends Controller
 {
     public function index(){

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Barangay;
 use Illuminate\Http\Request;
-
+// TODO: add decrement for sorting new data
 class BarangayController
 {
     /**
