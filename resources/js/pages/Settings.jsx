@@ -7,9 +7,11 @@ import {
     FiRefreshCw,
     FiTool
 } from "react-icons/fi";
-
+import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
+    const navigate = useNavigate();
+
     const [settings, setSettings] = useState({
         system_name: "",
         system_logo: "",
@@ -230,7 +232,7 @@ export default function Settings() {
                         </p>
                     </div>
 
-                    <button className="btn-primary">
+                    <button className="btn-primary" onClick={()=>navigate("/barangay-management")}>
                         Manage
                     </button>
                 </div>

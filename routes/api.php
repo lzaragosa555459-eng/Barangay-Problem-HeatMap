@@ -95,11 +95,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/problem-categories', [ProblemCategoryController::class, 'store']);
         Route::put('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'update']);
         Route::delete('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'destroy']);
+
+        
         Route::get('/settings', [SettingController::class, 'index']);
         Route::put('/settings', [SettingController::class, 'updateSystemName']);
+        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
        
     });
 
 });
 
-Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
