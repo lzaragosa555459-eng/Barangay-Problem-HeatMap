@@ -102,3 +102,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
+Route::post('/settings/logo', [SettingController::class, 'updateLogo']);

@@ -71,6 +71,41 @@ export default function Settings() {
         }
         
     };
+    const uploadLogo = async (e) => {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        const formData = new FormData();
+
+        formData.append("logo", file);
+
+        try {
+
+            const response = await api.post(
+                "/settings/logo",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            setSettings(response.data.settings);
+
+            alert("Logo updated successfully!");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Failed to upload logo.");
+
+        }
+
+    };
     return (
         <div className="reports-container">
 
@@ -149,14 +184,38 @@ export default function Settings() {
             <hr />
                 {/* Logo */}
                 <div className="setting-row">
+
                     <div>
                         <h3><FiImage /> System Logo</h3>
                         <p>Upload or replace the official system logo.</p>
                     </div>
 
-                    <button className="btn-primary">
-                        Change Logo
-                    </button>
+                    <input
+                        type="file"
+                        id="logoInput"
+                        accept="image/*"
+                        hidden
+                        onChange={uploadLogo}
+                    />
+                    <div>
+
+                    </div>
+                    <div className="logo-container">
+                        <img
+                            src={`http://127.0.0.1:8000/storage/${settings.system_logo}`}
+                            alt="Logo"
+                            className="system-logo"
+                        />
+
+                        <button
+                            className="btn-primary"
+                            onClick={() => document.getElementById("logoInput").click()}
+                        >
+                            Change Logo
+                        </button>
+                    </div>
+
+
                 </div>
 
                 <hr />

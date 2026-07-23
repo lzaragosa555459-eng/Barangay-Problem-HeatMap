@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -15,8 +16,30 @@ class SettingController extends Controller
         );
     }
 
-    public function updateLogo(){
+    public function updateLogo(Request $request)
+    {
+        $request->validate([
+            'logo' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+        ]);
 
+        $settings = Setting::first();
+
+        if ($settings->system_logo) {
+
+            Storage::disk('public')->delete($settings->system_logo);
+
+        }
+
+        $path = $request->file('logo')->store('logos', 'public');
+
+        $settings->update([
+            'system_logo' => $path,
+        ]);
+
+        return response()->json([
+            'message' => 'Logo updated successfully.',
+            'settings' => $settings,
+        ]);
     }
 
     public function updateSystemName(Request $request){
