@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->statefulApi();
         $middleware->alias([
             'role' => \App\Http\Middleware\RoleMiddleware::class,
+            'maintenance.mode' => \App\Http\Middleware\MaintenanceMode::class,
         ]);
     })
     

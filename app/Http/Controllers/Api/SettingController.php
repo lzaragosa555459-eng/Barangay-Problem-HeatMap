@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Process;
+
 class SettingController extends Controller
 {
     public function index(){
@@ -109,5 +110,54 @@ class SettingController extends Controller
         }
 
         return response()->download($path)->deleteFileAfterSend(true);
+    }
+
+    public function restoreDatabase(Request $request)
+    {
+        $request->validate([
+            'backup' => 'required|file',
+        ]);
+
+        $database = env('DB_DATABASE');
+        $username = env('DB_USERNAME');
+        $password = env('DB_PASSWORD');
+        $host = env('DB_HOST');
+
+        $file = $request->file('backup');
+
+        $fullPath = $file->getRealPath();
+
+        $process = new Process([
+            'mysql',
+            '-h',
+            $host,
+            '-u',
+            $username,
+            '--password=' . $password,
+            $database,
+        ]);
+
+        $process->setInput(file_get_contents($fullPath));
+
+        $process->run();
+
+        if ($request->file('backup')->getClientOriginalExtension() !== 'sql') {
+            return response()->json([
+                'message' => 'Please upload a valid .sql file.'
+            ], 422);
+        }
+
+        return response()->json([
+            'message' => 'Database restored successfully.'
+        ]);
+    }
+
+    public function maintenanceStatus()
+    {
+        $setting = Setting::first();
+
+        return response()->json([
+            'maintenance_mode' => (bool) $setting->maintenance_mode,
+        ]);
     }
 }

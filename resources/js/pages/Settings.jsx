@@ -68,6 +68,8 @@ export default function Settings() {
 
             console.error(error);
 
+            console.log(error.response.data);
+
             alert("Failed to update settings.");
 
         }
@@ -102,6 +104,8 @@ export default function Settings() {
         } catch (error) {
 
             console.error(error);
+
+            console.log(error.response.data);
 
             alert("Failed to upload logo.");
 
@@ -143,7 +147,49 @@ export default function Settings() {
 
             console.error(error);
 
+            console.log(error.response.data);
+
             alert("Backup failed.");
+
+        }
+
+    };
+
+    const restoreDatabase = async (e) => {
+
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!window.confirm("This will overwrite the current database. Continue?")) {
+            return;
+        }
+
+        const formData = new FormData();
+
+        formData.append("backup", file);
+
+        try {
+
+            await api.post(
+                "/settings/restore",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
+            alert("Database restored successfully.");
+
+        } catch (error) {
+
+            console.error(error);
+
+            console.log(error.response.data);
+
+            alert("Restore failed.");
 
         }
 
@@ -303,7 +349,18 @@ export default function Settings() {
                         <p>Restore the system from an existing database backup.</p>
                     </div>
 
-                    <button className="btn-warning">
+                    <input
+                        type="file"
+                        id="restoreInput"
+                        accept=".sql"
+                        hidden
+                        onChange={restoreDatabase}
+                    />
+
+                    <button
+                        className="btn-warning"
+                        onClick={() => document.getElementById("restoreInput").click()}
+                    >
                         Restore
                     </button>
                 </div>
@@ -313,14 +370,38 @@ export default function Settings() {
                 {/* Maintenance */}
                 <div className="setting-row">
                     <div>
-                        <h3><FiTool /> Maintenance Mode<span className="status-badge disabled">Disabled</span></h3>
+                        <h3>
+                            <FiTool /> Maintenance Mode
+
+                            <span
+                                className={`status-badge ${
+                                    settings.maintenance_mode
+                                        ? "enabled"
+                                        : "disabled"
+                                }`}
+                            >
+                                {settings.maintenance_mode
+                                    ? "Enabled"
+                                    : "Disabled"}
+                            </span>
+
+                        </h3>
                         <p>
                             Temporarily disable public access while performing maintenance.
                         </p>
                     </div>
 
                     <label className="setting-switch">
-                        <input type="checkbox" />
+                        <input
+                            type="checkbox"
+                            checked={settings.maintenance_mode}
+                            onChange={(e) =>
+                                setSettings({
+                                    ...settings,
+                                    maintenance_mode: e.target.checked,
+                                })
+                            }
+                        />
                         Enable
                     </label>
                 </div>

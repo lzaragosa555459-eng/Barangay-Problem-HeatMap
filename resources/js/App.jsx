@@ -13,6 +13,7 @@ import ProblemCategoryManagement from "./pages/ProblemCategoryManagement";
 import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Maintenance from "./pages/Maintenance";
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 
@@ -59,9 +60,10 @@ function AdminLayout() {
                     <Route path="/markmap" element={<Markmap />} />
                     <Route path="/heatmap" element={<Heatmap />} />
                     <Route path="/reports" element={<Reports />} />
-                    <Route path="/settings" element={<Settings />} />          
+                    <Route path="/settings" element={<Settings />} />    
+ 
                 </Routes>
-
+  
             </div>
 
         </div>
@@ -77,6 +79,8 @@ export default function App() {
                 <Route path="/" element={<Login />} />
 
                 <Route path="/login" element={<Login />} />
+
+                <Route path="/maintenance" element={<Maintenance />} />  
 
                 <Route path="/*" element={<AdminLayout />} />
 

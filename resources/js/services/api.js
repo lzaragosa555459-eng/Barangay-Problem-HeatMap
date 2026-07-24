@@ -19,3 +19,20 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+
+api.interceptors.response.use(
+    (response) => response,
+
+    (error) => {
+
+        if (error.response?.status === 503) {
+
+            window.history.pushState({}, "", "/maintenance");
+            window.dispatchEvent(new PopStateEvent("popstate"));
+
+        }
+
+        return Promise.reject(error);
+
+    }
+);

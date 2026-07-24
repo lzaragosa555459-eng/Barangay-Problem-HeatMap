@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/reports-map', [ReportController::class, 'map']);
     Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+    Route::get('/maintenance', [SettingController::class, 'maintenanceStatus']);
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:Administrator,Barangay Official')->group(function () {
 
-        Route::put('/reports/{report}', [ReportController::class, 'update']);
+    Route::put('/reports/{report}', [ReportController::class, 'update']);
 
     });
 
@@ -101,6 +102,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/settings', [SettingController::class, 'updateSystemName']);
         Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
         Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
+        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
+    });
+
+    Route::middleware(['maintenance.mode'])->group(function () {
+
+        Route::apiResource('reports', ReportController::class);
+        Route::apiResource('users', UserController::class);
+        Route::apiResource('barangays', BarangayController::class);
+
     });
 
 });
