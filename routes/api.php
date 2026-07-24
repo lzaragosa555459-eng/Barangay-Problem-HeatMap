@@ -100,7 +100,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/settings', [SettingController::class, 'index']);
         Route::put('/settings', [SettingController::class, 'updateSystemName']);
         Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
-       
+        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
     });
 
 });

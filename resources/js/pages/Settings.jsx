@@ -108,6 +108,46 @@ export default function Settings() {
         }
 
     };
+
+    const backupDatabase = async () => {
+
+        try {
+
+            const response = await api.get(
+                "/settings/backup",
+                {
+                    responseType: "blob",
+                }
+            );
+
+            const url = window.URL.createObjectURL(
+                new Blob([response.data])
+            );
+
+            const link = document.createElement("a");
+
+            link.href = url;
+
+            link.setAttribute(
+                "download",
+                "barangay_heat_backup.sql"
+            );
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            link.remove();
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Backup failed.");
+
+        }
+
+    };
     return (
         <div className="reports-container">
 
@@ -244,9 +284,12 @@ export default function Settings() {
                     <div>
                         <h3><FiDatabase /> Database Backup</h3>
                         <p>Create and download a backup of the system database.</p>
-                    </div>
+                    </div>  
 
-                    <button className="btn-success">
+                    <button
+                        className="btn-success"
+                        onClick={backupDatabase}
+                    >
                         Backup
                     </button>
                 </div>

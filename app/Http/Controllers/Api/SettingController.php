@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
-
+use Symfony\Component\Process\Process;
 class SettingController extends Controller
 {
     public function index(){
@@ -76,5 +76,38 @@ class SettingController extends Controller
 
     public function systemInfo(){
 
+    }
+
+    public function backupDatabase()
+    {
+        $database = env('DB_DATABASE');
+        $username = env('DB_USERNAME');
+        $password = env('DB_PASSWORD');
+        $host = env('DB_HOST');
+
+        $filename = 'backup_' . now()->format('Y-m-d_H-i-s') . '.sql';
+
+        $path = storage_path('app/' . $filename);
+
+        $process = new Process([
+            'mysqldump',
+            '-h',
+            $host,
+            '-u',
+            $username,
+            '--password=' . $password,
+            $database,
+            '--result-file=' . $path,
+        ]);
+
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            return response()->json([
+                'message' => 'Backup failed.'
+            ], 500);
+        }
+
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 }
