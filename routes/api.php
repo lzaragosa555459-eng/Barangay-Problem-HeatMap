@@ -60,7 +60,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:Administrator,Barangay Official')->group(function () {
 
-    Route::put('/reports/{report}', [ReportController::class, 'update']);
+    	Route::put('/reports/{report}', [ReportController::class, 'update']);
 
     });
 
