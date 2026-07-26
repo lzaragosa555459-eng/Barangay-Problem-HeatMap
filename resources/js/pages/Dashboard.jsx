@@ -74,7 +74,7 @@ export default function Dashboard() {
                             <h2>{stats.resolvedReports}</h2>
                         </div>
 
-                        <pS>Resolved Cases</pS>
+                        <p>Resolved Cases</p>
 
                     </div>
 

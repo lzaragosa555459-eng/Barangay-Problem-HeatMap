@@ -51,7 +51,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/reports-map', [ReportController::class, 'map']);
     Route::get('/reports-markmap', [ReportController::class, 'markmap']);
     Route::get('/maintenance', [SettingController::class, 'maintenanceStatus']);
-
+    Route::put('/profile', [ProfileController::class, 'update']);
+    Route::put('/profile/password', [ProfileController::class, 'changePassword']);
     /*
     |--------------------------------------------------------------------------
     | Barangay Official & Administrator
