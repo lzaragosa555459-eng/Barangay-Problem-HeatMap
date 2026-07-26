@@ -21,8 +21,47 @@ import {
 } from "react-icons/md";
 import logo from "../../images/logoBG.png";
 import { FiMenu } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 
 export default function Navbar({ sidebarOpen, setSidebarOpen }) {
+    const [settings, setSettings] = useState({
+        system_name: "",
+        system_logo: "",
+    });
+    
+    const fetchSettings = async () => { 
+
+        api.get("/settings")
+            .then((response) => {
+
+                setSettings(response.data);
+            })
+            .catch((error) => {
+
+                console.error(error);
+
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+
+            });
+    };
+
+    useEffect(() => {
+
+        fetchSettings();
+
+        const refresh = () => fetchSettings();
+
+        window.addEventListener("settingsUpdated", refresh);
+
+        return () => {
+            window.removeEventListener("settingsUpdated", refresh);
+        };
+
+    }, []);
+
     return (
         <div className={`sidebar ${sidebarOpen ? "active" : ""}`}>
 
@@ -33,32 +72,21 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                 alignItems: "center",      // Vertical alignment
                 justifyContent: "center",  // Center the whole group
                 gap: "12px",
-                marginBottom: "20px",
+                marginBottom: "30px",
                 width: "100%",
+            
             }}
-        >
+        >   
+            
             <img
-                src={logo}
-                alt="BCPM Logo"
-                style={{
-                    width: "100px",
-                    height: "auto",
-                    objectFit: "contain",
-                    display: "block",
-                }}
+                src={`http://127.0.0.1:8000/storage/${settings.system_logo}`}
+                alt="Logo"
+                className="system-logo"
+                style={{height:"60px"}}
             />
+            <p>{settings.system_name}</p>
 
-           {/* <h2
-                style={{
-                    margin: 0,
-                    color: "white",
-                    fontWeight: "700",
-                    lineHeight: 1,
-                    padding: 20
-                }}
-            >
-                BCPM
-            </h2>*/}
+
         </div>
 
             <ul>

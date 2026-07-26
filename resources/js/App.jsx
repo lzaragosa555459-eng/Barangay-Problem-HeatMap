@@ -16,7 +16,8 @@ import Settings from "./pages/Settings";
 import Maintenance from "./pages/Maintenance";
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
-
+import { useEffect } from "react";
+import api from "./services/api";
 
 function AdminLayout() {
 
@@ -63,7 +64,7 @@ function AdminLayout() {
                     <Route path="/settings" element={<Settings />} />    
  
                 </Routes>
-  
+
             </div>
 
         </div>
@@ -71,6 +72,18 @@ function AdminLayout() {
 }
 
 export default function App() {
+
+
+    useEffect(() => {
+
+        api.get("/settings")
+            .then((response) => {
+                document.body.className =
+                    response.data.theme + "-theme";
+            });
+
+    }, []);
+
     return (
         <BrowserRouter>
         

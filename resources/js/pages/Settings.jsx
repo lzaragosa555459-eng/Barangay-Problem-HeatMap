@@ -31,7 +31,7 @@ export default function Settings() {
 
 
 
-    const fetchSettings = async () => {
+    const fetchSettings = async () => { 
 
         api.get("/settings")
             .then((response) => {
@@ -60,7 +60,12 @@ export default function Settings() {
 
         try {
 
-            await api.put("/settings", settings);
+            const response = await api.put("/settings", settings);
+
+            setSettings(response.data.settings);
+
+            // Notify Navbar that settings changed
+            window.dispatchEvent(new Event("settingsUpdated"));
 
             alert("Settings updated successfully!");
 
@@ -68,12 +73,10 @@ export default function Settings() {
 
             console.error(error);
 
-            console.log(error.response.data);
-
             alert("Failed to update settings.");
 
         }
-        
+
     };
     const uploadLogo = async (e) => {
 
@@ -98,6 +101,8 @@ export default function Settings() {
             );
 
             setSettings(response.data.settings);
+
+            window.dispatchEvent(new Event("settingsUpdated"));
 
             alert("Logo updated successfully!");
 
