@@ -116,3 +116,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
+//TODO: make for the barangay official interface.
