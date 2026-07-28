@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProblemCategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AnalyticsController;
+use App\Http\Controllers\Api\NavbarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Models\User;
 use App\Http\Controllers\Api\SettingController;
@@ -53,7 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     */
 
     Route::middleware('role:Administrator,Barangay Official')->group(function () {
-        
+
         Route::get('/reports', [ReportController::class, 'index']);
         Route::post('/reports', [ReportController::class, 'store']);
 
@@ -86,7 +87,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/problem-categories', [ProblemCategoryController::class, 'store']);
         Route::put('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'update']);
         Route::delete('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'destroy']);
+        Route::get('/role', [NavbarController::class, 'roles']);
 
+        Route::get('/settings', [SettingController::class, 'index']);
+        Route::put('/settings', [SettingController::class, 'updateSystemName']);
+        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
+        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
+        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
     });
 
     /*
@@ -98,11 +105,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:Administrator')->group(function () {
 
         
-        Route::get('/settings', [SettingController::class, 'index']);
-        Route::put('/settings', [SettingController::class, 'updateSystemName']);
-        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
-        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
-        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
+
     });
 
     Route::middleware(['maintenance.mode'])->group(function () {
@@ -115,4 +118,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-//TODO: make for the barangay official interface.
+
+//TODO: Add assignment module in pages for barangay officials to adress the reporst.

@@ -48,25 +48,41 @@ class ReportController
         return response()->json(['data' => $data]);
     }
     
-    public function map()
+    public function map(Request $request)
     {
-        return Report::with([
+        $user = $request->user();
+
+        $query = Report::with([
             'barangay',
             'problemCategory'
-        ])
-        ->orderBy('reported_at', 'desc')
-        ->get();
+        ]);
+
+        if ($user->role === 'Barangay Official') {
+            $query->where('barangay_id', $user->barangay_id);
+        }
+
+        return $query
+            ->orderBy('reported_at', 'desc')
+            ->get();
     }
 
-    public function markmap()
+    public function markmap(Request $request)
     {
-        return Report::with([
+        $user = $request->user();
+
+        $query = Report::with([
             'barangay',
             'problemCategory'
         ])
-        ->where('status', '!=', 'Resolved')
-        ->orderBy('reported_at', 'desc')
-        ->get();
+        ->where('status', '!=', 'Resolved');
+
+        if ($user->role === 'Barangay Official') {
+            $query->where('barangay_id', $user->barangay_id);
+        }
+
+        return $query
+            ->orderBy('reported_at', 'desc')
+            ->get();
     }
 
     /**

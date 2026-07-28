@@ -29,6 +29,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
         system_name: "",
         system_logo: "",
     });
+    const [roles, setRoles] = useState([]);
     
     const fetchSettings = async () => { 
 
@@ -36,6 +37,12 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             .then((response) => {
 
                 setSettings(response.data);
+            })
+        api.get("/role")
+            .then((response) => {
+
+                setRoles(response.data);
+
             })
             .catch((error) => {
 
@@ -115,46 +122,49 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         Dashboard
                     </NavLink>
                 </li>
+                {roles.role === 'Barangay Official' ? <li hidden></li> : 
+                    <li>
+                        <NavLink
+                            to="/user-management"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FiUsers style={{ marginRight: "10px" }} />
+                            User Management
+                        </NavLink>
+                    </li>
+                }
 
-                <li>
-                    <NavLink
-                        to="/user-management"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FiUsers style={{ marginRight: "10px" }} />
-                        User Management
-                    </NavLink>
-                </li>
-
-                <li>
-                    <NavLink
-                        to="/barangay-management"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <MdLocationCity style={{ marginRight: "10px" }} />
-                        Barangay Management
-                    </NavLink>
-                </li>
-
-                <li>
-                    <NavLink
-                        to="/problem-category-management"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FiLayers style={{ marginRight: "10px" }} />
-                        Problem Categories
-                    </NavLink>
-                </li>
-
+                {roles.role === 'Barangay Official' ? <li hidden></li> : 
+                    <li>
+                        <NavLink
+                            to="/barangay-management"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <MdLocationCity style={{ marginRight: "10px" }} />
+                            Barangay Management
+                        </NavLink>
+                    </li>
+                }
+                {roles.role === 'Barangay Official' ? <li hidden></li> : 
+                    <li>
+                        <NavLink
+                            to="/problem-category-management"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FiLayers style={{ marginRight: "10px" }} />
+                            Problem Categories
+                        </NavLink>
+                    </li>
+                }
                 <li>
                     <NavLink
                         to="/analytics"
@@ -206,19 +216,26 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         Reports
                     </NavLink>
                 </li>
+                {
+                    roles.role === 'Barangay Official' ? 
+                    <li hidden>
+                        {/*hide settings if the user is barangay official*/}
+                    </li>
+                    : 
+                    <li>
+                        <NavLink
+                            to="/settings"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FiSettings style={{ marginRight: "10px" }} />
+                            Settings
+                        </NavLink>
+                    </li>
+                }
 
-                <li>
-                    <NavLink
-                        to="/settings"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FiSettings style={{ marginRight: "10px" }} />
-                        Settings
-                    </NavLink>
-                </li>
 
                 <li>
                     <NavLink

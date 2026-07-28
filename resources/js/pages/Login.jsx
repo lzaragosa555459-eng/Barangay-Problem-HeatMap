@@ -32,7 +32,7 @@ export default function Login() {
                 navigate("/dashboard");
             }
             else if (user.role === "Barangay Official") {
-                navigate("/official");
+                navigate("/dashboard");
             }
             else {
                 navigate("/citizen");

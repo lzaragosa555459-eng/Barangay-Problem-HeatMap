@@ -7,76 +7,148 @@ use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
 class AnalyticsController extends Controller
 {
-    public function index(){
+    public function index(Request $request)
+    {
+        $user = $request->user();
 
-        $monthlyReports = Report::select(
-                DB::raw("MONTH(reported_at) as month"),
-                DB::raw("COUNT(*) as total")
-            )
-            ->groupBy(DB::raw("MONTH(reported_at)"))
-            ->orderBy("month")
-            ->get();
+        if ($user->role === "Barangay Official") {
 
-        $reportsByBarangay = Report::select(
-                'barangay_id',
-                DB::raw('COUNT(*) as total')
-            )
-            ->with('barangay')
-            ->groupBy('barangay_id')
-            ->get();
+            $barangayId = $user->barangay_id;
 
-        $reportsByCategory = Report::select(
-                'problem_category_id',
-                DB::raw('COUNT(*) as total')
-            )
-            ->with('problemCategory')
-            ->groupBy('problem_category_id')
-            ->get();
-        $severity = Report::select(
-                'severity',
-                DB::raw('COUNT(*) as total')
-            )
-            ->groupBy('severity')
-            ->get();
+            $monthlyReports = Report::where('barangay_id', $barangayId)
+                ->select(
+                    DB::raw("MONTH(reported_at) as month"),
+                    DB::raw("COUNT(*) as total")
+                )
+                ->groupBy(DB::raw("MONTH(reported_at)"))
+                ->orderBy("month")
+                ->get();
 
-        $total = Report::count();
+            $reportsByBarangay = Report::where('barangay_id', $barangayId)
+                ->select(
+                    'barangay_id',
+                    DB::raw('COUNT(*) as total')
+                )
+                ->with('barangay')
+                ->groupBy('barangay_id')
+                ->get();
 
-        $resolved = Report::where('status','Resolved')->count();
+            $reportsByCategory = Report::where('barangay_id', $barangayId)
+                ->select(
+                    'problem_category_id',
+                    DB::raw('COUNT(*) as total')
+                )
+                ->with('problemCategory')
+                ->groupBy('problem_category_id')
+                ->get();
 
-        $pending = Report::where('status','Pending')->count();
+            $severity = Report::where('barangay_id', $barangayId)
+                ->select(
+                    'severity',
+                    DB::raw('COUNT(*) as total')
+                )
+                ->groupBy('severity')
+                ->get();
 
-        $average = Report::select(
-            DB::raw("AVG(TIMESTAMPDIFF(HOUR, reported_at, updated_at)) as avg_hours")
-        )->first();
+            $total = Report::where('barangay_id', $barangayId)->count();
 
-        $heatmap = Report::with('barangay:id,name')
-            ->select(
-                'barangay_id',
-                DB::raw('MONTH(reported_at) as month'),
-                DB::raw('COUNT(*) as total')
-            )
-            ->groupBy(
-                'barangay_id',
-                DB::raw('MONTH(reported_at)')
-            )
-            ->get();
-        
+            $resolved = Report::where('barangay_id', $barangayId)
+                ->where('status', 'Resolved')
+                ->count();
+
+            $pending = Report::where('barangay_id', $barangayId)
+                ->where('status', 'Pending')
+                ->count();
+
+            $average = Report::where('barangay_id', $barangayId)
+                ->select(
+                    DB::raw("AVG(TIMESTAMPDIFF(HOUR, reported_at, updated_at)) as avg_hours")
+                )
+                ->first();
+
+            $heatmap = Report::where('barangay_id', $barangayId)
+                ->with('barangay:id,name')
+                ->select(
+                    'barangay_id',
+                    DB::raw('MONTH(reported_at) as month'),
+                    DB::raw('COUNT(*) as total')
+                )
+                ->groupBy(
+                    'barangay_id',
+                    DB::raw('MONTH(reported_at)')
+                )
+                ->get();
+
+        } else {
+
+            // Administrator
+
+            $monthlyReports = Report::select(
+                    DB::raw("MONTH(reported_at) as month"),
+                    DB::raw("COUNT(*) as total")
+                )
+                ->groupBy(DB::raw("MONTH(reported_at)"))
+                ->orderBy("month")
+                ->get();
+
+            $reportsByBarangay = Report::select(
+                    'barangay_id',
+                    DB::raw('COUNT(*) as total')
+                )
+                ->with('barangay')
+                ->groupBy('barangay_id')
+                ->get();
+
+            $reportsByCategory = Report::select(
+                    'problem_category_id',
+                    DB::raw('COUNT(*) as total')
+                )
+                ->with('problemCategory')
+                ->groupBy('problem_category_id')
+                ->get();
+
+            $severity = Report::select(
+                    'severity',
+                    DB::raw('COUNT(*) as total')
+                )
+                ->groupBy('severity')
+                ->get();
+
+            $total = Report::count();
+
+            $resolved = Report::where('status', 'Resolved')->count();
+
+            $pending = Report::where('status', 'Pending')->count();
+
+            $average = Report::select(
+                DB::raw("AVG(TIMESTAMPDIFF(HOUR, reported_at, updated_at)) as avg_hours")
+            )->first();
+
+            $heatmap = Report::with('barangay:id,name')
+                ->select(
+                    'barangay_id',
+                    DB::raw('MONTH(reported_at) as month'),
+                    DB::raw('COUNT(*) as total')
+                )
+                ->groupBy(
+                    'barangay_id',
+                    DB::raw('MONTH(reported_at)')
+                )
+                ->get();
+        }
 
         return response()->json([
-                "monthlyReport" => $monthlyReports,
-                "reportsByBarangay" => $reportsByBarangay,
-                "reportsByCategory" => $reportsByCategory,
-                "severity" => $severity,
-                "total" => $total,
-                "resolved" => $resolved,
-                "pending" => $pending,
-                "average" => $average,
-                "heatmap" => $heatmap,
-            ]);
+            "monthlyReport" => $monthlyReports,
+            "reportsByBarangay" => $reportsByBarangay,
+            "reportsByCategory" => $reportsByCategory,
+            "severity" => $severity,
+            "total" => $total,
+            "resolved" => $resolved,
+            "pending" => $pending,
+            "average" => $average,
+            "heatmap" => $heatmap,
+        ]);
     }
 }
-
-    
