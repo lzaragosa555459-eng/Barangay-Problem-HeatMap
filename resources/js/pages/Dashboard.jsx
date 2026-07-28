@@ -39,7 +39,11 @@ export default function Dashboard() {
 
         <div>
             <div className="reports-header">
-                <h1>Dashboard</h1>
+                <h1>
+                    {stats.role === "Barangay Official"
+                        ? `${stats.barangayName} Dashboard`
+                        : "Dashboard"}
+                </h1>
             </div>
 
 
@@ -127,7 +131,7 @@ export default function Dashboard() {
                 >
 
                     <h2 style={{ marginBottom: "20px" }}>
-                        Top 10 Barangays with Most Reports
+                        {stats.role === 'Barangay Official' ? `Graph report for barangay ${stats.barangayName}` : 'Top 10 Barangays with Most Reports'}
                     </h2>
 
                     <ResponsiveContainer

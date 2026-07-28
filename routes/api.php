@@ -45,14 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::get('/reports', [ReportController::class, 'index']);
-    Route::post('/reports', [ReportController::class, 'store']);
 
-    Route::get('/reports-map', [ReportController::class, 'map']);
-    Route::get('/reports-markmap', [ReportController::class, 'markmap']);
-    Route::get('/maintenance', [SettingController::class, 'maintenanceStatus']);
-    Route::put('/profile', [ProfileController::class, 'update']);
-    Route::put('/profile/password', [ProfileController::class, 'changePassword']);
     /*
     |--------------------------------------------------------------------------
     | Barangay Official & Administrator
@@ -60,22 +53,18 @@ Route::middleware('auth:sanctum')->group(function () {
     */
 
     Route::middleware('role:Administrator,Barangay Official')->group(function () {
+        
+        Route::get('/reports', [ReportController::class, 'index']);
+        Route::post('/reports', [ReportController::class, 'store']);
 
-    	Route::put('/reports/{report}', [ReportController::class, 'update']);
-
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Administrator Only
-    |--------------------------------------------------------------------------
-    */
-
-    Route::middleware('role:Administrator')->group(function () {
-
-        Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
-
+        Route::get('/reports-map', [ReportController::class, 'map']);
+        Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+        Route::get('/maintenance', [SettingController::class, 'maintenanceStatus']);
+        Route::put('/profile', [ProfileController::class, 'update']);
+        Route::put('/profile/password', [ProfileController::class, 'changePassword']);
         Route::get('/dashboard', [DashboardController::class, 'index']);
+    	Route::put('/reports/{report}', [ReportController::class, 'update']);
+        Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
 
  
         Route::get('/barangays', [BarangayController::class, 'index']);
@@ -97,6 +86,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/problem-categories', [ProblemCategoryController::class, 'store']);
         Route::put('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'update']);
         Route::delete('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'destroy']);
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Administrator Only
+    |--------------------------------------------------------------------------
+    */
+
+    Route::middleware('role:Administrator')->group(function () {
 
         
         Route::get('/settings', [SettingController::class, 'index']);
