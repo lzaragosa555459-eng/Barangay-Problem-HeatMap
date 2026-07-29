@@ -503,6 +503,7 @@ body{
     justify-content:flex-end;
     gap:10px;
     margin-top:20px;
+    padding: 8px;
 }
 
 .cancel-btn{

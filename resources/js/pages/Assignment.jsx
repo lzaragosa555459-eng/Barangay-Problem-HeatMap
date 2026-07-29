@@ -22,14 +22,26 @@ export default function Assignments() {
             const response = await api.get("/assignments");
 
             setAssignments(response.data);
+            console.log(response.data);
 
         } catch (error) {
 
             console.error(error);
             console.log(error.response.data);
+            console.log(response.data);
         }
 
     };
+
+    const [selectedAssignment, setSelectedAssignment] = useState(null);
+    const [showView, setShowView] = useState(false);
+    const viewAssignment = (assignment) => {
+
+        console.log(assignment);
+        setSelectedAssignment(assignment);
+        setShowView(true);
+    };
+
 
     return (
 
@@ -76,11 +88,11 @@ export default function Assignments() {
                                     <td>{assignment.report.title}</td>
 
                                     <td>
-                                        {assignment.assigned_to.name}
+                                        {assignment.assigned_to?.name}
                                     </td>
 
                                     <td>
-                                        {assignment.assigned_by.name}
+                                        {assignment.assigned_by?.name}
                                     </td>
 
                                     <td>
@@ -109,25 +121,9 @@ export default function Assignments() {
 
                                         <button
                                             className="view-btn"
-                                            //onClick={() => viewAssignment(assignment)}
+                                            onClick={() => viewAssignment(assignment)}
                                         >
                                             <FiEye />
-                                        </button>
-
-                                        <button
-                                            className="save-btn"
-                                            //onClick={acceptAssignment}
-                                        >
-                                            <FiCheck style={{ marginRight: "6px" }} />
-                                            Accept
-                                        </button>
-
-                                        <button
-                                            className="cancel-btn"
-                                            //onClick={declineAssignment}
-                                        >
-                                            <FiX style={{ marginRight: "6px" }} />
-                                            Decline
                                         </button>
 
                                     </td>
@@ -155,7 +151,114 @@ export default function Assignments() {
                 </table>
 
             </div>
+            {showView && selectedAssignment && (
 
+                <div className="modal-overlay">
+
+                    <div className="modal">
+
+                        <div className="modal-header">
+
+                            <h2>Assignment Details</h2>
+
+                            <button
+                                className="close-btn"
+                                onClick={() => setShowView(false)}
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                        <div className="modal-body">
+
+                            <div className="profile-row">
+                                <strong>Report</strong>
+                                <span>{selectedAssignment.report.title}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Description</strong>
+                                <span>{selectedAssignment.report.description}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Barangay</strong>
+                                <span>{selectedAssignment.report.barangay.name}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Category</strong>
+                                <span>{selectedAssignment.report.problem_category.name}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Severity</strong>
+                                <span>{selectedAssignment.report.severity}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Deadline</strong>
+                                <span>{selectedAssignment.deadline}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Status</strong>
+                                <span>{selectedAssignment.status}</span>
+                            </div>
+
+                        </div>
+
+                        <div className="modal-footer">
+
+                            <button
+                                className="cancel-btn"
+                                onClick={() => setShowView(false)}
+                            >
+                                Close
+                            </button>
+
+                            {selectedAssignment.status === "Pending" && (
+
+                                <>
+                                    <button
+                                        className="save-btn"
+                                        //onClick={acceptAssignment}
+                                    >
+                                        <FiCheck style={{ marginRight: "6px" }} />
+                                        Accept
+                                    </button>
+
+                                    <button
+                                        className="cancel-btn"
+                                        //onClick={declineAssignment}
+                                    >
+                                        <FiX style={{ marginRight: "6px" }} />
+                                        Decline
+                                    </button>
+                                </>
+
+                            )}
+
+                            {selectedAssignment.status === "Accepted" && (
+
+                                <button
+                                    className="save-btn"
+                                    //onClick={completeAssignment}
+                                >
+                                    <FiCheckCircle style={{ marginRight: "6px" }} />
+                                    Complete
+                                </button>
+
+                            )}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            )}
         </div>
 
     );

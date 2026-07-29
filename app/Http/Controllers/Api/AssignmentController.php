@@ -16,7 +16,9 @@ class AssignmentController
         $query = Assignment::with([
             'report',
             'assignedTo',
-            'assignedBy'
+            'assignedBy',
+            'report.barangay',
+            'report.problemCategory',
         ]);
 
         if ($user->role === "Barangay Official") {
