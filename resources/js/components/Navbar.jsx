@@ -8,7 +8,8 @@ import {
     FiSettings,
     FiLayers,
     FiGrid,
-    FiUser
+    FiUser,
+    FiClipboard
 } from "react-icons/fi";
 
 import {
@@ -203,19 +204,34 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         Heatmap
                     </NavLink>
                 </li>
-
-                <li>
-                    <NavLink
-                        to="/reports"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FiFileText style={{ marginRight: "10px" }} />
-                        Reports
-                    </NavLink>
-                </li>
+                {roles.role === 'Barangay Official' ? <li hidden></li> : 
+                    <li>
+                        <NavLink
+                            to="/reports"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FiFileText style={{ marginRight: "10px" }} />
+                            Reports
+                        </NavLink>
+                    </li>
+                }
+                {roles.role === 'System Admin' ? <li hidden ></li> : 
+                    <li>
+                        <NavLink
+                            to="/assignments"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FiClipboard style={{ marginRight: "10px" }} />
+                            Assignments
+                        </NavLink>
+                    </li>
+                }
                 {
                     roles.role === 'Barangay Official' ? 
                     <li hidden>

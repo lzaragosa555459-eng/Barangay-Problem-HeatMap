@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ProblemCategoryController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AnalyticsController;
+use App\Http\Controllers\Api\AssignmentController;
 use App\Http\Controllers\Api\NavbarController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Models\User;
@@ -55,11 +56,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('role:Administrator,Barangay Official')->group(function () {
 
-        Route::get('/reports', [ReportController::class, 'index']);
-        Route::post('/reports', [ReportController::class, 'store']);
 
-        Route::get('/reports-map', [ReportController::class, 'map']);
-        Route::get('/reports-markmap', [ReportController::class, 'markmap']);
         Route::get('/maintenance', [SettingController::class, 'maintenanceStatus']);
         Route::put('/profile', [ProfileController::class, 'update']);
         Route::put('/profile/password', [ProfileController::class, 'changePassword']);
@@ -75,6 +72,35 @@ Route::middleware('auth:sanctum')->group(function () {
        
         Route::get('/analytics', [AnalyticsController::class, 'index']);
  
+
+
+        Route::get('/role', [NavbarController::class, 'roles']);
+
+        Route::get('/settings', [SettingController::class, 'index']);
+        Route::put('/settings', [SettingController::class, 'updateSystemName']);
+        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
+        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
+        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
+
+
+
+        Route::get('/reports', [ReportController::class, 'index']);
+        Route::post('/reports', [ReportController::class, 'store']);
+
+        Route::get('/reports-map', [ReportController::class, 'map']);
+        Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Administrator Only
+    |--------------------------------------------------------------------------
+    */
+
+    Route::middleware('role:Administrator')->group(function () {
+
+
+
         Route::get('/users', [UserController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']); 
         Route::put('/users/{user}', [UserController::class, 'update']);
@@ -87,24 +113,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/problem-categories', [ProblemCategoryController::class, 'store']);
         Route::put('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'update']);
         Route::delete('/problem-categories/{problemCategories}', [ProblemCategoryController::class, 'destroy']);
-        Route::get('/role', [NavbarController::class, 'roles']);
-
-        Route::get('/settings', [SettingController::class, 'index']);
-        Route::put('/settings', [SettingController::class, 'updateSystemName']);
-        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
-        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
-        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | Administrator Only
-    |--------------------------------------------------------------------------
-    */
-
-    Route::middleware('role:Administrator')->group(function () {
-
-        
 
     });
 
@@ -114,6 +122,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('users', UserController::class);
         Route::apiResource('barangays', BarangayController::class);
 
+    });
+
+
+    //Barangay Official
+    Route::middleware('role:Barangay Official')->group(function () {
+        Route::get('/assignments', [AssignmentController::class, 'index']);
     });
 
 });

@@ -401,7 +401,7 @@ export default function Reports() {
                 </button>
 
             </div>
-
+            {/*View Report*/}
             {showModal && selectedReport && (
 
                 <div className="modal-overlay">
@@ -448,6 +448,10 @@ export default function Reports() {
                             <p>
                                 <strong>Description:</strong><br />
                                 {selectedReport.description}
+                            </p>
+                            <p>
+                                <button>Reject</button>
+                                <button>Varified</button>
                             </p>
 
                         </div>

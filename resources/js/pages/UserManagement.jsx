@@ -225,7 +225,7 @@ export default function UserManagement(){
 
                     <tr key={user.id}>
 
-                        <td>{user.barangay?.name}</td>
+                        <td>{user.barangay?.name ?? 'None'}</td>
 
                         <td>{user.name}</td>
 
@@ -402,27 +402,26 @@ export default function UserManagement(){
                                 <div className="form-group">
                                     <label>Barangay</label>
 
-                                    <select
-                                        value={form.barangay_id}
-                                        onChange={(e) =>
-                                            setForm({
-                                                ...form,
-                                                barangay_id: e.target.value,
-                                            })
-                                        }
-                                    >
-                                        <option value="">Select Barangay</option>
+                                        <select
+                                            value={form.barangay_id ?? ""}
+                                            onChange={(e) =>
+                                                setForm({
+                                                    ...form,
+                                                    barangay_id: e.target.value === "" ? null : e.target.value,
+                                                })
+                                            }
+                                        >
+                                            <option value="">No Barangay (Administrator)</option>
 
-                                        {barangays.map((barangay) => (
-                                            <option
-                                                key={barangay.id}
-                                                value={barangay.id}
-                                            >
-                                                {barangay.name}
-                                            </option>
-                                        ))}
-
-                                    </select>
+                                            {barangays.map((barangay) => (
+                                                <option
+                                                    key={barangay.id}
+                                                    value={barangay.id}
+                                                >
+                                                    {barangay.name}
+                                                </option>
+                                            ))}
+                                        </select>
 
                                 </div>
 

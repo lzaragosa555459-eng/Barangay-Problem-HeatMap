@@ -21,7 +21,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'barangay_id' => 'required|exists:barangays,id',
+            'barangay_id' => 'nullable|exists:barangays,id',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validated = $request->validate([
-            'barangay_id' => 'required|exists:barangays,id',
+            'barangay_id' => 'nullable|exists:barangays,id',
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'phone' => 'required',

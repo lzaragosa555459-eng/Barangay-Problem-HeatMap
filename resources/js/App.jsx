@@ -14,6 +14,7 @@ import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import Maintenance from "./pages/Maintenance";
+import Assignments from "./pages/Assignment";
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { useEffect } from "react";
@@ -61,6 +62,7 @@ function AdminLayout() {
                     <Route path="/markmap" element={<Markmap />} />
                     <Route path="/heatmap" element={<Heatmap />} />
                     <Route path="/reports" element={<Reports />} />
+                    <Route path="/assignments" element={<Assignments />} />
                     <Route path="/settings" element={<Settings />} />    
  
                 </Routes>
