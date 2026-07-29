@@ -3,18 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-
+use App\Models\Assignment;
 class AssignmentController
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $user = $request->user();
 
-    /**
+        $query = Assignment::with([
+            'report',
+            'assignedTo',
+            'assignedBy'
+        ]);
+
+        if ($user->role === "Barangay Official") {
+
+            $query->where('assigned_to', $user->id);
+
+        }
+
+        return $query
+            ->latest()
+            ->get();
+    }
+        /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

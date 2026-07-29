@@ -123,6 +123,18 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         Dashboard
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink
+                        to="/assignments"
+                        onClick={() => setSidebarOpen(false)}
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiClipboard style={{ marginRight: "10px" }} />
+                        Assignments
+                    </NavLink>
+                </li>
                 {roles.role === 'Barangay Official' ? <li hidden></li> : 
                     <li>
                         <NavLink
@@ -218,20 +230,8 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         </NavLink>
                     </li>
                 }
-                {roles.role === 'System Admin' ? <li hidden ></li> : 
-                    <li>
-                        <NavLink
-                            to="/assignments"
-                            onClick={() => setSidebarOpen(false)}
-                            className={({ isActive }) =>
-                                isActive ? "nav-link active" : "nav-link"
-                            }
-                        >
-                            <FiClipboard style={{ marginRight: "10px" }} />
-                            Assignments
-                        </NavLink>
-                    </li>
-                }
+
+                
                 {
                     roles.role === 'Barangay Official' ? 
                     <li hidden>

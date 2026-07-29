@@ -89,6 +89,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/reports-map', [ReportController::class, 'map']);
         Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+
+        Route::get('/assignments', [AssignmentController::class, 'index']);
     });
 
     /*
@@ -127,7 +129,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Barangay Official
     Route::middleware('role:Barangay Official')->group(function () {
-        Route::get('/assignments', [AssignmentController::class, 'index']);
+        
     });
 
 });
