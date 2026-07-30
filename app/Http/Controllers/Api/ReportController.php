@@ -161,4 +161,27 @@ class ReportController
             'message' => 'Report deleted successfully.'
         ]);
     }
+
+    public function verify(Report $report)
+    {
+        $report->update([
+            'status' => 'Verified',
+        ]);
+
+        return response()->json([
+            'message' => 'Report verified successfully.',
+        ]);
+    }
+
+    public function reject(Report $report)
+    {
+        $report->update([
+            'status' => 'Rejected',
+        ]);
+
+        return response()->json([
+            'message' => 'Report rejected successfully.',
+        ]);
+    }
+
 }

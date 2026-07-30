@@ -186,7 +186,45 @@ export default function Reports() {
 
     };
 
-    
+    const verifyReport = async (id) => {
+
+        try {
+
+            await api.put(`/reports/${id}/verify`);
+
+            alert("Report verified.");
+
+            fetchReports();
+
+            setShowView(false);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+    const rejectReport = async (id) => {
+
+        try {
+
+            await api.put(`/reports/${id}/reject`);
+
+            alert("Report rejected.");
+
+            fetchReports();
+
+            setShowView(false);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
     return (
         <div className="reports-container">
 
@@ -450,8 +488,34 @@ export default function Reports() {
                                 {selectedReport.description}
                             </p>
                             <p>
-                                <button>Reject</button>
-                                <button>Varified</button>
+                                <div className="modal-footer">
+
+                                    <button
+                                        className="cancel-btn"
+                                        onClick={() => setShowModal(false)}
+                                    >
+                                        Close
+                                    </button>
+
+                                    {selectedReport.status === "Pending" && (
+                                        <>
+                                            <button
+                                                className="reject-btn"
+                                                onClick={() => rejectReport(selectedReport.id)}
+                                            >
+                                                Reject
+                                            </button>
+
+                                            <button
+                                                className="save-btn"
+                                                onClick={() => verifyReport(selectedReport.id)}
+                                            >
+                                                Verify
+                                            </button>
+                                        </>
+                                    )}
+
+                                </div>
                             </p>
 
                         </div>

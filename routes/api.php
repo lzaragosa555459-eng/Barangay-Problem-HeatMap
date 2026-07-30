@@ -107,6 +107,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/users', [UserController::class, 'store']); 
         Route::put('/users/{user}', [UserController::class, 'update']);
         Route::delete('/users/{user}', [UserController::class, 'destroy']);
+        Route::put('/reports/{report}/verify', [ReportController::class, 'verify']);
+        Route::put('/reports/{report}/reject', [ReportController::class, 'reject']);
 
         Route::post('/barangays', [BarangayController::class, 'store']);
         Route::put('/barangays/{barangays}', [BarangayController::class, 'update']);
