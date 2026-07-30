@@ -31,6 +31,42 @@ class AssignmentController
             ->latest()
             ->get();
     }
+
+    public function complete(Assignment $assignment)
+    {
+        $assignment->update([
+            'status' => 'Completed',
+        ]);
+
+        $assignment->report->update([
+            'status' => 'Resolved',
+        ]);
+
+        return response()->json([
+            'message' => 'Assignment completed.',
+        ]);
+    }
+
+    public function decline(Assignment $assignment)
+    {
+        $assignment->update([
+            'status' => 'Cancelled',
+        ]);
+
+        return response()->json([
+            'message' => 'Assignment declined.',
+        ]);
+    }
+    public function accept(Assignment $assignment)
+    {
+        $assignment->update([
+            'status' => 'Accepted',
+        ]);
+
+        return response()->json([
+            'message' => 'Assignment accepted.',
+        ]);
+    }
         /**
      * Store a newly created resource in storage.
      */

@@ -42,6 +42,70 @@ export default function Assignments() {
         setShowView(true);
     };
 
+    const declineAssignment = async () => {
+
+        try {
+
+            await api.put(
+                `/assignments/${selectedAssignment.id}/decline`
+            );
+
+            alert("Assignment declined.");
+
+            setShowView(false);
+
+            fetchAssignments();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+    const completeAssignment = async () => {
+
+        try {
+
+            await api.put(
+                `/assignments/${selectedAssignment.id}/complete`
+            );
+
+            alert("Assignment completed.");
+
+            setShowView(false);
+
+            fetchAssignments();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+        const acceptAssignment = async () => {
+
+        try {
+
+            await api.put(
+                `/assignments/${selectedAssignment.id}/accept`
+            );
+
+            alert("Assignment accepted.");
+
+            setShowView(false);
+
+            fetchAssignments();
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
 
     return (
 
@@ -101,10 +165,12 @@ export default function Assignments() {
 
                                     <td>
 
-                                        <span className={`status-badge ${assignment.status.toLowerCase()}`}>
-
+                                        <span
+                                            className={`status-badge ${assignment.status
+                                                .toLowerCase()
+                                                .replace(/\s+/g, "-")}`}
+                                        >
                                             {assignment.status}
-
                                         </span>
 
                                     </td>
@@ -223,7 +289,7 @@ export default function Assignments() {
                                 <>
                                     <button
                                         className="save-btn"
-                                        //onClick={acceptAssignment}
+                                        onClick={acceptAssignment}
                                     >
                                         <FiCheck style={{ marginRight: "6px" }} />
                                         Accept
@@ -231,7 +297,7 @@ export default function Assignments() {
 
                                     <button
                                         className="cancel-btn"
-                                        //onClick={declineAssignment}
+                                        onClick={declineAssignment}
                                     >
                                         <FiX style={{ marginRight: "6px" }} />
                                         Decline
@@ -244,7 +310,7 @@ export default function Assignments() {
 
                                 <button
                                     className="save-btn"
-                                    //onClick={completeAssignment}
+                                    onClick={completeAssignment}
                                 >
                                     <FiCheckCircle style={{ marginRight: "6px" }} />
                                     Complete

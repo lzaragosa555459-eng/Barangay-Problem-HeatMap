@@ -177,5 +177,18 @@ class ReportSeeder extends Seeder
             'status' => 'Verified',
             'reported_at' => now(),
         ]);
+
+        Report::create([
+            'user_id' => 3,
+            'barangay_id' => 2, // Talomo
+            'problem_category_id' => 1,
+            'title' => 'Flooded Intersection',
+            'description' => 'Continuous rainfall has caused flooding at the Talomo public market intersection, making it difficult for vehicles and pedestrians to pass.',
+            'latitude' => 7.0735,
+            'longitude' => 125.5984,
+            'severity' => 'High',
+            'status' => 'Verified',
+            'reported_at' => now(),
+        ]);
     }
 }

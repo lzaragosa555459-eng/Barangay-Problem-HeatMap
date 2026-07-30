@@ -129,7 +129,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Barangay Official
     Route::middleware('role:Barangay Official')->group(function () {
-        
+
+        Route::put('/assignments/{assignment}/accept', [AssignmentController::class, 'accept']);
+
+        Route::put('/assignments/{assignment}/decline', [AssignmentController::class, 'decline']);
+
+        Route::put('/assignments/{assignment}/complete', [AssignmentController::class, 'complete']);
     });
 
 });

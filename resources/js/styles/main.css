@@ -1383,3 +1383,26 @@ hr{
     object-fit:contain;
     border-radius:8px;
 }
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+}
+
+.status-badge.pending {
+    background: #f59e0b;
+}
+
+.status-badge.accepted {
+    background: #3b82f6;
+}
+
+.status-badge.completed {
+    background: #16a34a;
+}
+
+.status-badge.cancelled {
+    background: #dc2626;
+}
