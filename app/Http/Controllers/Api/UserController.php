@@ -10,10 +10,20 @@ use Illuminate\Support\Facades\Hash;
 // TODO: add decrement for sorting new data
 class UserController extends Controller
 {
-    public function index(){
-        $users = User::with('barangay')
-        ->orderBy('created_at', 'desc')
-        ->paginate(10);
+    public function index(Request $request)
+    {
+        $user = $request->user();
+
+        $query = User::with('barangay')
+            ->orderBy('created_at', 'desc');
+
+        if ($user->role === "Barangay Official") {
+
+            $query->where('barangay_id', $user->barangay_id);
+
+        }
+
+        $users = $query->paginate(10);
 
         return response()->json($users);
     }

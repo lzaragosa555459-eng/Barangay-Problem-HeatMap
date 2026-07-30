@@ -12,6 +12,7 @@ import {
 
 export default function UserManagement(){
     const [users, setUsers] = useState([]);
+    const [currentUser, setCurrentUser] = useState({});
     const [editingUser, setEditingUser] = useState(null);
     const [showForm, setShowForm] = useState(false);
     const [barangays, setBarangays] = useState([]);
@@ -23,6 +24,13 @@ export default function UserManagement(){
         phone: "",
         role: "",
     });
+    const fetchCurrentUser = async () => {
+
+        const response = await api.get("/user");
+
+        setCurrentUser(response.data);
+
+    };
     const editUser = (user) => {
 
         setEditingUser(user);
@@ -64,6 +72,7 @@ export default function UserManagement(){
 
         fetchUsers();
         fetchBarangays();
+        fetchCurrentUser();
 
     }, []);
 
@@ -184,25 +193,27 @@ export default function UserManagement(){
         <div className="reports-container">
             <div className="reports-header">
                 <h1 className="page-title">User Management</h1>
-                <button
-                    className="add-btn"
-                    onClick={() => {
-                        setEditingUser(null);
+                {currentUser.role === "Administrator" && (
+                    <button
+                        className="add-btn"
+                        onClick={() => {
+                            setEditingUser(null);
 
-                        setForm({
-                            barangay_id: "",
-                            name: "",
-                            email: "",
-                            password: "",
-                            phone: "",
-                            role: "",
-                        });
+                            setForm({
+                                barangay_id: "",
+                                name: "",
+                                email: "",
+                                password: "",
+                                phone: "",
+                                role: "",
+                            });
 
-                        setShowForm(true);
-                    }}
-                >
-                    + Add User
-                </button>
+                            setShowForm(true);
+                        }}
+                    >
+                        + Add User
+                    </button>
+                )}
             </div>
 
             <table className="reports-table">
@@ -215,8 +226,10 @@ export default function UserManagement(){
                         <th>Phone</th>
                         <th>Role</th>
                         <th>Created at</th>
-                        <th>Updated at</th>     
-                        <th>Actions</th>               
+                        <th>Updated at</th> 
+                        {currentUser.role !== "Barangay Official" && (
+                            <th>Actions</th>
+                        )}         
                     </tr>
                 </thead>
                 <tbody>
@@ -252,25 +265,28 @@ export default function UserManagement(){
                                     day: "numeric",
                             })}
                         </td>
-                        <td>
-                            <div className="action-buttons">
-                                <button
-                                    className="view-btn"
-                                    style={{ backgroundColor: "#06b6d4" }}
-                                    onClick={() => editUser(user)}
-                                >
-                                    <FiEdit />
-                                </button>
 
-                                <button
-                                    className="view-btn"
-                                    style={{ backgroundColor: "#ef4444" }}
-                                    onClick={() => deleteUser(user.id)}
-                                >
-                                    <FiTrash2 />
-                                </button>
-                            </div>
-                        </td>
+                        {currentUser.role === "Administrator" && (
+                            <td>
+                                <div className="action-buttons">
+                                    <button
+                                        className="view-btn"
+                                        style={{ backgroundColor: "#06b6d4" }}
+                                        onClick={() => editUser(user)}
+                                    >
+                                        <FiEdit />
+                                    </button>
+
+                                    <button
+                                        className="view-btn"
+                                        style={{ backgroundColor: "#ef4444" }}
+                                        onClick={() => deleteUser(user.id)}
+                                    >
+                                        <FiTrash2 />
+                                    </button>
+                                </div>
+                            </td>
+                        )}
 
                     </tr>
 

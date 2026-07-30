@@ -13,6 +13,7 @@ export default function Assignments() {
 
     useEffect(() => {
         fetchAssignments();
+        fetchUser();
     }, []);
 
     const fetchAssignments = async () => {
@@ -107,6 +108,16 @@ export default function Assignments() {
 
     };
 
+    const [user, setUser] = useState({});
+
+    const fetchUser = async () => {
+
+        const response = await api.get("/user");
+
+        setUser(response.data);
+
+    };
+
     return (
 
         <div className="reports-container">
@@ -130,6 +141,9 @@ export default function Assignments() {
                         <tr>
 
                             <th>Report</th>
+                            {user.role !== "Barangay Official" && (
+                                <th>Barangay</th>
+                            )}
                             <th>Assigned To</th>
                             <th>Assigned By</th>
                             <th>Deadline</th>
@@ -150,6 +164,10 @@ export default function Assignments() {
                                 <tr key={assignment.id}>
 
                                     <td>{assignment.report.title}</td>
+
+                                    {user.role === "Barangay Official" ? null : (
+                                        <td>{assignment.report.barangay.name}</td>
+                                    )}
 
                                     <td>
                                         {assignment.assigned_to?.name}

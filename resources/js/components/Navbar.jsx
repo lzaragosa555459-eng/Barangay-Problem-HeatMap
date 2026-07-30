@@ -135,7 +135,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         Assignments
                     </NavLink>
                 </li>
-                {roles.role === 'Barangay Official' ? <li hidden></li> : 
+                
                     <li>
                         <NavLink
                             to="/user-management"
@@ -148,7 +148,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                             User Management
                         </NavLink>
                     </li>
-                }
+                
 
                 {roles.role === 'Barangay Official' ? <li hidden></li> : 
                     <li>
