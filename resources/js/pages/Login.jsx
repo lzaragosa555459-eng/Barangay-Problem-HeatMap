@@ -35,7 +35,7 @@ export default function Login() {
                 navigate("/dashboard");
             }
             else {
-                navigate("/citizen");
+                navigate("/dashboard");
             }
 
         } catch (error) {

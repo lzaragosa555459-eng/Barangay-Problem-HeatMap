@@ -43,6 +43,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             .then((response) => {
 
                 setRoles(response.data);
+                
 
             })
             .catch((error) => {
@@ -123,99 +124,6 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         Dashboard
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink
-                        to="/assignments"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FiClipboard style={{ marginRight: "10px" }} />
-                        Assignments
-                    </NavLink>
-                </li>
-                
-                    <li>
-                        <NavLink
-                            to="/user-management"
-                            onClick={() => setSidebarOpen(false)}
-                            className={({ isActive }) =>
-                                isActive ? "nav-link active" : "nav-link"
-                            }
-                        >
-                            <FiUsers style={{ marginRight: "10px" }} />
-                            User Management
-                        </NavLink>
-                    </li>
-                
-
-                {roles.role === 'Barangay Official' ? <li hidden></li> : 
-                    <li>
-                        <NavLink
-                            to="/barangay-management"
-                            onClick={() => setSidebarOpen(false)}
-                            className={({ isActive }) =>
-                                isActive ? "nav-link active" : "nav-link"
-                            }
-                        >
-                            <MdLocationCity style={{ marginRight: "10px" }} />
-                            Barangay Management
-                        </NavLink>
-                    </li>
-                }
-                {roles.role === 'Barangay Official' ? <li hidden></li> : 
-                    <li>
-                        <NavLink
-                            to="/problem-category-management"
-                            onClick={() => setSidebarOpen(false)}
-                            className={({ isActive }) =>
-                                isActive ? "nav-link active" : "nav-link"
-                            }
-                        >
-                            <FiLayers style={{ marginRight: "10px" }} />
-                            Problem Categories
-                        </NavLink>
-                    </li>
-                }
-                <li>
-                    <NavLink
-                        to="/analytics"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FaChartBar style={{ marginRight: "10px" }} />
-                        Analytics
-                    </NavLink>
-                </li>
-
-                <li>
-                    <NavLink
-                        to="/markmap"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FiMapPin style={{ marginRight: "10px" }} />
-                        Marker Map
-                    </NavLink>
-                </li>
-
-                <li>
-                    <NavLink
-                        to="/heatmap"
-                        onClick={() => setSidebarOpen(false)}
-                        className={({ isActive }) =>
-                            isActive ? "nav-link active" : "nav-link"
-                        }
-                    >
-                        <FaFire style={{ marginRight: "10px" }} />
-                        Heatmap
-                    </NavLink>
-                </li>
                 {roles.role === 'Barangay Official' ? <li hidden></li> : 
                     <li>
                         <NavLink
@@ -230,10 +138,108 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         </NavLink>
                     </li>
                 }
+                {roles.role === 'Citizen' ? <li hidden></li> : (
+                    <>
+                        <li>
+                            <NavLink
+                                to="/assignments"
+                                onClick={() => setSidebarOpen(false)}
+                                className={({ isActive }) =>
+                                    isActive ? "nav-link active" : "nav-link"
+                                }
+                            >
+                                <FiClipboard style={{ marginRight: "10px" }} />
+                                Assignments
+                            </NavLink>
+                        </li>
+
+                        <li>
+                            <NavLink
+                                to="/user-management"
+                                onClick={() => setSidebarOpen(false)}
+                                className={({ isActive }) =>
+                                    isActive ? "nav-link active" : "nav-link"
+                                }
+                            >
+                                <FiUsers style={{ marginRight: "10px" }} />
+                                User Management
+                            </NavLink>
+                        </li>
+                    </>
+                )}
+                {roles.role === 'Barangay Official'||  'Citizen' ? <li hidden></li> : 
+                    <li>
+                        <NavLink
+                            to="/barangay-management"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <MdLocationCity style={{ marginRight: "10px" }} />
+                            Barangay Management
+                        </NavLink>
+                    </li>
+                }
+                {roles.role === 'Barangay Official' ||  'Citizen' ? null : 
+                    <li>
+                        <NavLink
+                            to="/problem-category-management"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FiLayers style={{ marginRight: "10px" }} />
+                            Problem Categories
+                        </NavLink>
+                    </li>
+                }
+                {roles.role === 'Citizen' ? <li hidden></li> : (
+                    <li>
+                        <NavLink
+                            to="/analytics"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FaChartBar style={{ marginRight: "10px" }} />
+                            Analytics
+                        </NavLink>
+                    </li>                   
+                )}
+                <li>
+                    <NavLink
+                        to="/markmap"
+                        onClick={() => setSidebarOpen(false)}
+                        className={({ isActive }) =>
+                            isActive ? "nav-link active" : "nav-link"
+                        }
+                    >
+                        <FiMapPin style={{ marginRight: "10px" }} />
+                        Marker Map
+                    </NavLink>
+                </li>
+                {roles.role === 'Citizen' ? <li hidden></li> : (
+                    <li>
+                        <NavLink
+                            to="/heatmap"
+                            onClick={() => setSidebarOpen(false)}
+                            className={({ isActive }) =>
+                                isActive ? "nav-link active" : "nav-link"
+                            }
+                        >
+                            <FaFire style={{ marginRight: "10px" }} />
+                            Heatmap
+                        </NavLink>
+                    </li>
+                )}
+
 
                 
                 {
-                    roles.role === 'Barangay Official' ? 
+                    roles.role === 'Barangay Official' || 'Citizen' ? 
                     <li hidden>
                         {/*hide settings if the user is barangay official*/}
                     </li>

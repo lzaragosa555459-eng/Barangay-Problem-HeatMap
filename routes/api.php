@@ -46,8 +46,15 @@ Route::middleware('auth:sanctum')->group(function () {
     | (Citizen, Barangay Official, Administrator)
     |--------------------------------------------------------------------------
     */
-
-
+    Route::put('/profile', [ProfileController::class, 'update']);
+    Route::put('/profile/password', [ProfileController::class, 'changePassword']);
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::put('/reports/{report}', [ReportController::class, 'update']);
+    Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
+    Route::get('/reports', [ReportController::class, 'index']);
+    Route::post('/reports', [ReportController::class, 'store']);
+    Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+    Route::get('/settings', [SettingController::class, 'index']);
     /*
     |--------------------------------------------------------------------------
     | Barangay Official & Administrator
@@ -58,13 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
         Route::get('/maintenance', [SettingController::class, 'maintenanceStatus']);
-        Route::put('/profile', [ProfileController::class, 'update']);
-        Route::put('/profile/password', [ProfileController::class, 'changePassword']);
-        Route::get('/dashboard', [DashboardController::class, 'index']);
-    	Route::put('/reports/{report}', [ReportController::class, 'update']);
-        Route::delete('/reports/{report}', [ReportController::class, 'destroy']);
 
- 
         Route::get('/barangays', [BarangayController::class, 'index']);
         Route::apiResource('barangays', BarangayController::class);
 
@@ -76,19 +77,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/role', [NavbarController::class, 'roles']);
 
-        Route::get('/settings', [SettingController::class, 'index']);
-        Route::put('/settings', [SettingController::class, 'updateSystemName']);
-        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
-        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
-        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
-
-
-
-        Route::get('/reports', [ReportController::class, 'index']);
-        Route::post('/reports', [ReportController::class, 'store']);
-
         Route::get('/reports-map', [ReportController::class, 'map']);
-        Route::get('/reports-markmap', [ReportController::class, 'markmap']);
+
 
         Route::get('/assignments', [AssignmentController::class, 'index']);
     });
@@ -131,6 +121,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Barangay Official
     Route::middleware('role:Barangay Official')->group(function () {
+
+        Route::put('/settings', [SettingController::class, 'updateSystemName']);
+        Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
+        Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
+        Route::post('/settings/restore', [SettingController::class, 'restoreDatabase']);
 
         Route::put('/assignments/{assignment}/accept', [AssignmentController::class, 'accept']);
 

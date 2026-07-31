@@ -14,6 +14,31 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
+        // Citizen Dashboard
+        if ($user->role === 'Citizen') {
+
+            return response()->json([
+                'totalReports' => Report::where('user_id', $user->id)->count(),
+
+                'pendingReports' => Report::where('user_id', $user->id)
+                    ->where('status', 'Pending')
+                    ->count(),
+
+                'resolvedReports' => Report::where('user_id', $user->id)
+                    ->where('status', 'Resolved')
+                    ->count(),
+
+                'criticalReports' => Report::where('user_id', $user->id)
+                    ->where('severity', 'Critical')
+                    ->count(),
+
+                'role' => $user->role,
+
+                'barangayName' => optional($user->barangay)->name,
+            ]);
+        }
+
+        // Barangay Official Dashboard
         if ($user->role === 'Barangay Official') {
 
             $barangayId = $user->barangay_id;
@@ -27,7 +52,6 @@ class DashboardController extends Controller
                 ->groupBy('barangays.id', 'barangays.name')
                 ->orderByDesc('total')
                 ->get();
-
 
             return response()->json([
                 'totalReports' => Report::where('barangay_id', $barangayId)->count(),
@@ -60,7 +84,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        // Administrator
+        // Administrator Dashboard
         $topBarangays = Report::join('barangays', 'reports.barangay_id', '=', 'barangays.id')
             ->select(
                 'barangays.name',
@@ -79,6 +103,7 @@ class DashboardController extends Controller
             'totalCitizens' => User::where('role', 'Citizen')->count(),
             'totalOfficials' => User::where('role', 'Barangay Official')->count(),
             'topBarangays' => $topBarangays,
+            'role' => $user->role,
         ]);
     }
 }

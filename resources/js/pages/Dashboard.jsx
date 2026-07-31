@@ -29,6 +29,7 @@ export default function Dashboard() {
         api.get("/dashboard")
             .then((response) => {
                 setStats(response.data);
+                console.log(response.data)
             });
             
     }, []);
