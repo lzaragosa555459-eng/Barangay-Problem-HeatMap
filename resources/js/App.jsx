@@ -55,9 +55,9 @@ function AdminLayout() {
                     {/*private page*/ }
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/user-management" element={<UserManagement />} />
-                    <Route path="/barangay-management" element={<BarangayManagement />} />
-                    <Route path="/problem-category-management" element={<ProblemCategoryManagement />} />
+                    <Route path="/user" element={<UserManagement />} />
+                    <Route path="/barangay" element={<BarangayManagement />} />
+                    <Route path="/problem-category" element={<ProblemCategoryManagement />} />
                     <Route path="/analytics" element={<Analytics />} />
                     <Route path="/markmap" element={<Markmap />} />
                     <Route path="/heatmap" element={<Heatmap />} />

@@ -155,7 +155,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
 
                         <li>
                             <NavLink
-                                to="/user-management"
+                                to="/user"
                                 onClick={() => setSidebarOpen(false)}
                                 className={({ isActive }) =>
                                     isActive ? "nav-link active" : "nav-link"
@@ -167,10 +167,10 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         </li>
                     </>
                 )}
-                {roles.role === 'Barangay Official'||  'Citizen' ? <li hidden></li> : 
+                {roles.role === 'Barangay Official' ||  'Citizen' ? <li hidden></li> : 
                     <li>
                         <NavLink
-                            to="/barangay-management"
+                            to="/barangay"
                             onClick={() => setSidebarOpen(false)}
                             className={({ isActive }) =>
                                 isActive ? "nav-link active" : "nav-link"
@@ -184,7 +184,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                 {roles.role === 'Barangay Official' ||  'Citizen' ? null : 
                     <li>
                         <NavLink
-                            to="/problem-category-management"
+                            to="/problem-category"
                             onClick={() => setSidebarOpen(false)}
                             className={({ isActive }) =>
                                 isActive ? "nav-link active" : "nav-link"

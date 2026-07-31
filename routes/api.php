@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/reports', [ReportController::class, 'store']);
     Route::get('/reports-markmap', [ReportController::class, 'markmap']);
     Route::get('/settings', [SettingController::class, 'index']);
+    Route::get('/role', [NavbarController::class, 'roles']);
     /*
     |--------------------------------------------------------------------------
     | Barangay Official & Administrator
@@ -75,7 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
  
 
 
-        Route::get('/role', [NavbarController::class, 'roles']);
+       
 
         Route::get('/reports-map', [ReportController::class, 'map']);
 

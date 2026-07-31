@@ -12,7 +12,8 @@ import {
 } from "react-icons/fi";
 export default function Reports() {
 
-    const [search, setSearch] = useState("");
+    const [roles, setRoles] = useState([]);
+    const [search, setSearch] = useState("");   
     const [selectedBarangay, setSelectedBarangay] = useState("");
     const [selectedStatus, setSelectedStatus] = useState("");
 
@@ -98,6 +99,13 @@ export default function Reports() {
         api.get("/barangays")
             .then((response) => {
                 setBarangays(response.data);
+            });
+        api.get("/role")
+            .then((response) => {
+
+                setRoles(response.data);
+                
+
             });
 
     }, []);
@@ -363,7 +371,8 @@ export default function Reports() {
                                     >
                                         <FiInfo />
                                     </button>
-
+                                {roles.role === 'Citizen' ? null : 
+                                <>
                                     <button
                                         className="view-btn"
                                         style={{ backgroundColor: "#06b6d4" }}
@@ -398,6 +407,8 @@ export default function Reports() {
                                     >
                                         <FiTrash2 />
                                     </button>
+                                </>
+                                }
                                 </td>
 
                             </tr>
