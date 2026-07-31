@@ -14,7 +14,6 @@ class ReportController
 
     public function index()
     {
-
         $user = Auth::user();
 
         $query = Report::with([
@@ -36,16 +35,23 @@ class ReportController
             'description'
         )
         ->orderBy('reported_at', 'desc');
-        
 
+        if ($user->role === 'Citizen') {
 
-        if($user->role === 'Barangay Official'){
+            $query->where('user_id', $user->id);
+
+        } elseif ($user->role === 'Barangay Official') {
+
             $query->where('barangay_id', $user->barangay_id);
+
         }
+        // Administrator sees all reports
 
         $data = $query->paginate(7);
 
-        return response()->json(['data' => $data]);
+        return response()->json([
+            'data' => $data
+        ]);
     }
     
     public function map(Request $request)
@@ -57,8 +63,14 @@ class ReportController
             'problemCategory'
         ]);
 
-        if ($user->role === 'Barangay Official') {
+        if ($user->role === 'Citizen') {
+
+            $query->where('user_id', $user->id);
+
+        } elseif ($user->role === 'Barangay Official') {
+
             $query->where('barangay_id', $user->barangay_id);
+
         }
 
         return $query

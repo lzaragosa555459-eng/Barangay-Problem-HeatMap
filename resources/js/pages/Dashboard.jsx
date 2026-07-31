@@ -23,7 +23,8 @@ import {
 export default function Dashboard() {
 
     const [stats, setStats] = useState({});
-
+    const [profile, setProfile] = useState([]);
+    const [roles , setRoles] = useState([]);
     useEffect(() => {
 
         api.get("/dashboard")
@@ -31,6 +32,14 @@ export default function Dashboard() {
                 setStats(response.data);
                 console.log(response.data)
             });
+        api.get('/profile')
+            .then((response) => {
+                setProfile(response.data)
+            });
+        api.get('/role')
+            .then((response) => {
+                setRoles(response.data)
+            })
             
     }, []);
 
@@ -45,6 +54,7 @@ export default function Dashboard() {
                         ? `${stats.barangayName} Dashboard`
                         : "Dashboard"}
                 </h1>
+                <h4>Welcome Back {profile.name}!</h4>
             </div>
 
 
@@ -95,76 +105,78 @@ export default function Dashboard() {
                     </div>
 
                 </div>
+                {roles.role !== 'Citizen' && (
+                    <>
+                        <div className="cards">
 
-                <div className="cards">
+                            <div className="card" className="setting-card">
 
-                    <div className="card" className="setting-card">
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                    <HiOutlineUsers size={50}/>
+                                    <h2 style={{  fontSize: "50px" }}>{stats.totalCitizens}</h2>
+                                </div>
 
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineUsers size={50}/>
-                            <h2 style={{  fontSize: "50px" }}>{stats.totalCitizens}</h2>
+                                <p style={{  fontSize: "25px" }}>Total Citizens</p>
+
+                            </div>
+
+                            <div className="card"  className="setting-card">
+
+                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                    <HiOutlineShieldCheck size={50}/>
+                                    <h2 style={{  fontSize: "50px" }}>{stats.totalOfficials}</h2>
+                                </div>
+
+                                <p style={{ fontSize: "25px" }}>Total Officials</p>
+
+                            </div>
                         </div>
 
-                        <p style={{  fontSize: "25px" }}>Total Citizens</p>
-
-                    </div>
-
-                    <div className="card"  className="setting-card">
-
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <HiOutlineShieldCheck size={50}/>
-                            <h2 style={{  fontSize: "50px" }}>{stats.totalOfficials}</h2>
-                        </div>
-
-                        <p style={{ fontSize: "25px" }}>Total Officials</p>
-
-                    </div>
-                </div>
-
-                <div
-                    className="card"
-                    style={{
-                        marginTop: "25px",
-                        padding: "20px",
-                        borderRadius: "12px",
-                    }}
-                    className="setting-card"
-                >
-
-                    <h2 style={{ marginBottom: "20px" }}>
-                        {stats.role === 'Barangay Official' ? `Graph report for barangay ${stats.barangayName}` : 'Top 10 Barangays with Most Reports'}
-                    </h2>
-
-                    <ResponsiveContainer
-                        width="100%"
-                        height={350}
-                    >
-
-                        <BarChart
-                            data={stats.topBarangays}
+                        <div
+                            className="card"
+                            style={{
+                                marginTop: "25px",
+                                padding: "20px",
+                                borderRadius: "12px",
+                            }}
+                            className="setting-card"
                         >
 
-                            <CartesianGrid strokeDasharray="3 3" />
+                            <h2 style={{ marginBottom: "20px" }}>
+                                {stats.role === 'Barangay Official' ? `Graph report for barangay ${stats.barangayName}` : 'Top 10 Barangays with Most Reports'}
+                            </h2>
 
-                            <XAxis
-                                dataKey="name"
-                            />
+                            <ResponsiveContainer
+                                width="100%"
+                                height={350}
+                            >
 
-                            <YAxis />
+                                <BarChart
+                                    data={stats.topBarangays}
+                                >
 
-                            <Tooltip />
+                                    <CartesianGrid strokeDasharray="3 3" />
 
-                            <Bar
-                                dataKey="total"
-                                fill="#d4511d"
-                            />
+                                    <XAxis
+                                        dataKey="name"
+                                    />
 
-                        </BarChart>
+                                    <YAxis />
 
-                    </ResponsiveContainer>
+                                    <Tooltip />
 
-                </div>
+                                    <Bar
+                                        dataKey="total"
+                                        fill="#d4511d"
+                                    />
 
+                                </BarChart>
+
+                            </ResponsiveContainer>
+
+                        </div>
+                    </>
+                )}
         </div>
 
     );
