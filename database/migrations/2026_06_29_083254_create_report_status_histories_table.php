@@ -11,31 +11,32 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('report_status_histories', function (Blueprint $table) {
-            $table->id();
+    Schema::create('report_status_histories', function (Blueprint $table) {
+        $table->id();
 
-            $table->foreignId('report_id')
-                ->constrained()
-                ->cascadeOnDelete();
+        $table->foreignId('report_id')
+            ->constrained()
+            ->cascadeOnDelete();
 
-            $table->enum('status', [
-                'Pending',
-                'Verified',
-                'Assigned',
-                'In Progress',
-                'Resolved',
-                'Rejected'
-            ]);
+        $table->foreignId('updated_by')
+            ->constrained('users');
 
-            $table->text('remarks')->nullable();
+        $table->enum('status', [
+            'Pending',
+            'Verified',
+            'In Progress',
+            'Resolved',
+            'Rejected',
+        ]);
 
-            $table->foreignId('updated_by')
-                ->constrained('users')
-                ->cascadeOnDelete();
+        $table->text('remarks')->nullable();
 
-            $table->timestamps();
-        });
-    }
+        $table->text('resolution_notes')->nullable();
+
+        $table->timestamp('completed_at')->nullable();
+
+        $table->timestamps();
+    });
 
     /**
      * Reverse the migrations.
@@ -45,3 +46,4 @@ return new class extends Migration
         Schema::dropIfExists('report_status_histories');
     }
 };
+//Next week integrate report history table, request report timeline

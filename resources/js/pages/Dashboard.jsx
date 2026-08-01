@@ -54,7 +54,7 @@ export default function Dashboard() {
                         ? `${stats.barangayName} Dashboard`
                         : "Dashboard"}
                 </h1>
-                <h4>Welcome Back {profile.name}!</h4>
+                <h4>Welcome, {profile.name}!</h4>
             </div>
 
 
