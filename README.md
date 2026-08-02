@@ -72,7 +72,7 @@ Each report is displayed on an interactive map using its geographic coordinates,
 ## 📷 System Preview
 
 <p align="center">
-<img src="image.png" width="900">
+<img width="1918" height="1056" alt="Screenshot 2026-08-02 231802" src="https://github.com/user-attachments/assets/82686cbb-0134-4278-bca0-f4c5a45bc9f8" />
 </p>
 
 ---
