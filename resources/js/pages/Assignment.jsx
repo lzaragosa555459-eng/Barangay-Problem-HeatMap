@@ -24,12 +24,14 @@ export default function Assignments() {
 
             setAssignments(response.data);
             console.log(response.data);
+            
 
         } catch (error) {
 
             console.error(error);
             console.log(error.response.data);
             console.log(response.data);
+        
         }
 
     };
@@ -113,7 +115,7 @@ export default function Assignments() {
     const fetchUser = async () => {
 
         const response = await api.get("/user");
-
+        
         setUser(response.data);
 
     };
@@ -259,6 +261,11 @@ export default function Assignments() {
                             <div className="profile-row">
                                 <strong>Report</strong>
                                 <span>{selectedAssignment.report.title}</span>
+                            </div>
+
+                            <div className="profile-row">
+                                <strong>Reported by</strong>
+                                <span>{selectedAssignment.report.user?.name ?? 'unknown'}</span>
                             </div>
 
                             <div className="profile-row">

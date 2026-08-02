@@ -15,6 +15,7 @@ class AssignmentController
 
         $query = Assignment::with([
             'report',
+            'report.user',  
             'assignedTo',
             'assignedBy',
             'report.barangay',

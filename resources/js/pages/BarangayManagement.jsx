@@ -179,21 +179,21 @@ export default function BarangayManagement(){
                             <td>{barangay.longitude}</td>
                             <td>{barangay.population}</td>
                             <td>
-                            <button
-                                className="view-btn"
-                                style={{ backgroundColor: "#06b6d4" }}
-                                onClick={() => editBarangay(barangay)}
-                            >
-                                <FiEdit />
-                            </button>
+                                <button
+                                    className="view-btn"
+                                    style={{ backgroundColor: "#06b6d4" }}
+                                    onClick={() => editBarangay(barangay)}
+                                >
+                                    <FiEdit />
+                                </button>
 
-                            <button
-                                className="view-btn"
-                                style={{ backgroundColor: "#ef4444" }}
-                                onClick={() => deleteBarangay(barangay.id)}
-                            >
-                                <FiTrash2 />
-                            </button>
+                                <button
+                                    className="view-btn"
+                                    style={{ backgroundColor: "#ef4444" }}
+                                    onClick={() => deleteBarangay(barangay.id)}
+                                >
+                                    <FiTrash2 />
+                                </button>
                             </td>
                         </tr>
                     ))}
