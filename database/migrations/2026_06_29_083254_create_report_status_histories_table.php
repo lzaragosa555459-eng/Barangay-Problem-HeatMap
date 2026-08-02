@@ -11,33 +11,33 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('report_status_histories', function (Blueprint $table) {
-        $table->id();
+        Schema::create('report_status_histories', function (Blueprint $table) {
+            $table->id();
 
-        $table->foreignId('report_id')
-            ->constrained()
-            ->cascadeOnDelete();
+            $table->foreignId('report_id')
+                ->constrained()
+                ->cascadeOnDelete();
 
-        $table->foreignId('updated_by')
-            ->constrained('users');
+            $table->foreignId('updated_by')
+                ->constrained('users');
 
-        $table->enum('status', [
-            'Pending',
-            'Verified',
-            'In Progress',
-            'Resolved',
-            'Rejected',
-        ]);
+            $table->enum('status', [
+                'Pending',
+                'Verified',
+                'In Progress',
+                'Resolved',
+                'Rejected',
+            ]);
 
-        $table->text('remarks')->nullable();
+            $table->text('remarks')->nullable();
 
-        $table->text('resolution_notes')->nullable();
+            $table->text('resolution_notes')->nullable();
 
-        $table->timestamp('completed_at')->nullable();
+            $table->timestamp('completed_at')->nullable();
 
-        $table->timestamps();
-    });
-
+            $table->timestamps();
+        });
+    }
     /**
      * Reverse the migrations.
      */
