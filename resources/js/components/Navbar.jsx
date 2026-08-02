@@ -167,7 +167,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         </li>
                     </>
                 )}
-                {roles.role === 'Barangay Official' ||  'Citizen' ? <li hidden></li> : 
+                {['Barangay Official', 'Citizen'].includes(roles.role) ? <li hidden></li> : 
                     <li>
                         <NavLink
                             to="/barangay"
@@ -181,7 +181,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
                         </NavLink>
                     </li>
                 }
-                {roles.role === 'Barangay Official' ||  'Citizen' ? null : 
+                {['Barangay Official', 'Citizen'].includes(roles.role) ? null : 
                     <li>
                         <NavLink
                             to="/problem-category"
@@ -239,9 +239,9 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
 
                 
                 {
-                    roles.role === 'Barangay Official' || 'Citizen' ? 
+                    ['Barangay Official', 'Citizen'].includes(roles.role) ? 
                     <li hidden>
-                        {/*hide settings if the user is barangay official*/}
+                        {/*hide settings if the user is barangay official or citizen*/}
                     </li>
                     : 
                     <li>

@@ -116,13 +116,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::apiResource('reports', ReportController::class);
         Route::apiResource('users', UserController::class);
         Route::apiResource('barangays', BarangayController::class);
-
-    });
-
-
-    //Barangay Official
-    Route::middleware('role:Barangay Official')->group(function () {
-
         Route::put('/settings', [SettingController::class, 'updateSystemName']);
         Route::post('/settings/logo', [SettingController::class, 'updateLogo']);
         Route::get('/settings/backup', [SettingController::class, 'backupDatabase']);
@@ -133,6 +126,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/assignments/{assignment}/decline', [AssignmentController::class, 'decline']);
 
         Route::put('/assignments/{assignment}/complete', [AssignmentController::class, 'complete']);
+    });
+
+
+    //Barangay Official
+    Route::middleware('role:Barangay Official')->group(function () {
+
+
     });
 
 });
