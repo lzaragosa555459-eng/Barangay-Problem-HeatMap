@@ -19,6 +19,9 @@ import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { useEffect } from "react";
 import api from "./services/api";
+import Landing from "./pages/Landing";
+
+
 
 function AdminLayout() {
 
@@ -88,19 +91,21 @@ export default function App() {
 
     return (
         <BrowserRouter>
-        
             <Routes>
-        
-                <Route path="/" element={<Login />} />
 
+                {/* Landing */}
+                <Route path="/" element={<Landing />} />
+
+                {/* Login */}
                 <Route path="/login" element={<Login />} />
 
-                <Route path="/maintenance" element={<Maintenance />} />  
+                {/* Maintenance */}
+                <Route path="/maintenance" element={<Maintenance />} />
 
-                <Route path="/*" element={<AdminLayout />} />
+                {/* Dashboard */}
+                <Route path="/dashboard/*" element={<AdminLayout />} />
 
             </Routes>
-
         </BrowserRouter>
     );
 }

@@ -261,7 +261,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
 
                 <li>
                     <NavLink
-                        to="/login"
+                        to="/"
                         onClick={() => setSidebarOpen(false)}
                         className={({ isActive }) =>
                             isActive ? "nav-link active" : "nav-link"
