@@ -146,6 +146,7 @@ export default function Assignments() {
                             {user.role !== "Barangay Official" && (
                                 <th>Barangay</th>
                             )}
+                            <th>Reported By</th>
                             <th>Assigned To</th>
                             <th>Assigned By</th>
                             <th>Deadline</th>
@@ -166,6 +167,8 @@ export default function Assignments() {
                                 <tr key={assignment.id}>
 
                                     <td>{assignment.report.title}</td>
+
+                                    <td>{assignment.report.user.name ?? 'Unknown'}</td>
 
                                     {user.role === "Barangay Official" ? null : (
                                         <td>{assignment.report.barangay.name}</td>

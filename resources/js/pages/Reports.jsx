@@ -204,11 +204,13 @@ export default function Reports() {
 
             fetchReports();
 
-            setShowView(false);
+            setShowModal(false);
+            setSelectedReport(null);
 
         } catch (error) {
 
             console.error(error);
+            
 
         }
 
@@ -224,7 +226,8 @@ export default function Reports() {
 
             fetchReports();
 
-            setShowView(false);
+            setShowModal(false);
+            setSelectedReport(null);
 
         } catch (error) {
 
@@ -372,7 +375,7 @@ export default function Reports() {
                                         <FiInfo />
                                     </button>
                                 {roles.role === 'Citizen' ? null : 
-                                <>
+                                
                                     <button
                                         className="view-btn"
                                         style={{ backgroundColor: "#06b6d4" }}
@@ -400,6 +403,8 @@ export default function Reports() {
                                     >
                                         <FiEdit />
                                     </button>
+                                
+                                }
                                     <button
                                         className="view-btn"
                                         style={{ backgroundColor: "#ef4444" }}
@@ -407,8 +412,6 @@ export default function Reports() {
                                     >
                                         <FiTrash2 />
                                     </button>
-                                </>
-                                }
                                 </td>
 
                             </tr>

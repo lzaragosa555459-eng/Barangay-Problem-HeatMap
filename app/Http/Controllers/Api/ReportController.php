@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Report;
+use App\Models\User;
+use App\Models\Assignment;
 
 class ReportController
 {
@@ -88,8 +90,14 @@ class ReportController
         ])
         ->where('status', '!=', 'Resolved');
 
-        if ($user->role === 'Barangay Official') {
+        if ($user->role === 'Citizen') {
+
+            $query->where('user_id', $user->id);
+
+        } elseif ($user->role === 'Barangay Official') {
+
             $query->where('barangay_id', $user->barangay_id);
+
         }
 
         return $query
@@ -174,14 +182,42 @@ class ReportController
         ]);
     }
 
-    public function verify(Report $report)
+    public function verify(Request $request, Report $report)
     {
+        // Prevent duplicate verification
+        if ($report->status === 'Verified') {
+            return response()->json([
+                'message' => 'This report is already verified.'
+            ], 400);
+        }
+
+        // Update report status
         $report->update([
             'status' => 'Verified',
         ]);
 
+        // Find the Barangay Official assigned to the report's barangay
+        $official = User::where('role', 'Barangay Official')
+            ->where('barangay_id', $report->barangay_id)
+            ->first();
+
+        if (!$official) {
+            return response()->json([
+                'message' => 'No Barangay Official found for this barangay.'
+            ], 404);
+        }
+
+        // Create assignment
+        Assignment::create([
+            'report_id'   => $report->id,
+            'assigned_to' => $official->id,
+            'assigned_by' => $request->user()->id, // Administrator
+            'deadline'    => now()->addDays(7),
+            'status'      => 'Pending',
+        ]);
+
         return response()->json([
-            'message' => 'Report verified successfully.',
+            'message' => 'Report verified and assigned successfully.'
         ]);
     }
 
