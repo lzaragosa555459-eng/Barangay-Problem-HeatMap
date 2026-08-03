@@ -103,7 +103,7 @@ export default function App() {
                 <Route path="/maintenance" element={<Maintenance />} />
 
                 {/* Dashboard */}
-                <Route path="/dashboard/*" element={<AdminLayout />} />
+                <Route path="/*" element={<AdminLayout />} />
 
             </Routes>
         </BrowserRouter>
