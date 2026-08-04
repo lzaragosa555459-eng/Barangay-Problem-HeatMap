@@ -1,11 +1,11 @@
-import Navbar from "../landing/navbar";
+import Navbar from "../landing/Navbar";
 import Hero from "../landing/hero";
-import About from "../landing/about";
-import Features from "../landing/features";
+import About from "../landing/About";
+import Features from "../landing/Features";
 import Workflow from "../landing/workflow";
-import Screenshots from "../landing/screenshots";
+import Screenshots from "../landing/Screenshots";
 import Contact from "../landing/contact";
-import Footer from "../landing/footer";
+import Footer from "../landing/Footer";
 
 export default function Landing() {
     return (
