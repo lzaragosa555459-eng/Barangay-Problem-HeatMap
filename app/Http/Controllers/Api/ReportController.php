@@ -50,9 +50,17 @@ class ReportController
         // Administrator sees all reports
 
         $data = $query->paginate(7);
+        $report = Report::get();
 
         return response()->json([
-            'data' => $data
+            'data' => $data,
+            'total_reports' => $report->count(),
+            'total_pending' => $report->where('status', 'Pending')->count(),
+            'total_verified' => $report->where('status', 'Verified')->count(),
+            'total_in_progress' => $report->where('status', 'In Progress')->count(),
+            'total_resolved' => $report->where('status', 'Resolved')->count(),
+            'total_rejected' => $report->where('status', 'Rejected')->count(),
+            
         ]);
     }
     

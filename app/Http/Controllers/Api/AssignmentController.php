@@ -15,7 +15,7 @@ class AssignmentController
 
         $query = Assignment::with([
             'report',
-            'report.user',  
+            'report.user',
             'assignedTo',
             'assignedBy',
             'report.barangay',
@@ -23,14 +23,18 @@ class AssignmentController
         ]);
 
         if ($user->role === "Barangay Official") {
-
             $query->where('assigned_to', $user->id);
-
         }
 
-        return $query
-            ->latest()
-            ->get();
+        $assignments = $query->latest()->get();
+
+        return response()->json([
+            'data' => $assignments,
+            'total_assignments' => $assignments->count(),
+            'total_pending' => $assignments->where('status', 'Pending')->count(),
+            'total_accepted' => $assignments->where('status', 'Accepted')->count(),
+            'total_completed' => $assignments->where('status', 'Completed')->count(),
+        ]);
     }
 
     public function complete(Assignment $assignment)

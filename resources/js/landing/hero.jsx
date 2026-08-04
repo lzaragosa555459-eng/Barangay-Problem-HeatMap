@@ -1,9 +1,55 @@
+import { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import "./landing.css";
+import api from "../services/api";
 
 export default function Hero() {
+
+    const [reports, setReports] = useState([]);
+    const [assignments, setAssignments] = useState([]);
+
+    const fetchReports = async () => {
+
+        try {
+
+            const response = await api.get("/reports");
+
+            setReports(response.data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+    const fetchAssignments = async () => {
+
+        try {
+
+            const response = await api.get("/assignments");
+
+            setAssignments(response.data);
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    };
+
+
+
+    useEffect(() => {
+            fetchReports();
+            fetchAssignments();
+    }, []);
+
+
     return (
-        <section className="hero">
+        <section className="hero" id="hero">
 
             <div className="hero-left">
 
@@ -54,17 +100,17 @@ export default function Hero() {
                     <div className="dashboard-content">
 
                         <div className="mini-card">
-                            <h3>127</h3>
+                            <h3>{reports.total_reports}</h3>
                             <span>Total Reports</span>
                         </div>
 
                         <div className="mini-card">
-                            <h3>35</h3>
+                            <h3>{reports.total_pending}</h3>
                             <span>Pending</span>
                         </div>
 
                         <div className="mini-card">
-                            <h3>72</h3>
+                            <h3>{assignments.total_completed}</h3>
                             <span>Resolved</span>
                         </div>
 
