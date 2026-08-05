@@ -66,8 +66,8 @@ function AdminLayout() {
                     <Route path="/heatmap" element={<Heatmap />} />
                     <Route path="/reports" element={<Reports />} />
                     <Route path="/assignments" element={<Assignments />} />
-                    <Route path="/settings" element={<Settings />} />    
- 
+                    <Route path="/settings" element={<Settings />} />
+
                 </Routes>
 
             </div>

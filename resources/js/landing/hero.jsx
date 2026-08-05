@@ -100,17 +100,17 @@ export default function Hero() {
                     <div className="dashboard-content">
 
                         <div className="mini-card">
-                            <h3>{reports.total_reports}</h3>
+                            <h3>{reports.total_reports ?? 0}</h3>
                             <span>Total Reports</span>
                         </div>
 
                         <div className="mini-card">
-                            <h3>{reports.total_pending}</h3>
+                            <h3>{reports.total_pending ?? 0}</h3>
                             <span>Pending</span>
                         </div>
 
                         <div className="mini-card">
-                            <h3>{assignments.total_completed}</h3>
+                            <h3>{assignments.total_completed ?? 0}</h3>
                             <span>Resolved</span>
                         </div>
 
